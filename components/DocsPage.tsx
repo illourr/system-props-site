@@ -97,9 +97,6 @@ function DocsPage({ children }: { children: React.ReactNode }) {
                 <StitchesLogo />
               </Box>
             </NextLink>
-            <Badge variant="yellow" css={{ ml: '$3' }}>
-              Beta
-            </Badge>
             <Box css={{ ml: 'auto', mr: '$6', bp2: { display: 'none' } }}>
               <IconButton
                 variant="ghost"

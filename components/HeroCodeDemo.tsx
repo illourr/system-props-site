@@ -1,8 +1,13 @@
 import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import { Box, styled, theme as DStheme } from '@modulz/design-system';
+import { Box, theme as DStheme } from '@modulz/design-system';
+import * as SP from 'system-props';
+import styled from 'styled-components';
+import SPBox from './Box';
 
 const { colors } = DStheme;
+
+const { ...systemProps } = SP;
 
 const theme: any = {
   plain: {
@@ -79,47 +84,33 @@ const theme: any = {
   ],
 };
 
-const demoCode = `const Button = styled('button', {
-  // Edit the code!
-
-  backgroundColor: 'hsl(206,100%,50%)',
-  borderRadius: '9999px',
-  color: 'white',
-  fontSize: '17px',
-  fontWeight: 500,
-  paddingTop: '10px',
-  paddingBottom: '10px',
-  paddingLeft: '16px',
-  paddingRight: '16px',
-  textDecoration: 'none',
-  appearance: 'none',
-  transition: 'all 200ms ease',
-  margin: '0px 8px',
-
-  ':hover': {
-    boxShadow: '0 5px 15px rgba(0, 0, 0, .12)',
-    transform: 'translateY(-2px)',
-  },
-
-  variants: {
-    color: {
-      white: {
-        backgroundColor: 'transparent',
-        color: 'hsl(206,10%,44%)',
-        ':hover': {
-          backgroundColor: 'white',
-          color: 'hsl(206,10%,5%)',
-        },
-      },
-    }
-  }
-});
+const demoCode = `// Edit the code!
+const Button = (props) => {
+  return (
+    <Box
+      backgroundColor="$primary"
+      borderRadius="round"
+      color="white"
+      fontSize="$body"
+      fontWeight="500"
+      p="$2 $3"
+      textDecoration="none"
+      transition="all 200ms ease"
+      margin="0 $2"
+      _hover={{
+        boxShadow: '0 5px 15px rgba(0, 0, 0, .12)',
+        transform: 'translateY(-2px)',
+      }}
+      {...props}
+    />
+  )
+};
 
 render(
-  <div style={{ display: 'flex', justifyContent: 'center' }}>
+  <Box display="flex" justifyContent="center">
     <Button as="a" href="/docs/installation">Documentation</Button>
-    <Button color="white" as="a" href="https://github.com/modulz/stitches">GitHub</Button>
-  </div>
+    <Button backgroundColor="transparent" color="$gray400" as="a" href="https://github.com/roginfarrer/system-props">GitHub</Button>
+  </Box>
 );`;
 
 export const liveEditorStyle: React.CSSProperties = {
@@ -142,6 +133,8 @@ export function HeroCodeDemo() {
     code: demoCode,
     scope: {
       styled,
+      Box: SPBox,
+      ...systemProps,
     },
     noInline: true,
   };

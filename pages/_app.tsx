@@ -9,8 +9,9 @@ import { Footer } from '../components/Footer';
 import { MDXComponents } from '../components/MDXComponents';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { DocsPage } from '../components/DocsPage';
-import { BlogPage } from '../components/BlogPage';
 import { useAnalytics } from '../utils/analytics';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../components/theme';
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -49,7 +50,6 @@ function App({ Component, pageProps }: AppProps) {
   }, [mounted]);
 
   const isDocs = router.pathname.includes('/docs');
-  const isBlog = router.pathname.includes('/blog/');
 
   // Dark theme hack to prevent flash
   // prevents ssr flash for mismatched dark mode
@@ -63,14 +63,15 @@ function App({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <MDXProvider components={MDXComponents}>
-      <Head>
-        <link rel="icon" href="/favicon.png" />
-        <link rel="stylesheet" href="https://develop.modulz.app/fonts/fonts.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
+    <ThemeProvider theme={theme}>
+      <MDXProvider components={MDXComponents}>
+        <Head>
+          <link rel="icon" href="/favicon.png" />
+          <link rel="stylesheet" href="https://develop.modulz.app/fonts/fonts.css" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `
 body {
 	margin: 0;
 	background-color: var(--colors-loContrast);
@@ -96,39 +97,36 @@ pre {
 	color: white;
 }
 				`,
-          }}
-        />
-      </Head>
+            }}
+          />
+        </Head>
 
-      <Box
-        css={{
-          position: 'absolute',
-          top: '$5',
-          right: '$3',
-          zIndex: '$2',
-          bp2: {
-            position: 'fixed',
-            top: '$3',
+        <Box
+          css={{
+            position: 'absolute',
+            top: '$5',
             right: '$3',
-          },
-        }}
-      >
-        <ThemeToggle toggleTheme={() => darkMode.toggle()} />
-      </Box>
+            zIndex: '$2',
+            bp2: {
+              position: 'fixed',
+              top: '$3',
+              right: '$3',
+            },
+          }}
+        >
+          <ThemeToggle toggleTheme={() => darkMode.toggle()} />
+        </Box>
 
-      {isDocs ? (
-        <DocsPage>
+        {isDocs ? (
+          <DocsPage>
+            <Component {...pageProps} />
+          </DocsPage>
+        ) : (
           <Component {...pageProps} />
-        </DocsPage>
-      ) : isBlog ? (
-        <BlogPage>
-          <Component {...pageProps} />
-        </BlogPage>
-      ) : (
-        <Component {...pageProps} />
-      )}
-      {!isDocs && <Footer />}
-    </MDXProvider>
+        )}
+        {!isDocs && <Footer />}
+      </MDXProvider>
+    </ThemeProvider>
   );
 }
 
