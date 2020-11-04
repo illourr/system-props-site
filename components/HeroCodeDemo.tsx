@@ -4,8 +4,9 @@ import { Box, theme as DStheme } from '@modulz/design-system';
 import * as SP from 'system-props';
 import styled from 'styled-components';
 import SPBox from './Box';
+import { theme as MyTheme } from './theme';
 
-const { colors } = DStheme;
+const { colors } = MyTheme;
 
 const { ...systemProps } = SP;
 
@@ -18,7 +19,7 @@ const theme: any = {
     {
       types: ['comment', 'prolog', 'doctype', 'cdata'],
       style: {
-        color: colors.$gray500,
+        color: colors.gray200,
         fontStyle: 'italic',
       },
     },
@@ -31,13 +32,13 @@ const theme: any = {
     {
       types: ['string', 'attr-value'],
       style: {
-        color: colors.$purple600,
+        color: colors.purple300,
       },
     },
     {
       types: ['punctuation', 'operator'],
       style: {
-        color: colors.$gray600,
+        color: colors.gray200,
       },
     },
     {
@@ -54,31 +55,31 @@ const theme: any = {
         'inserted',
       ],
       style: {
-        color: colors.$red600,
+        color: colors.red600,
       },
     },
     {
       types: ['atrule', 'keyword', 'attr-name', 'selector'],
       style: {
-        color: colors.$blue600,
+        color: colors.blue400,
       },
     },
     {
       types: ['function', 'deleted', 'tag'],
       style: {
-        color: colors.$yellow600,
+        color: colors.yellow600,
       },
     },
     {
       types: ['function-variable'],
       style: {
-        color: colors.$green600,
+        color: colors.green600,
       },
     },
     {
       types: ['tag', 'selector', 'keyword'],
       style: {
-        color: colors.$blue600,
+        color: colors.blue600,
       },
     },
   ],
@@ -88,7 +89,7 @@ const demoCode = `// Edit the code!
 const Button = (props) => {
   return (
     <Box
-      backgroundColor="$primary"
+      backgroundColor="$blue400"
       borderRadius="round"
       color="white"
       fontSize="$body"

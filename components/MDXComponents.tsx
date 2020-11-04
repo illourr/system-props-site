@@ -2,6 +2,8 @@ import NextLink from 'next/link';
 import * as DS from '@modulz/design-system';
 import { LinkAngledIcon } from '@modulz/radix-icons';
 import { CodeBlock } from './CodeBlock';
+import { Text } from './Text';
+import Box from './Box';
 
 const OffsetBox = DS.styled('div', {
   variants: {
@@ -25,40 +27,33 @@ const OffsetBox = DS.styled('div', {
 });
 
 const LinkHeading = (props) => (
-  <DS.Text {...props}>
-    <DS.Box
+  <Text {...props}>
+    <Box
       as="a"
       href={`#${props.id}`}
+      fontSize="inherit"
+      textDecoration="none"
+      display="inline-flex"
+      alignItems="center"
+      color="inherit"
       css={{
-        fontSize: 'inherit',
-        textDecoration: 'none',
-        display: 'inline-flex',
-        alignItems: 'center',
-        color: 'inherit',
         svg: { opacity: 0 },
         ':hover svg': { opacity: 1 },
       }}
     >
       <span>{props.children}</span>
-      <DS.Box as="span" css={{ ml: '$2', color: '$gray500' }}>
+      <Box as="span" ml="$2" color="$gray500">
         <LinkAngledIcon />
-      </DS.Box>
-    </DS.Box>
-  </DS.Text>
+      </Box>
+    </Box>
+  </Text>
 );
 
 export const MDXComponents = {
   ...DS,
-  h1: (props) => (
-    <DS.Text size="6" {...props} css={{ mb: '$8', fontWeight: 500, ...props.css }} as="h1" />
-  ),
+  h1: (props) => <Text fontSize="$6" {...props} mb="$8" fontWeight="500" as="h1" />,
   h2: (props) => (
-    <DS.Text
-      size="6"
-      {...props}
-      css={{ mt: '$2', mb: '$6', color: '$gray600', lineHeight: '30px', ...props.css }}
-      as="h2"
-    />
+    <Text fontSize="$6" {...props} mt="$2" mb="$6" color="$gray600" lineHeight="30px" as="h2" />
   ),
   h3: (props) => (
     <LinkHeading
@@ -82,12 +77,7 @@ export const MDXComponents = {
     </DS.Box>
   ),
   p: (props) => (
-    <DS.Text
-      size="4"
-      {...props}
-      css={{ mb: '$3', lineHeight: '30px', letterSpacing: 0, ...props.css }}
-      as="p"
-    />
+    <Text fontSize="$2" {...props} mb="$3" lineHeight="30px" letterSpacing="0" as="p" />
   ),
   a: ({ href = '', ...props }) => {
     if (href.startsWith('/')) {

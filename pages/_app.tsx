@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
@@ -11,10 +11,20 @@ import { ThemeToggle } from '../components/ThemeToggle';
 import { DocsPage } from '../components/DocsPage';
 import { useAnalytics } from '../utils/analytics';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../components/theme';
+import { theme as baseTheme } from '../components/theme';
+import { GlobalStyles } from '../components/ThemeProvider';
+
+const darkTheme = {
+  ...baseTheme,
+  colors: {
+    ...baseTheme.colors,
+    ...baseTheme.colors.modes.dark,
+  },
+};
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [theme, setTheme] = useState(baseTheme);
 
   const darkMode = useDarkMode(undefined, {
     classNameDark: darkThemeClass,
@@ -25,14 +35,21 @@ function App({ Component, pageProps }: AppProps) {
 
   const [mounted, setMounted] = React.useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (darkMode.value) {
+      return setTheme(darkTheme);
+    }
+    return setTheme(baseTheme);
+  }, [darkMode.value]);
 
   // An ugly, terrible and sad hack to scroll the page to the
   // anchor location when present. The reason this stopped working is
   // due to the dark theme hack. :facepalm:
-  React.useEffect(() => {
+  useEffect(() => {
     if (mounted) {
       const [_, hashLocation] = router.asPath.split('#');
       if (hashLocation) {
@@ -64,6 +81,7 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={theme}>
+      <GlobalStyles />
       <MDXProvider components={MDXComponents}>
         <Head>
           <link rel="icon" href="/favicon.png" />
