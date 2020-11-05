@@ -108,17 +108,15 @@ colors.loContrast = 'var(--colors-loContrast)';
 const space = ['0px', '5px', '10px', '15px', '20px', '25px', '35px', '45px', '65px', '80px'];
 
 const fontSizes = [
-  null,
-  '0.8rem',
+  '0.706rem',
+  '0.765rem',
+  '0.882rem',
   '1rem',
-  '1.25rem',
-  '1.563rem',
-  '1.953rem',
-  '2.441rem',
-  '3.052rem',
-  '3.815rem',
-  '4.768rem',
-  '5.96rem',
+  '1.118rem',
+  '1.235rem',
+  '1.588rem',
+  '2.0588rem',
+  '3.470rem',
 ];
 Object.assign(fontSizes, { body: fontSizes[2], rootFontSize: '17px' });
 
@@ -134,7 +132,8 @@ export const theme = {
     small: '2px',
     medium: '4px',
     large: '8px',
-    round: '50vw',
+    pill: '50vw',
+    round: '100%',
   },
   sizes: ['450px', '550px', '585px', '865px'],
   breakpoints: {

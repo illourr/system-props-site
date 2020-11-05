@@ -1,12 +1,14 @@
-import { Box, Button, Text, theme as DStheme, darkThemeClass } from '@modulz/design-system';
+import { Box, Button, Text, darkThemeClass } from '@modulz/design-system';
 import React, { useState } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useClipboard } from '../utils/useClipboard';
 import { styled, css } from '@modulz/design-system';
+import { theme as appTheme } from './theme';
+import MyBox from './Box';
 
-const { colors } = DStheme;
+const { colors } = appTheme;
 
-const theme: any = {
+export const theme: any = {
   plain: {
     color: 'var(--colors-hiContrast)',
     backgroundColor: 'var(--colors-loContrast)',
@@ -15,7 +17,7 @@ const theme: any = {
     {
       types: ['comment', 'prolog', 'doctype', 'cdata'],
       style: {
-        color: colors.$gray600,
+        color: colors.gray300,
         fontStyle: 'italic',
       },
     },
@@ -28,13 +30,13 @@ const theme: any = {
     {
       types: ['string', 'attr-value'],
       style: {
-        color: colors.$purple600,
+        color: colors.purple400,
       },
     },
     {
       types: ['punctuation', 'operator'],
       style: {
-        color: colors.$gray600,
+        color: colors.gray300,
       },
     },
     {
@@ -51,68 +53,66 @@ const theme: any = {
         'inserted',
       ],
       style: {
-        color: colors.$red600,
+        color: colors.red600,
       },
     },
     {
       types: ['atrule', 'keyword', 'attr-name', 'selector'],
       style: {
-        color: colors.$blue600,
+        color: colors.blue500,
       },
     },
     {
       types: ['function', 'deleted', 'tag'],
       style: {
-        color: colors.$yellow600,
+        color: colors.yellow600,
       },
     },
     {
       types: ['function-variable'],
       style: {
-        color: colors.$green600,
+        color: colors.green600,
       },
     },
     {
       types: ['tag', 'selector', 'keyword'],
       style: {
-        color: colors.$blue600,
+        color: colors.blue500,
       },
     },
   ],
 };
 
 export const liveEditorStyle: React.CSSProperties = {
-  fontSize: 'var(--fontSizes-2)',
-  fontFamily: 'var(--fonts-mono)',
+  fontSize: appTheme.fontSizes[1],
+  fontFamily: appTheme.fonts.mono,
   fontWeight: 400,
   lineHeight: 1.5,
 };
 
 const StyledLivePreview = ({ live, ...props }: { live?: boolean }) => (
-  <Box
-    css={{
-      p: '$3',
-      boxShadow: `0 0 0 1px ${colors.$gray300}`,
-      borderTopLeftRadius: '$2',
-      borderTopRightRadius: '$2',
-      borderBottomLeftRadius: live ? '0' : '$2',
-      borderBottomRightRadius: live ? '0' : '$2',
-    }}
+  <MyBox
+    p="$3"
+    boxShadow="0 0 0 1px $gray50"
+    borderTopLeftRadius="$2"
+    borderTopRightRadius="$2"
+    borderBottomLeftRadius={live ? '0' : '$2'}
+    borderBottomRightRadius={live ? '0' : $2}
   >
     <LivePreview {...props} />
-  </Box>
+  </MyBox>
 );
 
 const CodeContainer = ({ live, children }: { live?: boolean; children: React.ReactNode }) => (
-  <Box
+  <MyBox
+    p="$1"
+    borderTopLeftRadius={live ? '0' : '$2'}
+    borderTopRightRadius={live ? '0' : '$2'}
+    borderBottomLeftRadius="$2"
+    borderBottomRightRadius="$2"
+    marginTop="1px"
+    boxShadow="0 0 0 1px $gray50"
     css={{
-      p: '$1',
-      borderTopLeftRadius: live ? '0' : '$2',
-      borderTopRightRadius: live ? '0' : '$2',
-      borderBottomLeftRadius: '$2',
-      borderBottomRightRadius: '$2',
-      marginTop: '1px',
-      boxShadow: `0 0 0 1px ${colors.$gray300}`,
       textarea: { outline: 0 },
       'textarea::selection': {
         backgroundColor: 'hsla(208, 10%, 65%,1)',
@@ -193,12 +193,12 @@ export function CodeBlock({ className, live, manual, render, children, ...props 
         </Box>
         <LiveError
           style={{
-            fontFamily: DStheme.fonts.$untitled,
-            fontSize: DStheme.fontSizes.$3,
-            padding: DStheme.space.$2,
+            fontFamily: appTheme.fonts.base,
+            fontSize: appTheme.fontSizes[3],
+            padding: appTheme.space[2],
             overflowX: 'auto',
             color: 'white',
-            backgroundColor: colors.$red600,
+            backgroundColor: colors.red600,
           }}
         />
       </LiveProvider>

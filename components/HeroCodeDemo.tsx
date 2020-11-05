@@ -5,85 +5,11 @@ import * as SP from 'system-props';
 import styled from 'styled-components';
 import SPBox from './Box';
 import { theme as MyTheme } from './theme';
+import { theme } from './CodeBlock';
 
 const { colors } = MyTheme;
 
 const { ...systemProps } = SP;
-
-const theme: any = {
-  plain: {
-    color: 'var(--colors-hiContrast)',
-    backgroundColor: 'var(--colors-loContrast)',
-  },
-  styles: [
-    {
-      types: ['comment', 'prolog', 'doctype', 'cdata'],
-      style: {
-        color: colors.gray200,
-        fontStyle: 'italic',
-      },
-    },
-    {
-      types: ['namespace'],
-      style: {
-        opacity: 0.7,
-      },
-    },
-    {
-      types: ['string', 'attr-value'],
-      style: {
-        color: colors.purple300,
-      },
-    },
-    {
-      types: ['punctuation', 'operator'],
-      style: {
-        color: colors.gray200,
-      },
-    },
-    {
-      types: [
-        'entity',
-        'url',
-        'symbol',
-        'number',
-        'boolean',
-        'variable',
-        'constant',
-        'property',
-        'regex',
-        'inserted',
-      ],
-      style: {
-        color: colors.red600,
-      },
-    },
-    {
-      types: ['atrule', 'keyword', 'attr-name', 'selector'],
-      style: {
-        color: colors.blue400,
-      },
-    },
-    {
-      types: ['function', 'deleted', 'tag'],
-      style: {
-        color: colors.yellow600,
-      },
-    },
-    {
-      types: ['function-variable'],
-      style: {
-        color: colors.green600,
-      },
-    },
-    {
-      types: ['tag', 'selector', 'keyword'],
-      style: {
-        color: colors.blue600,
-      },
-    },
-  ],
-};
 
 const demoCode = `// Edit the code!
 const Button = (props) => {

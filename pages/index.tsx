@@ -28,9 +28,9 @@ export default function Home() {
                   border: 0,
                 }}
               >
-                Stitches homepage
+                System props homepage
               </span>
-              <StitchesLogo />
+              📦
             </MyBox>
           </NextLink>
         </MyBox>

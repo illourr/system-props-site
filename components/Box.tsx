@@ -1,34 +1,39 @@
 import {
-	createSystem,
-	flexbox,
-	grid,
-	layout,
-	space,
-	color,
-	shadow,
-	typography,
-	position,
-	border,
+  createSystem,
+  flexbox,
+  grid,
+  layout,
+  space,
+  color,
+  shadow,
+  typography,
+  position,
+  border,
 } from 'system-props';
 import styled from 'styled-components';
 
 const system = createSystem();
 
 const Box = styled.div(
-	system({
-		...flexbox,
-		...grid,
-		...layout,
-		...space,
-		...color,
-		...shadow,
-		...typography,
-		...position,
-		...border,
-		transition: true,
-		transform: true,
-		textDecoration: true,
-	})
+  {
+    boxSizing: 'border-box',
+  },
+  system({
+    ...flexbox,
+    ...grid,
+    ...layout,
+    ...space,
+    ...color,
+    ...shadow,
+    ...typography,
+    ...position,
+    ...border,
+    outline: true,
+    appearance: true,
+    transition: true,
+    transform: true,
+    textDecoration: true,
+  })
 );
 
 export default Box;

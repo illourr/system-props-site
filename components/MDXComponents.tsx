@@ -1,30 +1,7 @@
 import NextLink from 'next/link';
-import * as DS from '@modulz/design-system';
-import { LinkAngledIcon } from '@modulz/radix-icons';
 import { CodeBlock } from './CodeBlock';
 import { Text } from './Text';
 import Box from './Box';
-
-const OffsetBox = DS.styled('div', {
-  variants: {
-    size: {
-      wide: {
-        bp2: {
-          mx: '-50px',
-        },
-      },
-      hero: {
-        mx: '-35px',
-        bp2: {
-          mx: '-90px',
-        },
-        bp3: {
-          mx: '-166px',
-        },
-      },
-    },
-  },
-});
 
 const LinkHeading = (props) => (
   <Text {...props}>
@@ -42,167 +19,103 @@ const LinkHeading = (props) => (
       }}
     >
       <span>{props.children}</span>
-      <Box as="span" ml="$2" color="$gray500">
-        <LinkAngledIcon />
+      <Box verticalAlign="middle" fontSize="$2" as="span" ml="$2" color="$gray500">
+        🔗
       </Box>
     </Box>
   </Text>
 );
 
 export const MDXComponents = {
-  ...DS,
   h1: (props) => <Text fontSize="$6" {...props} mb="$8" fontWeight="500" as="h1" />,
   h2: (props) => (
     <Text fontSize="$6" {...props} mt="$2" mb="$6" color="$gray600" lineHeight="30px" as="h2" />
   ),
   h3: (props) => (
     <LinkHeading
-      size="7"
+      fontSize="$6"
       {...props}
-      css={{ mt: '$7', mb: '$1', lineHeight: '35px', fontWeight: 500, ...props.css }}
+      mt="$7"
+      mb="$1"
+      lineHeight="35px"
+      fontWeight="500"
       as="h3"
     />
   ),
   h4: (props) => (
     <LinkHeading
-      size="6"
+      fontSize="$5"
+      letterSpacing="-0.025em"
       {...props}
-      css={{ mt: '$7', mb: '$1', lineHeight: '25px', fontWeight: 500, ...props.css }}
+      mt="$7"
+      mb="$1"
+      lineHeight="25px"
+      fontWeight="500"
       as="h3"
     />
   ),
   code: (props) => (
-    <DS.Box css={{ my: '$5' }}>
+    <Box my="$5">
       <CodeBlock {...props} />
-    </DS.Box>
+    </Box>
   ),
   p: (props) => (
-    <Text fontSize="$2" {...props} mb="$3" lineHeight="30px" letterSpacing="0" as="p" />
+    <Text fontSize="$3" {...props} mb="$3" lineHeight="30px" letterSpacing="0" as="p" />
   ),
   a: ({ href = '', ...props }) => {
     if (href.startsWith('/')) {
       return (
         <NextLink href={href} passHref>
-          <DS.Link
-            {...props}
-            css={{
-              color: 'inherit',
-              fontSize: 'inherit',
-              ...props.css,
-            }}
-          />
+          <Box as="a" color="$blue600" fontSize="inherit" {...props} />
         </NextLink>
       );
     }
     return (
-      <DS.Link
-        variant="blue"
+      <Box
+        as="a"
+        color="$blue600"
         href={href}
+        fontSize="inherit"
         {...props}
-        css={{
-          fontSize: 'inherit',
-          ...props.css,
-        }}
         target="_blank"
         rel="noopener"
       />
     );
   },
-  hr: (props) => (
-    <DS.Divider size="large" {...props} css={{ my: '$6', mx: 'auto', ...props.css }} />
+  hr: (props) => <Box as="hr" height="2px" bg="$gray200" m="$6 auto" />,
+  inlineCode: (props) => (
+    <Box
+      fontFamily="mono"
+      bg="$purple50"
+      color="$purple600"
+      as="code"
+      p="0 3px 2px"
+      fontSize="$2"
+      borderRadius="small"
+      {...props}
+    />
   ),
-  inlineCode: (props) => <DS.Code {...props} />,
-  ul: (props) => (
-    <DS.Box {...props} css={{ color: '$hiContrast', mb: '$3', ...props.css }} as="ul" />
-  ),
-  ol: (props) => (
-    <DS.Box {...props} css={{ color: '$hiContrast', mb: '$3', ...props.css }} as="ol" />
-  ),
+  ul: (props) => <Box {...props} color="$hiContrast" mb="$3" as="ul" />,
+  ol: (props) => <Box {...props} color="$hiContrast" mb="$3" as="ol" />,
   li: (props) => (
     <li>
-      <DS.Text size="4" {...props} css={{ lineHeight: '30px', letterSpacing: 0, ...props.css }} />
+      <Text fontSize="$3" {...props} lineHeight="30px" letterSpacing="0" />
     </li>
   ),
-  strong: (props) => (
-    <DS.Text {...props} css={{ ...props.css, fontSize: 'inherit', fontWeight: 500 }} />
-  ),
+  strong: (props) => <Text {...props} as="strong" fontSize="inherit" fontWeight="500" />,
   img: ({ ...props }) => (
-    <DS.Box css={{ my: '$6' }}>
-      <DS.Box
-        as="img"
-        {...props}
-        css={{ maxWidth: '100%', verticalAlign: 'middle', ...props.css }}
-      />
-    </DS.Box>
-  ),
-  Image: ({ children, size, ...props }) => (
-    <DS.Box as="figure" css={{ mx: '0', my: '$6' }}>
-      <OffsetBox size={size}>
-        <DS.Image
-          {...props}
-          css={{
-            maxWidth: '100%',
-            verticalAlign: 'middle',
-          }}
-        />
-      </OffsetBox>
-      <DS.Text
-        as="figcaption"
-        size="3"
-        css={{
-          lineHeight: '23px',
-          color: '$gray600',
-          mt: '$2',
-        }}
-      >
-        {children}
-      </DS.Text>
-    </DS.Box>
-  ),
-  Video: ({
-    small,
-    large,
-    src,
-    children = '',
-    muted = true,
-    autoPlay = true,
-    controls,
-    size,
-    ...props
-  }) => (
-    <DS.Box as="figure" css={{ mx: '0', my: '$6' }}>
-      <OffsetBox size={size}>
-        <video
-          src={src}
-          autoPlay={autoPlay}
-          playsInline
-          muted={muted}
-          controls={controls}
-          loop
-          style={{ width: '100%', display: 'block' }}
-        ></video>
-      </OffsetBox>
-      <DS.Text
-        as="figcaption"
-        size="3"
-        css={{
-          lineHeight: '23px',
-          color: '$gray600',
-          mt: '$2',
-        }}
-      >
-        {children}
-      </DS.Text>
-    </DS.Box>
+    <Box my="$6">
+      <Box as="img" {...props} maxWidth="100%" verticalAlign="middle" />
+    </Box>
   ),
   blockquote: (props) => (
-    <DS.Box
+    <Box
+      mt="$6"
+      mb="$5"
+      pl="$4"
+      borderLeft="1px solid $gray400"
+      color="$orange400"
       css={{
-        mt: '$6',
-        mb: '$5',
-        pl: '$4',
-        borderLeft: `1px solid ${DS.theme.colors.$gray400}`,
-        color: 'orange',
         '& p': {
           fontSize: '$3',
           color: '$gray600',

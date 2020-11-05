@@ -1,14 +1,14 @@
 import * as React from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Text, Box, Flex, Container, Badge, IconButton, Link } from '@modulz/design-system';
 import { FrontMatter } from '../types';
-import { ScrollArea } from '../components/ScrollArea';
-import { StitchesLogo } from '../components/StitchesLogo';
 import { docsRoutes } from '../utils/docsRoutes';
 import { HamburgerIcon } from '@modulz/radix-icons';
 import { allDocsRoutes } from '../utils/docsRoutes';
 import { ExternalIcon } from './ExternalIcon';
+import Box from './Box';
+import { Text } from './Text';
+import { IconButton } from './IconButton';
 
 function DocsPage({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -21,8 +21,8 @@ function DocsPage({ children }: { children: React.ReactNode }) {
   const next = allDocsRoutes[currentPageIndex + 1];
 
   const GITHUB_URL = 'https://github.com';
-  const REPO_NAME = 'modulz/stitches-site';
-  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/master/pages${router.pathname}.mdx`;
+  const REPO_NAME = 'roginfarrer/system-props';
+  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/main/pages${router.pathname}.mdx`;
 
   React.useEffect(() => {
     const handleRouteChange = () => {
@@ -39,159 +39,91 @@ function DocsPage({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <Flex
-      css={{
-        flexDirection: 'column',
-        bp2: {
-          flexDirection: 'row',
-        },
-      }}
-    >
+    <Box display="flex" flexDirection={{ all: 'column', bp2: 'row' }}>
       <Box
+        width={{ all: '100%', bp2: '250px' }}
+        maxHeight="auto"
+        borderBottom={{ all: '2px solid $gray50', bp2: '0' }}
+        borderRight={{ all: null, bp2: '2px solid $gray50' }}
+        overflowX="hidden"
+        position={{ all: null, bp2: 'fixed' }}
+        top={{ all: null, bp2: 0 }}
+        left={{ all: null, bp2: 0 }}
+        bottom={{ all: null, bp2: 0 }}
         css={{
-          width: '100%',
-          maxHeight: 'auto',
-          borderBottom: '1px solid',
-          borderColor: '$gray300',
           WebkitOverflowScrolling: 'touch',
-          overflowX: 'hidden',
-
-          bp2: {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            bottom: 0,
-            width: '250px',
-            borderRight: '1px solid',
-            borderBottom: '0',
-            borderColor: '$gray300',
-          },
         }}
       >
-        <ScrollArea>
-          <Flex css={{ alignItems: 'center', p: '$4' }}>
-            <NextLink href="/" passHref>
-              <Box
-                as="a"
-                css={{
-                  color: '$hiContrast',
-                  display: 'inline-flex',
-                  ':focus': { boxShadow: 'none' },
+        <Box display="flex" alignItems="center" p="$4">
+          <NextLink href="/" passHref>
+            <Box as="a" textDecoration="none" color="$hiContrast" display="inline-flex">
+              <span
+                style={{
+                  position: 'absolute',
+                  width: 1,
+                  height: 1,
+                  padding: 0,
+                  margin: -1,
+                  overflow: 'hidden',
+                  clip: 'rect(0, 0, 0, 0)',
+                  whiteSpace: 'nowrap',
+                  border: 0,
                 }}
               >
-                <span
-                  style={{
-                    position: 'absolute',
-                    width: 1,
-                    height: 1,
-                    padding: 0,
-                    margin: -1,
-                    overflow: 'hidden',
-                    clip: 'rect(0, 0, 0, 0)',
-                    whiteSpace: 'nowrap',
-                    border: 0,
-                  }}
-                >
-                  Stitches homepage
-                </span>
-                <StitchesLogo />
-              </Box>
-            </NextLink>
-            <Box css={{ ml: 'auto', mr: '$6', bp2: { display: 'none' } }}>
-              <IconButton
-                variant="ghost"
-                onClick={() => setIsOpen(!isOpen)}
-                state={isOpen ? 'active' : undefined}
-              >
-                <HamburgerIcon />
-              </IconButton>
+                System props homepage
+              </span>
+              📦
             </Box>
-          </Flex>
-
-          <Box
-            style={{}}
-            css={{
-              display: isOpen ? 'block' : 'none',
-              bp2: {
-                display: 'block',
-              },
-            }}
-          >
-            {docsRoutes.map((section) => (
-              <Box key={section.label} css={{ mb: '$4' }}>
-                <NavHeading>{section.label}</NavHeading>
-                {section.pages.map((page: FrontMatter) => (
-                  <NavItem
-                    key={page.id}
-                    href={`/${page.id}`}
-                    active={router.pathname === `/${page.id}`}
-                  >
-                    <Text size="2" css={{ color: 'inherit', lineHeight: '1' }}>
-                      {page.title}
-                    </Text>
-                  </NavItem>
-                ))}
-              </Box>
-            ))}
-
-            <NavHeading>Community</NavHeading>
-            <NavItem href="/blog">
-              <Text size="2" css={{ color: 'inherit', lineHeight: '1' }}>
-                Blog
-              </Text>
-            </NavItem>
-            <NavItem href="https://github.com/modulz/stitches">
-              <Text size="2" css={{ color: 'inherit', lineHeight: '1' }}>
-                GitHub
-              </Text>
-              <Box css={{ ml: '$1', color: '$gray500' }}>
-                <ExternalIcon />
-              </Box>
-            </NavItem>
-            <NavItem href="https://twitter.com/stitchesjs">
-              <Text size="2" css={{ color: 'inherit', lineHeight: '1' }}>
-                Twitter
-              </Text>
-              <Box css={{ ml: '$1', color: '$gray500' }}>
-                <ExternalIcon />
-              </Box>
-            </NavItem>
-            <NavItem href="https://discord.com/invite/H4eG3Mk">
-              <Text size="2" css={{ color: 'inherit', lineHeight: '1' }}>
-                Discord
-              </Text>
-              <Box css={{ ml: '$1', color: '$gray500' }}>
-                <ExternalIcon />
-              </Box>
-            </NavItem>
-            <Box css={{ height: '$5', bp2: { height: '$8' } }} />
+          </NextLink>
+          <Box ml="auto" mr="$6" display={{ all: null, bp2: 'none' }}>
+            <IconButton onClick={() => setIsOpen(!isOpen)} isActive={isOpen}>
+              <HamburgerIcon />
+            </IconButton>
           </Box>
-        </ScrollArea>
+        </Box>
+
+        <Box display={{ all: isOpen ? 'block' : 'none', bp2: 'block' }}>
+          {docsRoutes.map((section) => (
+            <Box key={section.label} mb="$4">
+              <NavHeading>{section.label}</NavHeading>
+              {section.pages.map((page: FrontMatter) => (
+                <NavItem
+                  key={page.id}
+                  href={`/${page.id}`}
+                  active={router.pathname === `/${page.id}`}
+                >
+                  <Text fontSize="$1" color="inherit" lineHeight="1">
+                    {page.title}
+                  </Text>
+                </NavItem>
+              ))}
+            </Box>
+          ))}
+
+          <NavHeading>Community</NavHeading>
+          <NavItem href="https://github.com/roginfarrer/system-props">
+            <Text fontSize="$2" color="inherit" lineHeight="1">
+              GitHub
+            </Text>
+            <Box ml="$1" color="$gray500">
+              <ExternalIcon />
+            </Box>
+          </NavItem>
+        </Box>
       </Box>
 
-      <Box
-        css={{
-          maxWidth: '100%',
-          flex: 1,
-          pt: '$8',
-          pb: '$9',
-          bp2: {
-            pl: '250px',
-          },
-        }}
-      >
-        <Container size="3" css={{ maxWidth: '780px' }}>
+      <Box maxWidth="100%" flex="1" pt="$8" pb="$9" pl={{ all: null, bp2: '250px' }}>
+        <Box px="$5" maxWidth="780px" mx="auto">
           {children}
-        </Container>
+        </Box>
 
-        <Container size="3">
+        <Box maxWidth="$3" mx="auto" px="$5">
           {(previous || next) && (
-            <Flex
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              my="$9"
               aria-label="Pagination navigation"
-              css={{
-                justifyContent: 'space-between',
-                my: '$9',
-              }}
             >
               {previous && (
                 <Box>
@@ -199,18 +131,16 @@ function DocsPage({ children }: { children: React.ReactNode }) {
                     <Box
                       as="a"
                       aria-label={`Previous page: ${previous.title}`}
-                      css={{
-                        color: '$blue600',
-                        textDecoration: 'none',
-                        alignItems: 'center',
-                      }}
+                      color="$blue600"
+                      textDecoration="none"
+                      alignItems="center"
                     >
-                      <Box css={{ mb: '$2' }}>
-                        <Text size="3" css={{ color: '$gray600' }}>
+                      <Box mb="$2">
+                        <Text fontSize="$2" color="$gray400">
                           Previous
                         </Text>
                       </Box>
-                      <Text size="5" css={{ color: 'inherit' }}>
+                      <Text fontSize="$4" color="inherit">
                         {previous.title}
                       </Text>
                     </Box>
@@ -218,48 +148,47 @@ function DocsPage({ children }: { children: React.ReactNode }) {
                 </Box>
               )}
               {next && (
-                <Box css={{ ml: 'auto' }}>
+                <Box ml="auto">
                   <NextLink href={`/${next.id}`} passHref>
                     <Box
                       as="a"
                       aria-label={`Previous page: ${next.title}`}
-                      css={{
-                        color: '$blue600',
-                        textDecoration: 'none',
-                        textAlign: 'right',
-                      }}
+                      color="$blue600"
+                      textDecoration="none"
+                      textAlign="right"
                     >
-                      <Box css={{ mb: '$2' }}>
-                        <Text size="3" css={{ color: '$gray600' }}>
+                      <Box mb="$2">
+                        <Text fontSize="$2" color="$gray400">
                           Next
                         </Text>
                       </Box>
-                      <Text size="5" css={{ color: 'inherit' }}>
+                      <Text fontSize="$4" color="inherit">
                         {next.title}
                       </Text>
                     </Box>
                   </NextLink>
                 </Box>
               )}
-            </Flex>
+            </Box>
           )}
-        </Container>
+        </Box>
 
-        <Container size="3" css={{ my: '$9' }}>
-          <Text size="3">
-            <Link
-              href={editUrl}
-              title="Edit this page on GitHub."
-              rel="noopener noreferrer"
-              target="_blank"
-              variant="subtle"
-            >
-              Edit this page on GitHub.
-            </Link>
+        <Box maxWidth="$3" my="$9" mx="auto" px="$5">
+          <Text
+            fontSize="$2"
+            color="$gray300"
+            textDecoration="none"
+            as="a"
+            href={editUrl}
+            title="Edit this page on GitHub."
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Edit this page on GitHub.
           </Text>
-        </Container>
+        </Box>
       </Box>
-    </Flex>
+    </Box>
   );
 }
 
@@ -267,15 +196,7 @@ export { DocsPage };
 
 function NavHeading({ children }: { children: React.ReactNode }) {
   return (
-    <Text
-      as="h4"
-      size="3"
-      css={{
-        fontWeight: 500,
-        px: '$5',
-        py: '$2',
-      }}
-    >
+    <Text as="h4" fontSize="$2" fontWeight="500" p="$2 $5">
       {children}
     </Text>
   );
@@ -292,20 +213,18 @@ function NavItem({ children, active, href, ...props }: NavItemProps) {
         {...props}
         {...(isExternal ? { href, target: '_blank' } : {})}
         as="a"
-        css={{
-          display: 'flex',
-          alignItems: 'center',
-          textDecoration: 'none',
-          color: '$hiContrast',
-          py: '$2',
-          px: '$5',
-          backgroundColor: active ? '$blue300' : 'transparent',
-          userSelect: 'none',
-          minHeight: '$6',
-          transition: 'background-color 50ms linear',
-          ':hover': {
-            backgroundColor: active ? '$blue300' : '$blue200',
-          },
+        display="flex"
+        alignItems="center"
+        textDecoration="none"
+        color="$hiContrast"
+        py="$2"
+        px="$5"
+        bg={active ? '$blue100' : 'transparent'}
+        userSelect="none"
+        minHeight="$6"
+        transition="background-color 50ms linear"
+        _hover={{
+          bg: active ? '$blue100' : '$blue50',
         }}
       >
         {children}
