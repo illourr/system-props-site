@@ -1,45 +1,38 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Box, Container, Grid, Text, Flex, Divider, Link } from '@modulz/design-system';
-import { StitchesLogo } from '../components/StitchesLogo';
-import { ExternalIcon } from './ExternalIcon';
+import {Container, Grid, Flex, Divider, Link} from '@modulz/design-system';
+import {StitchesLogo} from '../components/StitchesLogo';
+import {ExternalIcon} from './ExternalIcon';
+import Box from './Box'
+import {Text} from './Text'
 
 export const Footer = () => {
   return (
-    <Box as="footer" css={{ pb: '$9' }}>
-      <Flex css={{ justifyContent: 'center', mb: '$9' }}>
+    <Box as="footer" pb="$9">
+      <Box display="flex" justifyContent="center" mb="$9" css={{justifyContent: 'center', mb: '$9'}}>
         <Divider size="large" />
-      </Flex>
-      <Container size="4">
-        <Grid
+      </Box>
+      <Box maxWidth="4" mx="auto">
+        <Box
+          display="grid"
+          gridTemplateColumns={{all: 'repeat(1, 1fr)', bp2: 'repeat(4, 1fr)'}}
+          gap={{all: '$6', bp2: '$3'}}
           css={{
-            gridTemplateColumns: 'repeat(1, 1fr)',
-            gap: '$6',
-            '& ul': { listStyle: 'none', margin: '0', padding: '0' },
-            bp2: {
-              gridTemplateColumns: 'repeat(4, 1fr)',
-              gap: '$3',
-            },
+            '& ul': {listStyle: 'none', margin: '0', padding: '0'},
           }}
         >
-          <Flex
-            css={{
-              alignItems: 'center',
-              bp2: {
-                flexDirection: 'column',
-                alignItems: 'start',
-              },
-            }}
+          <Box
+            display="flex"
+            alignItems={{all: 'center', bp2: 'start'}}
+            flexDirection={{all: null, bp2: 'column'}}
           >
             <NextLink href="/" passHref>
               <Box
                 as="a"
-                css={{
-                  color: '$hiContrast',
-                  display: 'inline-flex',
-                  ':focus': {
-                    boxShadow: 'none',
-                  },
+                color="$hiContrast"
+                display="inline-flex"
+                _focus={{
+                  boxShadow: 'none'
                 }}
               >
                 <span
@@ -55,53 +48,50 @@ export const Footer = () => {
                     border: 0,
                   }}
                 >
-                  Stitches homepage
+                  System Props homepage
                 </span>
-                <StitchesLogo />
+                📦
               </Box>
             </NextLink>
             <Text
               as="h6"
-              size="2"
-              css={{
-                lineHeight: '20px',
-                ml: '$4',
-                color: '$gray600',
-                pr: '$8',
-                bp2: { mt: '$5', ml: '0' },
-              }}
+              fontSize="$2"
+              lineHeight="20px"
+              color="$gray600"
+              pr="$8"
+              mt={{all: '0 0 0 $4', bp2: '$5 0 0 0'}}
             >
               Stitches is maintained by <Link href="https://modulz.app">Modulz</Link>.
             </Text>
-          </Flex>
+          </Box>
           <Box>
-            <Text as="h6" size="3" css={{ fontWeight: 500, lineHeight: '20px' }}>
+            <Text as="h6" fontSize="$3" fontWeight="500" lineHeight="20px" >
               Overview
             </Text>
             <ul>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" fontSize="$3" mt="$3" lineHeight="20px" >
                   <NextLink href="/docs/introduction" passHref>
-                    <Link variant="subtle">Introduction</Link>
+                    <Box as="a" color="$gray200" textDecoration="none">Introduction</Box>
                   </NextLink>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/docs/tutorials" passHref>
-                    <Link variant="subtle">Tutorials</Link>
+                    <Box as="a" color="$gray200" textDecoration="none">Tutorial</Box>
                   </NextLink>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/docs/api" passHref>
                     <Link variant="subtle">API</Link>
                   </NextLink>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/docs/frequently-asked-questions" passHref>
                     <Link variant="subtle">FAQ</Link>
                   </NextLink>
@@ -110,33 +100,33 @@ export const Footer = () => {
             </ul>
           </Box>
           <Box>
-            <Text as="h6" size="3" css={{ fontWeight: 500, lineHeight: '20px' }}>
+            <Text as="h6" size="3" css={{fontWeight: 500, lineHeight: '20px'}}>
               Docs
             </Text>
             <ul>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/docs/installation" passHref>
                     <Link variant="subtle">Installation</Link>
                   </NextLink>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/docs/styling" passHref>
                     <Link variant="subtle">Styling</Link>
                   </NextLink>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/docs/variants" passHref>
                     <Link variant="subtle">Variants</Link>
                   </NextLink>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/docs/tokens" passHref>
                     <Link variant="subtle">Configuration</Link>
                   </NextLink>
@@ -145,54 +135,54 @@ export const Footer = () => {
             </ul>
           </Box>
           <Box>
-            <Text as="h6" size="3" css={{ fontWeight: 500, lineHeight: '20px' }}>
+            <Text as="h6" size="3" css={{fontWeight: 500, lineHeight: '20px'}}>
               Community
             </Text>
             <ul>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <NextLink href="/blog" passHref>
                     <Link variant="subtle">Blog</Link>
                   </NextLink>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <Link
                     variant="subtle"
                     href="https://github.com/modulz/stitches"
-                    css={{ display: 'inline-flex', alignItems: 'center' }}
+                    css={{display: 'inline-flex', alignItems: 'center'}}
                   >
                     Github
-                    <Flex as="span" css={{ ml: '$1', color: '$gray500' }}>
+                    <Flex as="span" css={{ml: '$1', color: '$gray500'}}>
                       <ExternalIcon />
                     </Flex>
                   </Link>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <Link
                     variant="subtle"
                     href="https://twitter.com/stitchesjs"
-                    css={{ display: 'inline-flex', alignItems: 'center' }}
+                    css={{display: 'inline-flex', alignItems: 'center'}}
                   >
                     Twitter
-                    <Flex as="span" css={{ ml: '$1', color: '$gray500' }}>
+                    <Flex as="span" css={{ml: '$1', color: '$gray500'}}>
                       <ExternalIcon />
                     </Flex>
                   </Link>
                 </Text>
               </li>
               <li>
-                <Text as="p" size="3" css={{ mt: '$3', lineHeight: '20px' }}>
+                <Text as="p" size="3" css={{mt: '$3', lineHeight: '20px'}}>
                   <Link
                     variant="subtle"
                     href="https://discord.com/invite/H4eG3Mk"
-                    css={{ display: 'inline-flex', alignItems: 'center' }}
+                    css={{display: 'inline-flex', alignItems: 'center'}}
                   >
                     Discord
-                    <Flex as="span" css={{ ml: '$1', color: '$gray500' }}>
+                    <Flex as="span" css={{ml: '$1', color: '$gray500'}}>
                       <ExternalIcon />
                     </Flex>
                   </Link>

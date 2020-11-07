@@ -1,22 +1,22 @@
 import React from 'react';
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import { Box, theme as DStheme } from '@modulz/design-system';
+import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live';
+import {Box, theme as DStheme} from '@modulz/design-system';
 import * as SP from 'system-props';
 import styled from 'styled-components';
 import SPBox from './Box';
-import { theme as MyTheme } from './theme';
-import { theme } from './CodeBlock';
+import {theme as MyTheme} from './theme';
+import {theme} from './CodeBlock';
 
-const { colors } = MyTheme;
+const {colors} = MyTheme;
 
-const { ...systemProps } = SP;
+const {...systemProps} = SP;
 
 const demoCode = `// Edit the code!
 const Button = (props) => {
   return (
     <Box
       backgroundColor="$blue400"
-      borderRadius="round"
+      borderRadius="pill"
       color="white"
       fontSize="$body"
       fontWeight="500"
@@ -49,7 +49,7 @@ export const liveEditorStyle: React.CSSProperties = {
 };
 
 const StyledLivePreview = (props) => (
-  <Box css={{ pb: '$9' }}>
+  <Box css={{pb: '$9'}}>
     <LivePreview {...props} />
   </Box>
 );
@@ -75,7 +75,7 @@ export function HeroCodeDemo() {
           borderRadius: '$2',
           // bc: '$gray100',
           boxShadow: '0 0 0 1px $gray300',
-          textarea: { outline: '0' },
+          textarea: {outline: '0'},
           ':focus-within': {
             boxShadow: '0 0 0 3px $blue500',
           },

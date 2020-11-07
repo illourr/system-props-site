@@ -1,81 +1,150 @@
 ---
 title: Installation
-description: How to install Stitches and get up and running.
+description: How to install System Props and get up and running.
 ---
 
-#### Install Stitches
+import Box from '../../components/Box';
 
-Install Stitches from your terminal via npm or yarn.
+System Props is a collection of utility functions that add style props to your React components and allows you to control styles based on a global theme object with typographic scales, colors, and layout properties.
 
-```bash
-# With npm
-npm install @stitches/react
+To use System Props, install a CSS-in-JS library such as [Styled Components][styled-components] or [Emotion][emotion].
 
-# With yarn
-yarn add @stitches/react
+```sh
+yarn add system-props styled-components
 ```
 
-#### Create your config file
+### Create Your System
 
-To configure Stitches, create a `stitches.config.ts` file (`.js` works too) and import the `createStyled` function.
+System Props begins with creating a system which dictates how the rest of the System Props function.
 
-```jsx
-// stitches.config.ts
-import { createStyled } from '@stitches/react';
+```js
+import { createSystem } from 'system-props';
 ```
 
 This function receives a configuration object:
 
-- `prefix`: Optionally prefix all classnames to avoid clashes.
-- `tokens`: Define your design [tokens](/docs/tokens), which map to CSS properties.
-- `breakpoints`: Define reusable responsive [breakpoints](/docs/breakpoints).
-- `utils`: Create custom [utils](/docs/utils) to improve your developer experience.
-
-And returns two functions:
-
-- `styled`: a function to create React components with styles.
-- `css`: a function to create themes and SSR styles.
+- `strict`: Optionally constrain system prop values to values from the theme object.
+- `pseudoSelectors`: Define a map of component prop (key) to a pseudo selector (value)
 
 ```js
-// stitches.config.ts
-import { createStyled } from '@stitches/react';
+// Shown are the default values
 
-export const { styled, css } = createStyled({
-  prefix: '',
-  tokens: {},
-  breakpoints: {},
-  utils: {},
+const system = createSystem({
+  strict: false,
+  pseudoSelectors: {
+    _hover: '&:hover',
+    _focus: '&:focus',
+    _hoverAndFocus: '&:hover, &:focus',
+    _disabled:
+      '[disabled], [disabled]:hover, [disabled]:focus, [aria-disabled], [aria-disabled]:hover, [aria-disabled]:focus',
+    _readOnly: '[readOnly]',
+    _first: '&:first-child',
+    _last: '&:last-child',
+    _odd: '&:nth-of-type(odd)',
+    _even: '&:nth-of-type(even)',
+  },
 });
 ```
 
-> Note: From this point onwards, you'll be importing `styled` and `css` from where you've exported it.
-
-#### Create your first component
-
-Create a component file and import `styled` from your config file.
+### Create Your First Component
 
 ```js
-// Button.ts
-import { styled } from 'path-to/stitches.config';
+import { createSystem, color } from 'system-props';
+import styled from 'styled-components';
+
+const system = createSystem();
+
+const Box = styled.div(system(color));
+
+export default Box;
 ```
 
-Then style your component.
+Now, this component will have two style props available: `color` to set foreground color, and `bg` to set background color. (You can also use `backgroundColor` if you're adverse to terse naming conventions.)
 
 ```jsx live manual
-const Button = styled('button', {
-  backgroundColor: 'gainsboro',
-  borderRadius: '9999px',
-  fontSize: '13px',
-  lineHeight: '1',
-  fontWeight: 500,
-  paddingTop: '10px',
-  paddingBottom: '10px',
-  paddingLeft: '16px',
-  paddingRight: '16px',
-  border: '0',
-});
-
-render(<Button>Button</Button>);
+render(
+  <Box color="#fff" bg="tomato">
+    Tomato
+  </Box>
+);
 ```
 
-Finally, make sure to export your component so you can reuse it across your product.
+### Theming
+
+So far, this component can be styled with any valid CSS color. The real advantage of System Props is its tight integration with a theme object to create more consistent UIs. (Design systems!)
+
+Most CSS-in-JS libraries include a ThemeProvider to provide values through React context. Import the styled-components ThemeProvider in the root of your application and pass the theme to the `theme` prop.
+
+```js
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+
+const theme = {
+  colors: {
+    primary: {
+      base: '#3578e5',
+    },
+    white: '#fff',
+  },
+};
+
+const App = (props) => (
+  <ThemeProvider theme={theme}>{/* application elements */}</ThemeProvider>
+);
+
+export default App;
+```
+
+With the ThemeProvider added, the Box component now has access to the colors defined in the theme object.
+
+```jsx live manual
+render(
+  <Box color="white" bg="primary.base">
+    Blue Box
+  </Box>
+);
+```
+
+System Props will attempt to find a value based on keys in the theme and fallback to the raw value if it's not defined in the theme (unless `strict` was enabled in the `createSystem` configuration.
+
+```jsx live manual
+render(
+  <Box color="white" bg="tomato">
+    Tomato Box
+  </Box>
+);
+```
+
+To make the Box component a little more useful, add a few more System Props functions to handle layout styles.
+
+```js
+import styled from 'styled-components';
+import { createSystem, space, layout, color } from 'system-props';
+
+const system = createSystem();
+
+const Box = styled.div`
+  ${system({ ...space, ...layout, ...color })}
+`;
+
+export default Box;
+```
+
+If you prefer using the plain object syntax, you can pass System Props functions in as arguments.
+
+```js
+// example using object syntax
+const Box = styled('div')(
+  {
+    boxSizing: 'border-box',
+  },
+  system({
+    ...color,
+    ...layout,
+    ...space,
+  })
+);
+```
+
+[styled-components]: https://styled-components.com
+[emotion]: https://emotion.sh

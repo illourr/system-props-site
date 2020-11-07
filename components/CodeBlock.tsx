@@ -1,12 +1,12 @@
-import { Box, Button, Text, darkThemeClass } from '@modulz/design-system';
-import React, { useState } from 'react';
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import { useClipboard } from '../utils/useClipboard';
-import { styled, css } from '@modulz/design-system';
-import { theme as appTheme } from './theme';
-import MyBox from './Box';
+import {darkThemeClass} from '@modulz/design-system';
+import React, {useState} from 'react';
+import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live';
+import {useClipboard} from '../utils/useClipboard';
+import {theme as appTheme} from './theme';
+import Box from './Box';
+import {Text} from './Text'
 
-const { colors } = appTheme;
+const {colors} = appTheme;
 
 export const theme: any = {
   plain: {
@@ -90,21 +90,22 @@ export const liveEditorStyle: React.CSSProperties = {
   lineHeight: 1.5,
 };
 
-const StyledLivePreview = ({ live, ...props }: { live?: boolean }) => (
-  <MyBox
+const StyledLivePreview = ({live, ...props}: {live?: boolean}) => (
+  <Box
     p="$3"
     boxShadow="0 0 0 1px $gray50"
     borderTopLeftRadius="$2"
     borderTopRightRadius="$2"
     borderBottomLeftRadius={live ? '0' : '$2'}
     borderBottomRightRadius={live ? '0' : $2}
+    fontFamily="$base"
   >
     <LivePreview {...props} />
-  </MyBox>
+  </Box>
 );
 
-const CodeContainer = ({ live, children }: { live?: boolean; children: React.ReactNode }) => (
-  <MyBox
+const CodeContainer = ({live, children}: {live?: boolean; children: React.ReactNode}) => (
+  <Box
     p="$1"
     borderTopLeftRadius={live ? '0' : '$2'}
     borderTopRightRadius={live ? '0' : '$2'}
@@ -113,7 +114,7 @@ const CodeContainer = ({ live, children }: { live?: boolean; children: React.Rea
     marginTop="1px"
     boxShadow="0 0 0 1px $gray50"
     css={{
-      textarea: { outline: 0 },
+      textarea: {outline: 0},
       'textarea::selection': {
         backgroundColor: 'hsla(208, 10%, 65%,1)',
       },
@@ -123,33 +124,39 @@ const CodeContainer = ({ live, children }: { live?: boolean; children: React.Rea
 );
 
 const CopyButton = (props: any) => (
-  <Button
-    variant="ghost"
-    css={{
-      fontFamily: '$untitled',
-      position: 'absolute',
-      top: '$1',
-      zIndex: '$1',
-      right: '$1',
+  <Box
+    appearance="none"
+    border="0"
+    bg="transparent"
+    as="button"
+    type="button"
+    fontSize="$1"
+    p="3px 5px"
+    fontFamily="$untitled"
+    position="absolute"
+    top="$1"
+    zIndex="$1"
+    right="$1"
+    _hover={{
+      bg: '$gray50'
     }}
     {...props}
   />
 );
 
-export function CodeBlock({ className, live, manual, render, children, ...props }) {
+export function CodeBlock({className, live, manual, render, children, ...props}) {
   const [editorCode, setEditorCode] = useState(children.trim());
 
   const language = className && className.replace(/language-/, '');
-  const { hasCopied, onCopy } = useClipboard(editorCode);
+  const {hasCopied, onCopy} = useClipboard(editorCode);
 
   const liveProviderProps = {
     theme,
     language,
     code: editorCode,
     scope: {
-      styled,
-      css,
       darkTheme: darkThemeClass,
+      Box
     },
     noInline: manual,
     ...props,
@@ -162,10 +169,8 @@ export function CodeBlock({ className, live, manual, render, children, ...props 
       <LiveProvider {...liveProviderProps}>
         <StyledLivePreview live={live} />
         <Box
-          css={{
-            position: 'relative',
-            zIndex: 1,
-          }}
+          position="relative"
+          zIndex="1"
         >
           <CodeContainer live={live}>
             <LiveEditor onChange={onChange} style={liveEditorStyle} />
@@ -173,20 +178,18 @@ export function CodeBlock({ className, live, manual, render, children, ...props 
           <CopyButton onClick={onCopy}>{hasCopied ? 'Copied' : 'Copy'}</CopyButton>
           <Text
             as="span"
-            size="1"
-            css={{
-              fontFamily: '$untitled',
-              textTransform: 'uppercase',
-              position: 'absolute',
-              width: '100%',
-              top: '$2',
-              zIndex: 0,
-              textAlign: 'center',
-              pointerEvents: 'none',
-              color: '$gray600',
-              letterSpacing: '.1em',
-              fontSize: '11px',
-            }}
+            fontSize="$1"
+            fontFamily="$untitled"
+            textTransform="uppercase"
+            position="absolute"
+            width="100%"
+            top="$2"
+            zIndex={0}
+            textAlign="center"
+            pointerEvents="none"
+            color="$gray600"
+            letterSpacing=".1em"
+            fontSize="11px"
           >
             Live example
           </Text>
@@ -201,7 +204,7 @@ export function CodeBlock({ className, live, manual, render, children, ...props 
             backgroundColor: colors.red600,
           }}
         />
-      </LiveProvider>
+      </LiveProvider >
     );
   }
 
@@ -215,10 +218,8 @@ export function CodeBlock({ className, live, manual, render, children, ...props 
 
   return (
     <Box
-      css={{
-        position: 'relative',
-        zIndex: 1,
-      }}
+      position="relative"
+      zIndex="1"
     >
       <LiveProvider disabled {...liveProviderProps}>
         <CodeContainer live={live}>

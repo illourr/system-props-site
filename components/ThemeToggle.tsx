@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton } from '@modulz/design-system';
+import { IconButton } from './IconButton';
 
 export const ThemeToggle = ({ toggleTheme }) => {
   return (
@@ -11,8 +11,18 @@ export const ThemeToggle = ({ toggleTheme }) => {
         viewBox="0 0 15 15"
         fill="none"
       >
-        <path d="M7.5 0.5V2.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M0.5 7.5H2.5" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M7.5 0.5V2.5"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M0.5 7.5H2.5"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
         <path
           d="M12.5 7.5H14.5"
           stroke="currentColor"

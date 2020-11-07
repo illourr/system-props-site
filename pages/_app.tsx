@@ -4,8 +4,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useDarkMode from 'use-dark-mode';
 import { MDXProvider } from '@mdx-js/react';
-import { Box, darkThemeClass } from '@modulz/design-system';
-import { Footer } from '../components/Footer';
 import { MDXComponents } from '../components/MDXComponents';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { DocsPage } from '../components/DocsPage';
@@ -13,6 +11,7 @@ import { useAnalytics } from '../utils/analytics';
 import { ThemeProvider } from 'styled-components';
 import { theme as baseTheme } from '../components/theme';
 import { GlobalStyles } from '../components/ThemeProvider';
+import Box from '../components/Box';
 
 const darkTheme = {
   ...baseTheme,
@@ -27,7 +26,7 @@ function App({ Component, pageProps }: AppProps) {
   const [theme, setTheme] = useState(baseTheme);
 
   const darkMode = useDarkMode(undefined, {
-    classNameDark: darkThemeClass,
+    // classNameDark: darkThemeClass,
     classNameLight: 'theme-default',
   });
 
@@ -59,7 +58,9 @@ function App({ Component, pageProps }: AppProps) {
         }
         const scrollMargin = 20;
         const distanceToScroll =
-          window.pageYOffset + anchor.getBoundingClientRect().top - scrollMargin;
+          window.pageYOffset +
+          anchor.getBoundingClientRect().top -
+          scrollMargin;
 
         window.scrollTo(0, distanceToScroll);
       }
@@ -85,8 +86,14 @@ function App({ Component, pageProps }: AppProps) {
       <MDXProvider components={MDXComponents}>
         <Head>
           <link rel="icon" href="/favicon.png" />
-          <link rel="stylesheet" href="https://develop.modulz.app/fonts/fonts.css" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <link
+            rel="stylesheet"
+            href="https://develop.modulz.app/fonts/fonts.css"
+          />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
           <style
             dangerouslySetInnerHTML={{
               __html: `
@@ -120,17 +127,10 @@ pre {
         </Head>
 
         <Box
-          css={{
-            position: 'absolute',
-            top: '$5',
-            right: '$3',
-            zIndex: '$2',
-            bp2: {
-              position: 'fixed',
-              top: '$3',
-              right: '$3',
-            },
-          }}
+          position={{ all: 'absolute', bp2: 'fixed' }}
+          top={{ all: '$5', bp2: '$3' }}
+          right="$3"
+          zIndex="$2"
         >
           <ThemeToggle toggleTheme={() => darkMode.toggle()} />
         </Box>
@@ -142,7 +142,6 @@ pre {
         ) : (
           <Component {...pageProps} />
         )}
-        {!isDocs && <Footer />}
       </MDXProvider>
     </ThemeProvider>
   );
