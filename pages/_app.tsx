@@ -25,10 +25,7 @@ function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [theme, setTheme] = useState(baseTheme);
 
-  const darkMode = useDarkMode(undefined, {
-    // classNameDark: darkThemeClass,
-    classNameLight: 'theme-default',
-  });
+  const darkMode = useDarkMode();
 
   useAnalytics();
 
@@ -72,16 +69,16 @@ function App({ Component, pageProps }: AppProps) {
   // Dark theme hack to prevent flash
   // prevents ssr flash for mismatched dark mode
   // https://brianlovin.com/overthought/adding-dark-mode-with-next-js
-  if (!mounted) {
-    return (
-      <div style={{ visibility: 'hidden' }}>
-        <Component {...pageProps} />
-      </div>
-    );
-  }
+  // if (!mounted) {
+  //   return (
+  //     <div style={{ visibility: 'hidden' }}>
+  //       <Component {...pageProps} />
+  //     </div>
+  //   );
+  // }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={baseTheme}>
       <GlobalStyles />
       <MDXProvider components={MDXComponents}>
         <Head>
@@ -94,46 +91,16 @@ function App({ Component, pageProps }: AppProps) {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `
-body {
-	margin: 0;
-	background-color: var(--colors-loContrast);
-}
-
-body, button {
-	font-family: var(--fonts-untitled);
-	-webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-svg {
-	display: block;
-}
-
-pre {
-	margin: 0;
-	font-family: var(--fonts-mono)
-}
-
-::selection {
-	background-color: var(--colors-blue600);
-	color: white;
-}
-				`,
-            }}
-          />
         </Head>
 
-        <Box
+        {/* <Box
           position={{ all: 'absolute', bp2: 'fixed' }}
           top={{ all: '$5', bp2: '$3' }}
           right="$3"
           zIndex="$2"
         >
           <ThemeToggle toggleTheme={() => darkMode.toggle()} />
-        </Box>
+          </Box> */}
 
         {isDocs ? (
           <DocsPage>

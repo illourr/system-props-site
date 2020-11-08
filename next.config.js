@@ -6,42 +6,31 @@ const withMdxEnhanced = require('next-mdx-enhanced');
 
 const withTM = require('next-transpile-modules')(['@modulz/design-system']);
 
-module.exports = withPlugins(
-  [
-    withTM,
-    withMdxEnhanced({
-      layoutPath: 'layouts',
-      defaultLayout: true,
-      remarkPlugins: [require('remark-autolink-headings'), require('remark-slug')],
-      rehypePlugins: [],
-      extendFrontMatter: {
-        process: (mdxContent, frontMatter) => {
-          return {
-            id: makeIdFromPath(frontMatter.__resourcePath),
-            wordCount: mdxContent.split(/\s+/g).length,
-            readingTime: readingTime(mdxContent),
-          };
-        },
+module.exports = withPlugins([
+  withTM,
+  withMdxEnhanced({
+    layoutPath: 'layouts',
+    defaultLayout: true,
+    remarkPlugins: [
+      require('remark-autolink-headings'),
+      require('remark-slug'),
+    ],
+    rehypePlugins: [],
+    extendFrontMatter: {
+      process: (mdxContent, frontMatter) => {
+        return {
+          id: makeIdFromPath(frontMatter.__resourcePath),
+          wordCount: mdxContent.split(/\s+/g).length,
+          readingTime: readingTime(mdxContent),
+        };
       },
-    })({
-      pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-    }),
-    withOptimizedImages,
-    withVideos,
-  ],
-  {
-    // Next.js config
-    async redirects() {
-      return [
-        {
-          source: '/docs',
-          destination: '/docs/installation',
-          permanent: true,
-        },
-      ];
     },
-  }
-);
+  })({
+    pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  }),
+  withOptimizedImages,
+  withVideos,
+]);
 
 /**
  *

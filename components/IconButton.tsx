@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from './Box';
 
-export function IconButton({isActive, children, ...props}) {
+export function IconButton({ isActive, children, ...props }) {
   return (
     <Box
       appearance="none"
@@ -12,13 +12,9 @@ export function IconButton({isActive, children, ...props}) {
       lineHeight="1"
       borderWidth="2px"
       borderStyle="solid"
-
-
-
-      borderColor={isActive ?
-        '$gray100' : 'transparent'}
+      borderColor={isActive ? '$gray100' : 'transparent'}
       bg="transparent"
-      _hover={{bg: '$gray50'}}
+      _hover={{ bg: '$gray50' }}
       _focus={{
         outline: 'none',
       }}

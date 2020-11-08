@@ -15,7 +15,9 @@ function DocsPage({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const currentPageId = router.pathname.substr(1);
-  const currentPageIndex = allDocsRoutes.findIndex((page) => page.id === currentPageId);
+  const currentPageIndex = allDocsRoutes.findIndex(
+    (page) => page.id === currentPageId
+  );
 
   const previous = allDocsRoutes[currentPageIndex - 1];
   const next = allDocsRoutes[currentPageIndex + 1];
@@ -56,7 +58,13 @@ function DocsPage({ children }: { children: React.ReactNode }) {
       >
         <Box display="flex" alignItems="center" p="$4">
           <NextLink href="/" passHref>
-            <Box as="a" textDecoration="none" color="$hiContrast" display="inline-flex">
+            <Box
+              as="a"
+              textDecoration="none"
+              color="$hiContrast"
+              display="inline-flex"
+              fontSize="35px"
+            >
               <span
                 style={{
                   position: 'absolute',
@@ -112,7 +120,13 @@ function DocsPage({ children }: { children: React.ReactNode }) {
         </Box>
       </Box>
 
-      <Box maxWidth="100%" flex="1" pt="$8" pb="$9" pl={{ all: null, bp2: '250px' }}>
+      <Box
+        maxWidth="100%"
+        flex="1"
+        pt="$8"
+        pb="$9"
+        pl={{ all: null, bp2: '250px' }}
+      >
         <Box px="$5" maxWidth="780px" mx="auto">
           {children}
         </Box>
@@ -202,13 +216,20 @@ function NavHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-type NavItemProps = { children: React.ReactNode; active?: boolean; href: string };
+type NavItemProps = {
+  children: React.ReactNode;
+  active?: boolean;
+  href: string;
+};
 
 function NavItem({ children, active, href, ...props }: NavItemProps) {
   const isExternal = href.startsWith('http');
 
   return (
-    <Box as={isExternal ? 'span' : NextLink} {...(isExternal ? {} : { href, passHref: true })}>
+    <Box
+      as={isExternal ? 'span' : NextLink}
+      {...(isExternal ? {} : { href, passHref: true })}
+    >
       <Box
         {...props}
         {...(isExternal ? { href, target: '_blank' } : {})}

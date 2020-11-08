@@ -11,15 +11,15 @@ type TitleAndMetaTagsProps = {
 };
 
 export function TitleAndMetaTags({
-  url = 'https://stitches.dev',
+  url = 'https://system-props.netlify.app',
   pathname,
-  title = 'Stitches',
-  description = 'The modern CSS-in-JS library. By Modulz',
+  title = 'System Props',
+  description = 'Theme-driven style props for rapid UI development',
   poster,
 }: TitleAndMetaTagsProps) {
   const router = useRouter();
 
-  const image = poster ? `${url}/${poster}` : `${url}/social.png`;
+  const image = poster ? `${url}/${poster}` : null;
   const path = pathname || router.pathname;
 
   return (
@@ -30,11 +30,11 @@ export function TitleAndMetaTags({
       <meta property="og:url" content={`${url}${path}`} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
+      {image && <meta property="og:image" content={image} />}
 
-      <meta name="twitter:site" content="@stitchesjs" />
+      <meta name="twitter:site" content="roginfarrer" />
       {/* <meta name="twitter:card" content="summary" /> */}
-      <meta name="twitter:card" content="summary_large_image" />
+      {/* <meta name="twitter:card" content="summary_large_image" /> */}
     </Head>
   );
 }

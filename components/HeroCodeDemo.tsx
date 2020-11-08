@@ -1,15 +1,9 @@
 import React from 'react';
-import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live';
-import {Box, theme as DStheme} from '@modulz/design-system';
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as SP from 'system-props';
 import styled from 'styled-components';
-import SPBox from './Box';
-import {theme as MyTheme} from './theme';
-import {theme} from './CodeBlock';
-
-const {colors} = MyTheme;
-
-const {...systemProps} = SP;
+import Box from './Box';
+import { theme } from './CodeBlock';
 
 const demoCode = `// Edit the code!
 const Button = (props) => {
@@ -49,7 +43,7 @@ export const liveEditorStyle: React.CSSProperties = {
 };
 
 const StyledLivePreview = (props) => (
-  <Box css={{pb: '$9'}}>
+  <Box pb="$9">
     <LivePreview {...props} />
   </Box>
 );
@@ -60,8 +54,8 @@ export function HeroCodeDemo() {
     code: demoCode,
     scope: {
       styled,
-      Box: SPBox,
-      ...systemProps,
+      Box: Box,
+      ...SP,
     },
     noInline: true,
   };
@@ -70,12 +64,11 @@ export function HeroCodeDemo() {
     <LiveProvider {...liveProviderProps}>
       <StyledLivePreview />
       <Box
+        p="$1"
+        borderRadius="$2"
+        boxShadow="0 0 0 1px $gray100"
         css={{
-          p: '$1',
-          borderRadius: '$2',
-          // bc: '$gray100',
-          boxShadow: '0 0 0 1px $gray300',
-          textarea: {outline: '0'},
+          textarea: { outline: '0' },
           ':focus-within': {
             boxShadow: '0 0 0 3px $blue500',
           },

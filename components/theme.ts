@@ -19,16 +19,28 @@ const colors: { [x: string]: string } = {
   cyan700: '#10665e',
   cyan800: '#003e39',
   cyan900: '#001715',
-  gray50: '#e8f3ff',
-  gray100: '#cfd8e3',
-  gray200: '#b5bdcc',
-  gray300: '#97a3b4',
-  gray400: '#7b899d',
-  gray500: '#626f84',
-  gray600: '#4b5768',
-  gray700: '#343e4b',
-  gray800: '#1e2530',
-  gray900: '#070c18',
+
+  gray50: '#f1f1f3',
+  gray100: '#d5d5d7',
+  gray200: '#bababe',
+  gray300: '#9f9fa6',
+  gray400: '#83838e',
+  gray500: '#696974',
+  gray600: '#52525a',
+  gray700: '#3b3b40',
+  gray800: '#232326',
+  gray900: '#0c0c0e',
+
+  // gray50: '#e8f3ff',
+  // gray100: '#cfd8e3',
+  // gray200: '#b5bdcc',
+  // gray300: '#97a3b4',
+  // gray400: '#7b899d',
+  // gray500: '#626f84',
+  // gray600: '#4b5768',
+  // gray700: '#343e4b',
+  // gray800: '#1e2530',
+  // gray900: '#070c18',
   green50: '#e2fbed',
   green100: '#c2ebd4',
   green200: '#9fddb9',
@@ -83,21 +95,24 @@ const colors: { [x: string]: string } = {
 
 Object.assign(colors, {
   modes: {
-    dark: ['blue', 'green', 'yellow', 'red', 'purple', 'orange', 'cyan'].reduce((acc, curr) => {
-      return {
-        ...acc,
-        [`${curr}50`]: colors[`${curr}900`],
-        [`${curr}100`]: colors[`${curr}800`],
-        [`${curr}200`]: colors[`${curr}700`],
-        [`${curr}300`]: colors[`${curr}600`],
-        [`${curr}400`]: colors[`${curr}500`],
-        [`${curr}500`]: colors[`${curr}400`],
-        [`${curr}600`]: colors[`${curr}300`],
-        [`${curr}700`]: colors[`${curr}200`],
-        [`${curr}800`]: colors[`${curr}100`],
-        [`${curr}900`]: colors[`${curr}50`],
-      };
-    }, {}),
+    dark: ['blue', 'green', 'yellow', 'red', 'purple', 'orange', 'cyan'].reduce(
+      (acc, curr) => {
+        return {
+          ...acc,
+          [`${curr}50`]: colors[`${curr}900`],
+          [`${curr}100`]: colors[`${curr}800`],
+          [`${curr}200`]: colors[`${curr}700`],
+          [`${curr}300`]: colors[`${curr}600`],
+          [`${curr}400`]: colors[`${curr}500`],
+          [`${curr}500`]: colors[`${curr}400`],
+          [`${curr}600`]: colors[`${curr}300`],
+          [`${curr}700`]: colors[`${curr}200`],
+          [`${curr}800`]: colors[`${curr}100`],
+          [`${curr}900`]: colors[`${curr}50`],
+        };
+      },
+      { hiContrast: colors.gray50, loContrast: colors.gray800 }
+    ),
   },
 });
 colors.text = colors.gray900;
@@ -105,7 +120,18 @@ colors.primary = colors.blue400;
 colors.hiContrast = 'var(--colors-hiContrast)';
 colors.loContrast = 'var(--colors-loContrast)';
 
-const space = ['0px', '5px', '10px', '15px', '20px', '25px', '35px', '45px', '65px', '80px'];
+const space = [
+  '0px',
+  '5px',
+  '10px',
+  '15px',
+  '20px',
+  '25px',
+  '35px',
+  '45px',
+  '65px',
+  '80px',
+];
 
 const fontSizes = [
   '0.706rem',
@@ -118,7 +144,7 @@ const fontSizes = [
   '2.0588rem',
   '3.470rem',
 ];
-Object.assign(fontSizes, { body: fontSizes[2], rootFontSize: '17px' });
+Object.assign(fontSizes, { body: fontSizes[3], rootFontSize: '17px' });
 
 export const theme = {
   colors,

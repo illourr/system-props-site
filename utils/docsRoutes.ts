@@ -10,7 +10,6 @@ export const docsRoutes = [
     label: 'Getting Started',
     pages: [
       getDocById('docs/installation'),
-      getDocById('docs/styling'),
       getDocById('docs/responsive-styles'),
     ],
   },
