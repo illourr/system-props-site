@@ -65,7 +65,7 @@ export const Footer = () => {
             </Text>
           </Box>
           <Box>
-            <Text as="h6" fontSize="$3" fontWeight="500" lineHeight="20px" >
+            <Text as="h6" fontSize="$3" fontWeight="600" lineHeight="20px" >
               Overview
             </Text>
             <ul>

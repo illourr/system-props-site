@@ -15,11 +15,20 @@ const LinkHeading = (props) => (
       color="inherit"
       css={{
         svg: { opacity: 0 },
-        ':hover svg': { opacity: 1 },
+        ':hover .link-icon': { opacity: 1 },
       }}
     >
       <span>{props.children}</span>
-      <Box verticalAlign="middle" fontSize="$2" as="span" ml="$2" color="$gray500">
+      <Box
+        className="link-icon"
+        as="span"
+        verticalAlign="middle"
+        fontSize="$2"
+        as="span"
+        ml="$2"
+        color="$gray500"
+        opacity="0"
+      >
         🔗
       </Box>
     </Box>
@@ -27,30 +36,40 @@ const LinkHeading = (props) => (
 );
 
 export const MDXComponents = {
-  h1: (props) => <Text fontSize="$6" {...props} mb="$8" fontWeight="500" as="h1" />,
+  h1: (props) => (
+    <Text fontSize="$6" {...props} mb="$8" fontWeight="600" as="h1" />
+  ),
   h2: (props) => (
-    <Text fontSize="$6" {...props} mt="$2" mb="$6" color="$gray600" lineHeight="30px" as="h2" />
+    <Text
+      fontSize="$6"
+      {...props}
+      mt="$2"
+      mb="$6"
+      color="$gray600"
+      lineHeight="30px"
+      as="h2"
+      fontWeight="normal"
+    />
   ),
   h3: (props) => (
     <LinkHeading
-      fontSize="$6"
+      fontSize="$5"
       {...props}
       mt="$7"
       mb="$1"
       lineHeight="35px"
-      fontWeight="500"
+      fontWeight="600"
       as="h3"
     />
   ),
   h4: (props) => (
     <LinkHeading
       fontSize="$5"
-      letterSpacing="-0.025em"
       {...props}
       mt="$7"
       mb="$1"
       lineHeight="25px"
-      fontWeight="500"
+      fontWeight="600"
       as="h3"
     />
   ),
@@ -60,7 +79,7 @@ export const MDXComponents = {
     </Box>
   ),
   p: (props) => (
-    <Text fontSize="$3" {...props} mb="$3" lineHeight="30px" letterSpacing="0" as="p" />
+    <Text fontSize="$3" {...props} mb="$3" lineHeight="30px" as="p" />
   ),
   a: ({ href = '', ...props }) => {
     if (href.startsWith('/')) {
@@ -99,10 +118,12 @@ export const MDXComponents = {
   ol: (props) => <Box {...props} color="$hiContrast" mb="$3" as="ol" />,
   li: (props) => (
     <li>
-      <Text fontSize="$3" {...props} lineHeight="30px" letterSpacing="0" />
+      <Text fontSize="$3" {...props} lineHeight="30px" />
     </li>
   ),
-  strong: (props) => <Text {...props} as="strong" fontSize="inherit" fontWeight="500" />,
+  strong: (props) => (
+    <Text {...props} as="strong" fontSize="inherit" fontWeight="600" />
+  ),
   img: ({ ...props }) => (
     <Box my="$6">
       <Box as="img" {...props} maxWidth="100%" verticalAlign="middle" />

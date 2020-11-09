@@ -14,7 +14,7 @@ export default (frontMatter: FrontMatter) => {
           poster={frontMatter.poster}
         />
 
-        <Text as="h1" fontSize="$7" fontWeight="500" mb="$2" lineHeight="40px">
+        <Text as="h1" fontSize="$7" mb="$2" lineHeight="40px">
           {frontMatter.title}
         </Text>
 

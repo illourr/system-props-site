@@ -151,8 +151,9 @@ export const theme = {
   space,
   fontSizes,
   fonts: {
-    base: 'Untitled Sans, apple-system, BlinkMacSystemFont, sans-serif',
-    mono: 'Söhne Mono, menlo, monospace',
+    base:
+      "'IBM Plex Sans', system-ui, apple-system, BlinkMacSystemFont, sans-serif",
+    mono: "'IBM Plex Mono', menlo, monospace",
   },
   radii: {
     small: '2px',

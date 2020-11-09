@@ -210,7 +210,7 @@ export { DocsPage };
 
 function NavHeading({ children }: { children: React.ReactNode }) {
   return (
-    <Text as="h4" fontSize="$2" fontWeight="500" p="$2 $5">
+    <Text as="h4" fontSize="$2" fontWeight="600" p="$2 $5">
       {children}
     </Text>
   );

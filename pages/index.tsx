@@ -1,25 +1,16 @@
 import NextLink from 'next/link';
-import {
-  Box,
-  Flex,
-  Container,
-  Divider,
-  Grid,
-  Text,
-  Code,
-} from '@modulz/design-system';
 import { HeroCodeDemo } from '../components/HeroCodeDemo';
 import { TitleAndMetaTags } from '../components/TitleAndMetaTags';
-import MyBox from '../components/Box';
-import { Text as MyText } from '../components/Text';
+import Box from '../components/Box';
+import { Text } from '../components/Text';
 
 export default function Home() {
   return (
-    <Box>
+    <div>
       <TitleAndMetaTags title="Stitches" />
-      <MyBox as="header" p="$4" mb="$7">
+      <Box as="header" p="$4" mb="$7">
         <NextLink href="/" passHref>
-          <MyBox
+          <Box
             as="a"
             color="$hiContrast"
             display="inline-flex"
@@ -43,47 +34,51 @@ export default function Home() {
               System props homepage
             </span>
             📦
-          </MyBox>
+          </Box>
         </NextLink>
-      </MyBox>
+      </Box>
 
-      <MyBox maxWidth="$3" m="0 auto $4" textAlign="center">
-        <MyText
+      <Box px="$4" maxWidth="$3" m="0 auto $4" textAlign="center">
+        <Text
           fontSize={{ all: '$6', bp2: '$8' }}
-          fontWeight="500"
+          fontWeight="600"
           lineHeight={{ all: '35px', bp2: '55px' }}
-          letterSpacing={{ all: null, bp2: '-.055em' }}
         >
-          The modern styling library
-        </MyText>
-      </MyBox>
+          Theme-driven style props
+        </Text>
+      </Box>
 
-      <MyBox maxWidth="$2" mx="auto" textAlign="center">
-        <MyText
+      <Box px="$4" maxWidth="$2" mx="auto" textAlign="center">
+        <Text
           as="h2"
-          fontSize="$3"
+          fontSize="$4"
           color="$gray500"
           textAlign="center"
           lineHeight={{ _: '25px', bp2: '30px' }}
           fontWeight="normal"
         >
-          Near-zero runtime, server-side rendering, multi-variant support, and a
-          best-in-class developer experience.
-        </MyText>
-      </MyBox>
+          Quickly build custom UI components with theme-driven style props based
+          on scales defined in your theme.
+        </Text>
+      </Box>
 
-      <MyBox py="$8">
-        <MyBox mx="auto" maxWidth="3">
-          <HeroCodeDemo />
-        </MyBox>
-      </MyBox>
+      <Box p="$8 $4" mx="auto" maxWidth="3">
+        <HeroCodeDemo />
+      </Box>
 
-      <Flex css={{ justifyContent: 'center', mb: '$9' }}>
-        <Divider size="large" css={{ flexShrink: 0, width: '45px' }} />
-      </Flex>
+      <Box display="flex" justifyContent="center" mb="$9">
+        <Box
+          border="0"
+          m="0"
+          height="1px"
+          bg="$gray100"
+          flexShrink="0"
+          width="45px"
+        />
+      </Box>
 
-      <Container size="2">
-        <MyBox
+      <Box px="$4" maxWidth="$2" mx="auto">
+        <Box
           border="1px solid $gray100"
           borderRadius="medium"
           fontFamily="mono"
@@ -93,233 +88,103 @@ export default function Home() {
           fontSize="$1"
         >
           npm install{' '}
-          <MyBox as="span" color="$hiContrast">
+          <Box as="span" color="$hiContrast">
             system-props
-          </MyBox>
-        </MyBox>
-      </Container>
+          </Box>
+        </Box>
+      </Box>
 
-      <Flex css={{ justifyContent: 'center', my: '$9' }}>
-        <Divider size="large" css={{ flexShrink: 0, width: '45px' }} />
-      </Flex>
+      <Box px="$4" display="flex" justifyContent="center" my="$9">
+        <Box
+          border="0"
+          m="0"
+          height="1px"
+          bg="$gray100"
+          flexShrink="0"
+          width="45px"
+        />
+      </Box>
 
-      <Container size="2" css={{ textAlign: 'center' }}>
+      <Box px="$4" maxWidth="$2" textAlign="center" mx="auto">
         <Text
           as="h2"
-          size={{ initial: '6', bp2: '7' }}
-          css={{ mb: '$4', fontWeight: 500 }}
+          fontSize={{ all: '$5', bp2: '$6' }}
+          mb="$4"
+          fontWeight="600"
         >
           Features
         </Text>
         <Text
           as="h3"
-          size={{ initial: '5', bp2: '6' }}
-          css={{ color: '$gray600', mb: '$4' }}
+          fontSize={{ all: '$4', bp2: '$5' }}
+          color="$gray400"
+          mb="$4"
+          fontWeight="normal"
         >
           A fully-featured styling library.
         </Text>
-      </Container>
+      </Box>
 
-      <Container size={{ initial: '2', bp2: '3' }} css={{ my: '$8' }}>
-        <Grid
-          css={{
-            gap: '$6',
-            gridTemplateColumns: '1fr',
-            bp2: {
-              gap: '$7',
-              gridTemplateColumns: '1fr 1fr',
-            },
-          }}
+      <Box px="$4" maxWidth={{ all: '$2', bp2: '$3' }} m="$8 auto">
+        <Box
+          display="grid"
+          gap={{ all: '$6', bp2: '$7' }}
+          gridTemplateColumns={{ all: '1fr', bp2: '1fr 1fr' }}
         >
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Performant
-            </Text>
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Stitches avoids unnecessary prop interpolations at runtime, making
-              it significantly more performant than other styling libraries.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Lightweight
-            </Text>
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Both <Code>@stitches/core</Code> and <Code>@stitches/react</Code>{' '}
-              libraries combined weigh in at ~8.0kb gzipped.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Server-Side Rendering
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Stitches supports cross-browser server-side rendering, even for
-              responsive styles and variants.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Variants
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Variants are a first-class citizen of Stitches, so you can design
-              composable component APIs which are typed automatically.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Theming
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Define multiple themes with CSS variables, then expose them to any
-              part of your app.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Developer experience
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              With a fully-typed API, token-aware properties, and custom utils,
-              Stitches provides a fun and intuitive DX.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Critical Path CSS
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Stitches only injects the styles which are actually used, so your
-              users don't download unnecessary CSS.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Specificity
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              No more specificity issues due to the atomic output. Even extended
-              components (via the <Code>as</Code> prop) won't contain duplicate
-              CSS properties.
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Polymorphic <Code>as</Code> prop
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Included in Components returned from the styled function
-            </Text>
-          </Box>
-
-          <Box>
-            <Text
-              size="5"
-              as="h4"
-              css={{ lineHeight: 1, fontWeight: 500, mb: '$2' }}
-            >
-              Easy overrides
-            </Text>
-
-            <Text
-              as="p"
-              size={{ initial: '4', bp2: '4' }}
-              css={{ lineHeight: '30px', color: '$gray600' }}
-            >
-              Stitches provides a <Code>css</Code> prop, which allows style
-              overrides to be applied in the consumption layer.
-            </Text>
-          </Box>
-        </Grid>
-      </Container>
-    </Box>
+          {valueProps.map(({ title, description }) => (
+            <div>
+              <Text
+                fontSize="$5"
+                as="h4"
+                lineHeight="1"
+                fontWeight="600"
+                mb="$2"
+              >
+                {title}
+              </Text>
+              <Text as="p" fontSize="$3" lineHeight="30px" color="$gray500">
+                {description}
+              </Text>
+            </div>
+          ))}
+        </Box>
+      </Box>
+    </div>
   );
 }
+
+const valueProps = [
+  {
+    title: 'Theme-driven style props',
+    description:
+      'Rapidly develop consistent UI components with style props on your components.',
+  },
+  {
+    title: 'Intuitive and efficient theming',
+    description:
+      'Quickly set font-size, margin, padding, color and more from scales defined in your theme.',
+  },
+  {
+    title: 'Styled System compatible',
+    description: 'Similar API to Styled System makes it easy to switch.',
+  },
+  {
+    title: 'Pseudo-selector props',
+    description: 'Style your components at common CSS pseudo selectors.',
+  },
+  {
+    title: 'Your CSS-in-JS library',
+    description:
+      'Compatible with most CSS-in-JS libraries, including Styled Components and Emotion',
+  },
+  {
+    title: 'Perfect for design systems',
+    description:
+      'Primitive building blocks for component-based design systems.',
+  },
+  {
+    title: 'Developer experience',
+    description:
+      'Written in TypeScript, token-aware properties, and expandable API',
+  },
+];

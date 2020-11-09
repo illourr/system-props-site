@@ -5,13 +5,12 @@ import { useRouter } from 'next/router';
 import useDarkMode from 'use-dark-mode';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXComponents } from '../components/MDXComponents';
-import { ThemeToggle } from '../components/ThemeToggle';
+// import { ThemeToggle } from '../components/ThemeToggle';
 import { DocsPage } from '../components/DocsPage';
-import { useAnalytics } from '../utils/analytics';
+// import { useAnalytics } from '../utils/analytics';
 import { ThemeProvider } from 'styled-components';
 import { theme as baseTheme } from '../components/theme';
 import { GlobalStyles } from '../components/ThemeProvider';
-import Box from '../components/Box';
 
 const darkTheme = {
   ...baseTheme,
@@ -27,7 +26,7 @@ function App({ Component, pageProps }: AppProps) {
 
   const darkMode = useDarkMode();
 
-  useAnalytics();
+  // useAnalytics();
 
   const [mounted, setMounted] = React.useState(false);
 
@@ -82,14 +81,17 @@ function App({ Component, pageProps }: AppProps) {
       <GlobalStyles />
       <MDXProvider components={MDXComponents}>
         <Head>
-          <link rel="icon" href="/favicon.png" />
           <link
-            rel="stylesheet"
-            href="https://develop.modulz.app/fonts/fonts.css"
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📦</text></svg>"
           />
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap"
+            rel="stylesheet"
           />
         </Head>
 

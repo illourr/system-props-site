@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 
 type TitleAndMetaTagsProps = {
   url?: string;
+
   pathname?: string;
   title?: string;
   description?: string;

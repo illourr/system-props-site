@@ -13,7 +13,7 @@ const Button = (props) => {
       borderRadius="pill"
       color="white"
       fontSize="$body"
-      fontWeight="500"
+      fontWeight="600"
       p="$2 $3"
       textDecoration="none"
       transition="all 200ms ease"

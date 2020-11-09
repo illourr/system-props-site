@@ -1,12 +1,12 @@
-import {darkThemeClass} from '@modulz/design-system';
-import React, {useState} from 'react';
-import {LiveEditor, LiveError, LivePreview, LiveProvider} from 'react-live';
-import {useClipboard} from '../utils/useClipboard';
-import {theme as appTheme} from './theme';
+import { darkThemeClass } from '@modulz/design-system';
+import React, { useState } from 'react';
+import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
+import { useClipboard } from '../utils/useClipboard';
+import { theme as appTheme } from './theme';
 import Box from './Box';
-import {Text} from './Text'
+import { Text } from './Text';
 
-const {colors} = appTheme;
+const { colors } = appTheme;
 
 export const theme: any = {
   plain: {
@@ -36,7 +36,7 @@ export const theme: any = {
     {
       types: ['punctuation', 'operator'],
       style: {
-        color: colors.gray300,
+        color: colors.gray500,
       },
     },
     {
@@ -65,7 +65,7 @@ export const theme: any = {
     {
       types: ['function', 'deleted', 'tag'],
       style: {
-        color: colors.yellow600,
+        color: colors.yellow700,
       },
     },
     {
@@ -90,31 +90,37 @@ export const liveEditorStyle: React.CSSProperties = {
   lineHeight: 1.5,
 };
 
-const StyledLivePreview = ({live, ...props}: {live?: boolean}) => (
+const StyledLivePreview = ({ live, ...props }: { live?: boolean }) => (
   <Box
     p="$3"
     boxShadow="0 0 0 1px $gray50"
-    borderTopLeftRadius="$2"
-    borderTopRightRadius="$2"
-    borderBottomLeftRadius={live ? '0' : '$2'}
-    borderBottomRightRadius={live ? '0' : $2}
+    borderTopLeftRadius="large"
+    borderTopRightRadius="large"
+    borderBottomLeftRadius={live ? '0' : 'large'}
+    borderBottomRightRadius={live ? '0' : 'large'}
     fontFamily="$base"
   >
     <LivePreview {...props} />
   </Box>
 );
 
-const CodeContainer = ({live, children}: {live?: boolean; children: React.ReactNode}) => (
+const CodeContainer = ({
+  live,
+  children,
+}: {
+  live?: boolean;
+  children: React.ReactNode;
+}) => (
   <Box
     p="$1"
-    borderTopLeftRadius={live ? '0' : '$2'}
-    borderTopRightRadius={live ? '0' : '$2'}
-    borderBottomLeftRadius="$2"
-    borderBottomRightRadius="$2"
+    borderTopLeftRadius={live ? '0' : 'large'}
+    borderTopRightRadius={live ? '0' : 'large'}
+    borderBottomLeftRadius="large"
+    borderBottomRightRadius="large"
     marginTop="1px"
     boxShadow="0 0 0 1px $gray50"
     css={{
-      textarea: {outline: 0},
+      textarea: { outline: 0 },
       'textarea::selection': {
         backgroundColor: 'hsla(208, 10%, 65%,1)',
       },
@@ -138,17 +144,25 @@ const CopyButton = (props: any) => (
     zIndex="$1"
     right="$1"
     _hover={{
-      bg: '$gray50'
+      bg: '$gray50',
     }}
+    transition="background-color .15s linear"
     {...props}
   />
 );
 
-export function CodeBlock({className, live, manual, render, children, ...props}) {
+export function CodeBlock({
+  className,
+  live,
+  manual,
+  render,
+  children,
+  ...props
+}) {
   const [editorCode, setEditorCode] = useState(children.trim());
 
   const language = className && className.replace(/language-/, '');
-  const {hasCopied, onCopy} = useClipboard(editorCode);
+  const { hasCopied, onCopy } = useClipboard(editorCode);
 
   const liveProviderProps = {
     theme,
@@ -156,7 +170,7 @@ export function CodeBlock({className, live, manual, render, children, ...props})
     code: editorCode,
     scope: {
       darkTheme: darkThemeClass,
-      Box
+      Box,
     },
     noInline: manual,
     ...props,
@@ -168,14 +182,13 @@ export function CodeBlock({className, live, manual, render, children, ...props})
     return (
       <LiveProvider {...liveProviderProps}>
         <StyledLivePreview live={live} />
-        <Box
-          position="relative"
-          zIndex="1"
-        >
+        <Box position="relative" zIndex="1">
           <CodeContainer live={live}>
             <LiveEditor onChange={onChange} style={liveEditorStyle} />
           </CodeContainer>
-          <CopyButton onClick={onCopy}>{hasCopied ? 'Copied' : 'Copy'}</CopyButton>
+          <CopyButton onClick={onCopy}>
+            {hasCopied ? 'Copied' : 'Copy'}
+          </CopyButton>
           <Text
             as="span"
             fontSize="$1"
@@ -204,7 +217,7 @@ export function CodeBlock({className, live, manual, render, children, ...props})
             backgroundColor: colors.red600,
           }}
         />
-      </LiveProvider >
+      </LiveProvider>
     );
   }
 
@@ -217,15 +230,14 @@ export function CodeBlock({className, live, manual, render, children, ...props})
   }
 
   return (
-    <Box
-      position="relative"
-      zIndex="1"
-    >
+    <Box position="relative" zIndex="1">
       <LiveProvider disabled {...liveProviderProps}>
         <CodeContainer live={live}>
           <LiveEditor style={liveEditorStyle} />
         </CodeContainer>
-        <CopyButton onClick={onCopy}>{hasCopied ? 'Copied' : 'Copy'}</CopyButton>
+        <CopyButton onClick={onCopy}>
+          {hasCopied ? 'Copied' : 'Copy'}
+        </CopyButton>
       </LiveProvider>
     </Box>
   );
