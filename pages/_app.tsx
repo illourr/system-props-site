@@ -5,12 +5,13 @@ import { useRouter } from 'next/router';
 import useDarkMode from 'use-dark-mode';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXComponents } from '../components/MDXComponents';
-// import { ThemeToggle } from '../components/ThemeToggle';
+import { ThemeToggle } from '../components/ThemeToggle';
 import { DocsPage } from '../components/DocsPage';
 // import { useAnalytics } from '../utils/analytics';
 import { ThemeProvider } from 'styled-components';
 import { theme as baseTheme } from '../components/theme';
 import { GlobalStyles } from '../components/ThemeProvider';
+import Box from '../components/Box';
 
 const darkTheme = {
   ...baseTheme,
@@ -77,7 +78,7 @@ function App({ Component, pageProps }: AppProps) {
   // }
 
   return (
-    <ThemeProvider theme={baseTheme}>
+    <ThemeProvider theme={theme}>
       <GlobalStyles />
       <MDXProvider components={MDXComponents}>
         <Head>
@@ -95,14 +96,14 @@ function App({ Component, pageProps }: AppProps) {
           />
         </Head>
 
-        {/* <Box
+        <Box
           position={{ all: 'absolute', bp2: 'fixed' }}
-          top={{ all: '$5', bp2: '$3' }}
+          top={{ all: '30px', bp2: '$3' }}
           right="$3"
           zIndex="$2"
         >
           <ThemeToggle toggleTheme={() => darkMode.toggle()} />
-          </Box> */}
+        </Box>
 
         {isDocs ? (
           <DocsPage>

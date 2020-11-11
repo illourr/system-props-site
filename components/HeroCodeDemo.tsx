@@ -3,7 +3,7 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as SP from 'system-props';
 import styled from 'styled-components';
 import Box from './Box';
-import { theme } from './CodeBlock';
+import { useCodeBlockTheme } from './CodeBlock';
 
 const demoCode = `// Edit the code!
 const Button = (props) => {
@@ -49,8 +49,9 @@ const StyledLivePreview = (props) => (
 );
 
 export function HeroCodeDemo() {
+  const codeblockTheme = useCodeBlockTheme();
   const liveProviderProps = {
-    theme: theme as any,
+    theme: codeblockTheme as any,
     code: demoCode,
     scope: {
       styled,

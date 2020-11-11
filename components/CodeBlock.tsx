@@ -1,86 +1,88 @@
 import { darkThemeClass } from '@modulz/design-system';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useClipboard } from '../utils/useClipboard';
 import { theme as appTheme } from './theme';
 import Box from './Box';
 import { Text } from './Text';
+import { ThemeContext } from 'styled-components';
 
-const { colors } = appTheme;
-
-export const theme: any = {
-  plain: {
-    color: 'var(--colors-hiContrast)',
-    backgroundColor: 'var(--colors-loContrast)',
-  },
-  styles: [
-    {
-      types: ['comment', 'prolog', 'doctype', 'cdata'],
-      style: {
-        color: colors.gray300,
-        fontStyle: 'italic',
-      },
+export const useCodeBlockTheme = () => {
+  const { colors } = useContext(ThemeContext);
+  return {
+    plain: {
+      color: colors.hiContrast,
+      backgroundColor: colors.loContrast,
     },
-    {
-      types: ['namespace'],
-      style: {
-        opacity: 0.7,
+    styles: [
+      {
+        types: ['comment', 'prolog', 'doctype', 'cdata'],
+        style: {
+          color: colors.gray500,
+          fontStyle: 'italic',
+        },
       },
-    },
-    {
-      types: ['string', 'attr-value'],
-      style: {
-        color: colors.purple400,
+      {
+        types: ['namespace'],
+        style: {
+          opacity: 0.7,
+        },
       },
-    },
-    {
-      types: ['punctuation', 'operator'],
-      style: {
-        color: colors.gray500,
+      {
+        types: ['string', 'attr-value'],
+        style: {
+          color: colors.purple600,
+        },
       },
-    },
-    {
-      types: [
-        'entity',
-        'url',
-        'symbol',
-        'number',
-        'boolean',
-        'variable',
-        'constant',
-        'property',
-        'regex',
-        'inserted',
-      ],
-      style: {
-        color: colors.red600,
+      {
+        types: ['punctuation', 'operator'],
+        style: {
+          color: colors.gray500,
+        },
       },
-    },
-    {
-      types: ['atrule', 'keyword', 'attr-name', 'selector'],
-      style: {
-        color: colors.blue500,
+      {
+        types: [
+          'entity',
+          'url',
+          'symbol',
+          'number',
+          'boolean',
+          'variable',
+          'constant',
+          'property',
+          'regex',
+          'inserted',
+        ],
+        style: {
+          color: colors.red600,
+        },
       },
-    },
-    {
-      types: ['function', 'deleted', 'tag'],
-      style: {
-        color: colors.yellow700,
+      {
+        types: ['atrule', 'keyword', 'attr-name', 'selector'],
+        style: {
+          color: colors.blue500,
+        },
       },
-    },
-    {
-      types: ['function-variable'],
-      style: {
-        color: colors.green600,
+      {
+        types: ['function', 'deleted', 'tag'],
+        style: {
+          color: colors.yellow700,
+        },
       },
-    },
-    {
-      types: ['tag', 'selector', 'keyword'],
-      style: {
-        color: colors.blue500,
+      {
+        types: ['function-variable'],
+        style: {
+          color: colors.green600,
+        },
       },
-    },
-  ],
+      {
+        types: ['tag', 'selector', 'keyword'],
+        style: {
+          color: colors.blue500,
+        },
+      },
+    ],
+  };
 };
 
 export const liveEditorStyle: React.CSSProperties = {
@@ -93,7 +95,7 @@ export const liveEditorStyle: React.CSSProperties = {
 const StyledLivePreview = ({ live, ...props }: { live?: boolean }) => (
   <Box
     p="$3"
-    boxShadow="0 0 0 1px $gray50"
+    boxShadow="0 0 0 1px $gray100"
     borderTopLeftRadius="large"
     borderTopRightRadius="large"
     borderBottomLeftRadius={live ? '0' : 'large'}
@@ -118,7 +120,7 @@ const CodeContainer = ({
     borderBottomLeftRadius="large"
     borderBottomRightRadius="large"
     marginTop="1px"
-    boxShadow="0 0 0 1px $gray50"
+    boxShadow="0 0 0 1px $gray100"
     css={{
       textarea: { outline: 0 },
       'textarea::selection': {
@@ -163,9 +165,11 @@ export function CodeBlock({
 
   const language = className && className.replace(/language-/, '');
   const { hasCopied, onCopy } = useClipboard(editorCode);
+  const codeblockTheme = useCodeBlockTheme();
+  const theme = useContext(ThemeContext);
 
   const liveProviderProps = {
-    theme,
+    theme: codeblockTheme,
     language,
     code: editorCode,
     scope: {
@@ -209,12 +213,12 @@ export function CodeBlock({
         </Box>
         <LiveError
           style={{
-            fontFamily: appTheme.fonts.base,
-            fontSize: appTheme.fontSizes[3],
-            padding: appTheme.space[2],
+            fontFamily: theme.fonts.base,
+            fontSize: theme.fontSizes[3],
+            padding: theme.space[2],
             overflowX: 'auto',
             color: 'white',
-            backgroundColor: colors.red600,
+            backgroundColor: theme.colors.red600,
           }}
         />
       </LiveProvider>

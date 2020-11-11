@@ -85,14 +85,14 @@ export const MDXComponents = {
     if (href.startsWith('/')) {
       return (
         <NextLink href={href} passHref>
-          <Box as="a" color="$blue600" fontSize="inherit" {...props} />
+          <Box as="a" color="$blue500" fontSize="inherit" {...props} />
         </NextLink>
       );
     }
     return (
       <Box
         as="a"
-        color="$blue600"
+        color="$blue500"
         href={href}
         fontSize="inherit"
         {...props}

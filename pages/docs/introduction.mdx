@@ -3,4 +3,62 @@ title: Introduction
 description: The what and the why of System Props.
 ---
 
-System Props is a collection of utility functions that add style props to your React components and allows you to control styles based on a global theme object with typographic scales, colors, and layout properties.
+System Props let's you add props to your components that can alter that components' styles. Save time by styling components via props. System Props is **great** for design systems.
+
+This package has two main components: `createSystem`, which defines how your System Props work, and a collection of system prop groups, such as `space`, `color`, and `layout` to make it really easy to get started. As a component library maintainer, you can decide when and if each prop group is appropriate for you system.
+
+### Theming
+
+Most system props are paired with a scale in your theme. For example, you can reference any key in your `colors` object, and System Props will yield that value. If you run into a case where you need to access the theme outside of this pairing, every system prop can be passed a function that's called with your theme.
+
+```jsx
+const theme = {
+  colors: {
+    red: {
+      10: '#ff0'
+    }
+  }
+}
+
+<Box color="red.10" />
+<Box color={theme => theme.colors.red[10]} />
+
+// Both yield the same styles
+// .hash { color: #ff0 }
+```
+
+If System Props can't find a value in your theme, the value will pass through. If you'd like to block non-theme values from working, you can set the `strict` option in `createStystem` to false.
+
+### Custom Props
+
+System Props can be extended for other CSS properties that aren't included in the library or replaced to work the way you want them to. You can create your own props for setting multiple CSS properties simultaneously or create alias shorthands for commonly used props.
+
+```jsx
+import { createSystem, space, color } from 'system-props';
+
+const system = createSystem();
+
+const Box = styled.div(
+  system({
+    ...color,
+    ...space,
+    // Create your own shorthand
+    bgColor: color.backgroundColor,
+    transform: true,
+    h: {
+      property: 'height',
+      scale: 'sizes',
+    },
+    w: {
+      property: 'width',
+      scale: 'sizes',
+    },
+  })
+);
+```
+
+### Responsive
+
+### Developer Experience
+
+System Props are an efficient way to create style and layout components on the fly. No need for a separate CSS file or a new styled component! With shorthand support, TypeScript support, and approachable methods of using theme and responsive breakpoints, System Props make simple styling tasks trivial.

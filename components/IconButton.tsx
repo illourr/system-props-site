@@ -14,9 +14,13 @@ export function IconButton({ isActive, children, ...props }) {
       borderStyle="solid"
       borderColor={isActive ? '$gray100' : 'transparent'}
       bg="transparent"
-      _hover={{ bg: '$gray50' }}
+      color="$hiContrast"
+      _hover={{ bg: '$gray100' }}
       _focus={{
         outline: 'none',
+      }}
+      _active={{
+        borderColor: '$gray100',
       }}
       p="0"
       display="flex"

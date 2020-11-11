@@ -16,7 +16,7 @@ export default function Home() {
             display="inline-flex"
             _focus={{ boxShadow: 'none' }}
             textDecoration="none"
-            fontSize="35px"
+            fontSize="33px"
           >
             <span
               style={{

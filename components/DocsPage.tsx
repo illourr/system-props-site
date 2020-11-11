@@ -23,7 +23,7 @@ function DocsPage({ children }: { children: React.ReactNode }) {
   const next = allDocsRoutes[currentPageIndex + 1];
 
   const GITHUB_URL = 'https://github.com';
-  const REPO_NAME = 'roginfarrer/system-props';
+  const REPO_NAME = 'roginfarrer/system-props-site';
   const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/main/pages${router.pathname}.mdx`;
 
   React.useEffect(() => {
@@ -45,8 +45,8 @@ function DocsPage({ children }: { children: React.ReactNode }) {
       <Box
         width={{ all: '100%', bp2: '250px' }}
         maxHeight="auto"
-        borderBottom={{ all: '2px solid $gray50', bp2: '0' }}
-        borderRight={{ all: null, bp2: '2px solid $gray50' }}
+        borderBottom={{ all: '2px solid $gray100', bp2: '0' }}
+        borderRight={{ all: null, bp2: '2px solid $gray100' }}
         overflowX="hidden"
         position={{ all: null, bp2: 'fixed' }}
         top={{ all: null, bp2: 0 }}
@@ -63,7 +63,7 @@ function DocsPage({ children }: { children: React.ReactNode }) {
               textDecoration="none"
               color="$hiContrast"
               display="inline-flex"
-              fontSize="35px"
+              fontSize="33px"
             >
               <span
                 style={{
@@ -145,7 +145,7 @@ function DocsPage({ children }: { children: React.ReactNode }) {
                     <Box
                       as="a"
                       aria-label={`Previous page: ${previous.title}`}
-                      color="$blue600"
+                      color="$blue500"
                       textDecoration="none"
                       alignItems="center"
                     >
@@ -167,7 +167,7 @@ function DocsPage({ children }: { children: React.ReactNode }) {
                     <Box
                       as="a"
                       aria-label={`Previous page: ${next.title}`}
-                      color="$blue600"
+                      color="$blue500"
                       textDecoration="none"
                       textAlign="right"
                     >

@@ -1,14 +1,36 @@
 const colors: { [x: string]: string } = {
-  blue50: '#e0f4ff',
-  blue100: '#b8dcfa',
-  blue200: '#8ec4f1',
-  blue300: '#63ace8',
-  blue400: '#3994e0',
-  blue500: '#1f7bc6',
-  blue600: '#135f9b',
-  blue700: '#084470',
-  blue800: '#002946',
-  blue900: '#000f1d',
+  blue50: '#def0ff',
+  blue100: '#afcfff',
+  blue200: '#7dafff',
+  blue300: '#4b8eff',
+  blue400: '#1a6eff',
+  blue500: '#0055e6',
+  blue600: '#0042b4',
+  blue700: '#002f82',
+  blue800: '#001c51',
+  blue900: '#000921',
+
+  // blue50: '#d0e2fb',
+  // blue100: '#afcfff',
+  // blue200: '#7dafff',
+  // blue300: '#4b8eff',
+  // blue400: '#1a6eff',
+  // blue500: '#0055e6',
+  // blue600: '#0042b4',
+  // blue700: '#002f82',
+  // blue800: '#001c51',
+  // blue900: '#000921',
+
+  // blue50: '#e0f4ff',
+  // blue100: '#b8dcfa',
+  // blue200: '#8ec4f1',
+  // blue300: '#63ace8',
+  // blue400: '#3994e0',
+  // blue500: '#1f7bc6',
+  // blue600: '#135f9b',
+  // blue700: '#084470',
+  // blue800: '#002946',
+  // blue900: '#000f1d',
   cyan50: '#defdf9',
   cyan100: '#bbf1ec',
   cyan200: '#96e6de',
@@ -20,16 +42,37 @@ const colors: { [x: string]: string } = {
   cyan800: '#003e39',
   cyan900: '#001715',
 
-  gray50: '#f1f1f3',
-  gray100: '#d5d5d7',
-  gray200: '#bababe',
-  gray300: '#9f9fa6',
-  gray400: '#83838e',
-  gray500: '#696974',
-  gray600: '#52525a',
-  gray700: '#3b3b40',
-  gray800: '#232326',
-  gray900: '#0c0c0e',
+  // gray50: '#f1f1f3',
+  // gray100: '#d5d5d7',
+  // gray200: '#bababe',
+  // gray300: '#9f9fa6',
+  // gray400: '#83838e',
+  // gray500: '#696974',
+  // gray600: '#52525a',
+  // gray700: '#3b3b40',
+  // gray800: '#232326',
+  // gray900: '#0c0c0e',
+
+  gray50: '#e8e9ea',
+  gray100: '#dadbdc',
+  gray200: '#bcbebf',
+  gray300: '#a0a2a3',
+  gray400: '#858687',
+  gray500: '#6a6c6d',
+  gray600: '#515353',
+  gray700: '#393a3b',
+  gray800: '#232425',
+  gray900: '#0b0d0e',
+  // gray50: '#f1f1f3',
+  // gray100: '#d5d5d7',
+  // gray200: '#bababe',
+  // gray300: '#9f9fa6',
+  // gray400: '#83838e',
+  // gray500: '#696974',
+  // gray600: '#52525a',
+  // gray700: '#3b3b40',
+  // gray800: '#232326',
+  // gray900: '#0c0c0e',
 
   // gray50: '#e8f3ff',
   // gray100: '#cfd8e3',
@@ -51,16 +94,28 @@ const colors: { [x: string]: string } = {
   green700: '#1f5d3a',
   green800: '#0f3921',
   green900: '#001506',
-  purple50: '#f0eaff',
-  purple100: '#d1c1f4',
-  purple200: '#b199e7',
-  purple300: '#9171dc',
-  purple400: '#7248d0',
-  purple500: '#592fb7',
-  purple600: '#45248f',
-  purple700: '#311968',
-  purple800: '#1e0f40',
-  purple900: '#0c031b',
+
+  purple50: '#ece7ff',
+  purple100: '#c6b9fb',
+  purple200: '#a08cf4',
+  purple300: '#7a5dee',
+  purple400: '#542fe8',
+  purple500: '#3c17cf',
+  purple600: '#2e11a2',
+  purple700: '#200b74',
+  purple800: '#130647',
+  purple900: '#08011d',
+
+  // purple50: '#f0eaff',
+  // purple100: '#d1c1f4',
+  // purple200: '#b199e7',
+  // purple300: '#9171dc',
+  // purple400: '#7248d0',
+  // purple500: '#592fb7',
+  // purple600: '#45248f',
+  // purple700: '#311968',
+  // purple800: '#1e0f40',
+  // purple900: '#0c031b',
   orange50: '#fff2de',
   orange100: '#fddcb2',
   orange200: '#fac585',
@@ -93,9 +148,21 @@ const colors: { [x: string]: string } = {
   yellow900: '#1a1500',
 };
 
+colors.hiContrast = colors.gray900;
+colors.loContrast = '#fff';
+
 Object.assign(colors, {
   modes: {
-    dark: ['blue', 'green', 'yellow', 'red', 'purple', 'orange', 'cyan'].reduce(
+    dark: [
+      'blue',
+      'green',
+      'yellow',
+      'red',
+      'purple',
+      'orange',
+      'cyan',
+      'gray',
+    ].reduce(
       (acc, curr) => {
         return {
           ...acc,
@@ -111,14 +178,13 @@ Object.assign(colors, {
           [`${curr}900`]: colors[`${curr}50`],
         };
       },
-      { hiContrast: colors.gray50, loContrast: colors.gray800 }
+      { hiContrast: colors.gray50, loContrast: colors.gray900 }
     ),
   },
 });
+console.log(colors);
 colors.text = colors.gray900;
 colors.primary = colors.blue400;
-colors.hiContrast = 'var(--colors-hiContrast)';
-colors.loContrast = 'var(--colors-loContrast)';
 
 const space = [
   '0px',
