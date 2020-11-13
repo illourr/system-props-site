@@ -16,6 +16,7 @@ const LinkHeading = (props) => (
       css={{
         svg: { opacity: 0 },
         ':hover .link-icon': { opacity: 1 },
+        code: { fontSize: 'inherit' },
       }}
     >
       <span>{props.children}</span>
@@ -40,15 +41,14 @@ export const MDXComponents = {
     <Text fontSize="$6" {...props} mb="$8" fontWeight="600" as="h1" />
   ),
   h2: (props) => (
-    <Text
+    <LinkHeading
       fontSize="$6"
       {...props}
-      mt="$2"
-      mb="$6"
-      color="$gray600"
-      lineHeight="30px"
+      mt="$7"
+      mb="$1"
+      lineHeight="45px"
       as="h2"
-      fontWeight="normal"
+      fontWeight="600"
     />
   ),
   h3: (props) => (
@@ -145,5 +145,28 @@ export const MDXComponents = {
       }}
       {...props}
     />
+  ),
+  table: (props) => (
+    <Box
+      as="table"
+      color="$hiContrast"
+      css={{ borderSpacing: '0' }}
+      width="100%"
+      mb="$3"
+      {...props}
+    />
+  ),
+  th: (props) => (
+    <Box
+      as="th"
+      {...props}
+      fontSize="$3"
+      p="$1"
+      textAlign="left"
+      borderBottom="2px solid $gray200"
+    />
+  ),
+  td: (props) => (
+    <Box as="td" {...props} p="$1" borderBottom="1px solid $gray200" />
   ),
 };

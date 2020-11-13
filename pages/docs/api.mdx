@@ -1,6 +1,499 @@
 ---
 title: API
-description: The nuts and bolts of Stitches' API.
+description: The nuts and bolts of System Props' API.
 ---
 
-hello
+```js
+import {
+  createSystem,
+  border,
+  color,
+  flexbox,
+  grid,
+  layout,
+  position,
+  shadow,
+  space,
+  styledSystemLayout
+  typography,
+} from 'system-props';
+```
+
+### createSystem
+
+This function receives a configuration object:
+
+- `strict`: Optionally constrain system prop values to values from the theme object.
+- `pseudoSelectors`: Define a map of component prop (key) to a pseudo selector (value)
+
+```js
+// Shown are the default values
+const system = createSystem({
+  strict: false,
+  pseudoSelectors: {
+    _hover: '&:hover',
+    _focus: '&:focus',
+    _hoverAndFocus: '&:hover, &:focus',
+    _disabled:
+      '[disabled], [disabled]:hover, [disabled]:focus, [aria-disabled], [aria-disabled]:hover, [aria-disabled]:focus',
+    _readOnly: '[readOnly]',
+    _first: '&:first-child',
+    _last: '&:last-child',
+    _odd: '&:nth-of-type(odd)',
+    _even: '&:nth-of-type(even)',
+  },
+});
+```
+
+### system
+
+`createSystem` will return to you your `system`, which in turn takes a configuration object. Its keys will become your system props. You can spread into it any of the utility groups provided by this library or define your own custom system props.
+
+Each key in the configuration object can define the following:
+
+- `property`: the CSS property to use in the returned style object
+- `properties`: an array of multiple properties (e.g. `[ 'marginLeft', 'marginRight' ]`)
+- `scale`: a string referencing a key in the `theme` object
+- `transform`: a function to transform the raw value based on the scale
+- `defaultScale`: a fallback scale object for when there isn't one defined in the theme object
+
+For example:
+
+```js
+import styled from 'styled-components';
+import { createSystem, color, space } from 'system-props';
+
+const Text = styled.p(
+  system({
+    ...color,
+    ...space,
+    fontSize: {
+      property: 'fontSize',
+      scale: 'fontSizes',
+      defaultScale: [12, 14, 16, 20, 24, 32, 48],
+    },
+    lineHeight: {
+      property: 'lineHeight',
+      scale: 'lineHeights',
+    },
+    // shorthand definition
+    textAlign: true,
+  })
+);
+```
+
+By default, Styled System will return a value from the theme based on a key, or, if `strict` was disabled in `createSystem`, the raw value. To change how a style prop value is transformed, provide a custom `transform` function.
+
+### space
+
+The space utility converts shorthand margin and padding props to margin and padding CSS declarations.
+
+- Numbers from 0 to the length of `theme.space` are converted to values on the `space` scale in your theme.
+- Negative values can be used for negative margins.
+- Numbers greater than the length of the `theme.space` array are converted to raw pixel values.
+- Array and object values are converted into [responsive values][responsive-styles].
+
+Margin and padding props follow a shorthand syntax for specifying direction.
+
+| Prop                  | CSS Property                   | Theme Scale | Shorthand Support |
+| --------------------- | ------------------------------ | ----------- | ----------------- |
+| `margin`, `m`         | margin                         | space       | ✅                |
+| `marginTop`, `mt`     | margin-top                     | space       |                   |
+| `marginRight`, `mr`   | margin-right                   | space       |                   |
+| `marginBottom`, `mb`  | margin-bottom                  | space       |                   |
+| `marginLeft`, `ml`    | margin-left                    | space       |                   |
+| `marginX`, `mx`       | margin-left and margin-right   | space       |                   |
+| `marginY`, `my`       | margin-top and margin-bottom   | space       | ✅                |
+| `padding`, `p`        | padding                        | space       |                   |
+| `paddingTop`, `pt`    | padding-top                    | space       |                   |
+| `paddingRight`, `pr`  | padding-right                  | space       |                   |
+| `paddingBottom`, `pb` | padding-bottom                 | space       |                   |
+| `paddingLeft`, `pl`   | padding-left                   | space       |                   |
+| `paddingX`, `px`      | padding-left and padding-right | space       |                   |
+| `paddingY`, `py`      | padding-top and padding-bottom | space       |                   |
+
+```jsx
+// examples (margin prop)
+
+// sets margin value of `theme.space[2]`
+<Box m={2} />
+
+// sets margin value of `theme.space.small`
+<Box m="small" />
+<Box m="$small" />
+
+// sets margin value of `theme.space[2] theme.space[3]`
+<Box m="$2 $3" />
+
+// sets margin value of `-1 * theme.space[2]`
+<Box m={-2} />
+
+// sets a margin value of `16px` since it's greater than `theme.space.length`
+<Box m={16} />
+
+// sets margin `'auto'`
+<Box m="auto" />
+
+// sets margin `8px` on all viewports and `16px` from the first breakpoint and up
+<Box m={[ 2, 3 ]} />
+```
+
+### color
+
+The color utility parses a component's `color` and `bg` props and converts them into CSS declarations. By default the raw value of the prop is returned. Color palettes can be configured with the [ThemeProvider][theming] to use keys as prop values, with support for dot notation.
+
+| Prop                    | CSS Property     | Theme Scale |
+| ----------------------- | ---------------- | ----------- |
+| `color`                 | color            | colors      |
+| `backgroundColor`, `bg` | background-color | colors      |
+| `fill`                  | fill             | colors      |
+| `stroke`                | stroke           | colors      |
+| `opacity`               | opacity          |             |
+
+```jsx
+// examples
+// picks the value defined in `theme.colors.blue`
+<Box color="blue" />
+<Box color="$blue" />
+
+// picks up a nested color value using dot notation
+// `theme.colors.gray[0]`
+<Box color="gray.0" />
+<Box color="$gray.0" />
+
+// raw CSS color value
+<Box color="#f00" />
+
+// background colors
+<Box bg="blue" />
+
+// verbose prop
+<Box backgroundColor="blue" />
+```
+
+### typography
+
+| Prop            | CSS Property   | Theme Scale    |
+| --------------- | -------------- | -------------- |
+| `fontFamily`    | font-family    | fonts          |
+| `font-size`     | font-size      | fontSizes      |
+| `line-height`   | line-height    | lineHeights    |
+| `letterSpacing` | letter-spacing | letterSpacings |
+| `textAlign`     | text-align     |                |
+| `fontStyle`     | font-style     |                |
+| `fontWeight`    | fontWeight     |                |
+
+```jsx
+// examples
+// font-size of `theme.fontSizes[3]`
+<Text fontSize={3} />
+<Text fontSize="$3" />
+
+// font-size `32px`
+<Text fontSize={32} />
+
+// font-size `'2em'`
+<Text fontSize="2em" />
+
+// font-size `10px` on all viewports and `12px` from the first breakpoint and up
+<Text fontSize={[ 10, 12 ]} />
+
+// fontFamily
+<Text fontFamily="mono" />
+
+// textAlign
+<Text textAlign="center" />
+<Text textAlign={[ "center", "left" ]} />
+
+// lineHeight
+<Text lineHeight="1.25" />
+
+// fontWeight
+<Text fontWeight="bold" />
+
+// letterSpacing
+<Text letterSpacing="0.1em" />
+```
+
+### layout
+
+| Prop            | CSS Property   | Theme Scale |
+| --------------- | -------------- | ----------- |
+| `width`         | width          | sizes       |
+| `height`        | height         | sizes       |
+| `maxWidth`      | max-width      | sizes       |
+| `maxHeight`     | max-height     | sizes       |
+| `minWidth`      | min-width      | sizes       |
+| `minHeight`     | min-height     | sizes       |
+| `size`          | width, height  | sizes       |
+| `overflow`      | overflow       |             |
+| `overflowX`     | overflow-x     |             |
+| `overflowY`     | overflow-y     |             |
+| `verticalAlign` | vertical-align |             |
+
+The `width` prop is transformed based on the following:
+
+```jsx
+// examples
+
+// width `256px`
+<Box width={256} />
+
+// width `'2em'`
+<Box width='2em' />
+
+// width `100%` on all viewports and `50%` from the smallest breakpoint and up
+<Box width={[ '100%', '50%' ]} />
+
+// width from `theme.sizes`
+<Box width='medium' />
+
+// display
+<Box display='inline-block' />
+<Box display={[ 'block', 'inline-block' ]} />
+
+// maxWidth
+<Box maxWidth={1024} />
+<Box maxWidth={[ 768, null, null, 1024 ]} />
+
+// minWidth
+<Box minWidth={128} />
+<Box minWidth={[ 96, 128 ]} />
+
+// height
+<Box height={64} />
+<Box height={[ 48, 64 ]} />
+
+// maxHeight
+<Box maxHeight={512} />
+<Box maxHeight={[ 384, 512 ]} />
+
+// minHeight
+<Box minHeight={512} />
+<Box minHeight={[ 384, 512 ]} />
+
+// size (width & height)
+<Box size={32} />
+<Box size={[ 32, 48 ]} />
+
+// overflow
+<Box overflow='hidden' />
+
+// overflowX
+<Box overflowX='hidden' />
+
+// overflowY
+<Box overflowY='hidden' />
+```
+
+### styledSystemLayout
+
+Same as `layout`, except numbers from 0-1 are converted to percentage widths.
+
+```jsx
+// width `50%`
+<Box width={1 / 2} />
+```
+
+### flexbox
+
+The `flexbox` utility includes style props for `alignItems`, `alignContent`, `justifyItems`, `justifyContent`, `flexWrap`, `flexDirection`, `flex`, `flexGrow`, `flexShrink`, `flexBasis`, `justifySelf`, `alignSelf`, and `order`.
+
+```jsx
+// alignItems
+<Flex alignItems='center' />
+
+// alignContent
+<Flex alignContent='center' />
+
+// justifyContent
+<Flex justifyContent='center' />
+
+// flexWrap
+<Flex flexWrap='wrap' />
+
+// flexBasis
+<Flex flexBasis='auto' />
+
+// flexDirection
+<Flex flexDirection='column' />
+
+// flex
+<Box flex='1 1 auto' />
+
+// justifySelf
+<Box justifySelf='center' />
+
+// alignSelf
+<Box alignSelf='center' />
+
+// order
+<Box order='2' />
+```
+
+### grid
+
+The `grid` utility includes style props for `gridGap`, `gridColumnGap`, `gridRowGap`, `gridColumn`, `gridRow`, `gridAutoFlow`, `gridAutoColumns`, `gridAutoRows`, `gridTemplateColumns`, `gridTemplateRows`, `gridTemplateAreas`, and `gridArea`.
+
+| Prop                  | CSS Property          | Theme Scale |
+| --------------------- | --------------------- | ----------- |
+| `gridGap`             | grid-gap              | space       |
+| `gridColumnGap`       | grid-column-gap       | space       |
+| `gridRowGap`          | grid-row-gap          | space       |
+| `gridColumn`          | grid-column           |             |
+| `gridRow`             | grid-row              |             |
+| `gridAutoFlow`        | grid-auto-flow        |             |
+| `gridAutoColumns`     | grid-auto-columns     |             |
+| `gridAutoRows`        | grid-auto-rows        |             |
+| `gridTemplateColumns` | grid-template-columns |             |
+| `gridTemplateRows`    | grid-template-rows    |             |
+| `gridTemplateAreas`   | grid-template-areas   |             |
+| `gridArea`            | grid-area             |             |
+
+```jsx
+// gridGap
+<Box gridGap={10} />
+<Box gridGap={[ 1, 2 ]} />
+
+// gridColumnGap
+<Box gridColumnGap={10} />
+<Box gridColumnGap={[ 1, 2 ]} />
+
+// gridRowGap
+<Box gridRowGap={10} />
+<Box gridRowGap={[ 1, 2 ]} />
+
+// gridColumn
+<Box gridColumn={1} />
+
+// gridRow
+<Box gridRow={1} />
+
+// gridAutoFlow
+<Box gridAutoFlow='row' />
+
+// gridAutoColumns
+<Box gridAutoColumns='auto' />
+
+// gridAutoRows
+<Box gridAutoRows='auto' />
+
+// gridTemplateColumns
+<Box gridTemplateColumns='1fr 2fr' />
+
+// gridTemplateRows
+<Box gridTemplateRows='auto' />
+
+// gridTemplateAreas
+<Box gridTemplateAreas='a b' />
+
+// gridArea
+<Box gridArea='a' />
+```
+
+### background
+
+The `background` utility includes style props for `backgroundImage`, `backgroundSize`, `backgroundPosition`, and `backgroundRepeat`.
+
+```jsx
+// example
+<Box
+  backgroundImage="url('kitten.png')"
+  backgroundSize="cover"
+  backgroundPosition="center"
+  backgroundRepeat="repeat-x"
+/>
+```
+
+### border
+
+| Prop                      | CSS Property                 | Theme Scale  |
+| ------------------------- | ---------------------------- | ------------ |
+| `border`                  | border                       | borders      |
+| `borderTop`               | border-top                   | borders      |
+| `borderRight`,            | border-right                 | borders      |
+| `borderBottom`,           | border-bottom                | borders      |
+| `borderLeft`,             | border-left                  | borders      |
+| `borderX`,                | border-left and border-right | borders      |
+| `borderY`,                | border-top and border-bottom | borders      |
+| `borderWidth`             | border-width                 | borderWidths |
+| `borderTopWidth`          | border-top-width             | borderWidths |
+| `borderRightWidth`        | border-right-width           | borderWidths |
+| `borderBottomWidth`       | border-bottom-width          | borderWidths |
+| `borderLeftWidth`         | border-left-width            | borderWidths |
+| `borderStyle`             | border-style                 | borderStyles |
+| `borderTopStyle`          | border-top-style             | borderStyles |
+| `borderRightStyle`        | border-right-style           | borderStyles |
+| `borderBottomStyle`       | border-bottom-style          | borderStyles |
+| `borderLeftStyle`         | border-left-style            | borderStyles |
+| `borderColor`             | border-color                 | colors       |
+| `borderTopColor`          | border-top-color             | colors       |
+| `borderRightColor`        | border-right-color           | colors       |
+| `borderBottomColor`       | border-bottom-color          | colors       |
+| `borderLeftColor`         | border-left-color            | colors       |
+| `borderRadius`            | border-radius                | radii        |
+| `borderTopLeftRadius`     | border-top-left-radius       | radii        |
+| `borderTopRightRadius`    | border-top-right-radius      | radii        |
+| `borderBottomLeftRadius`  | border-bottom-left-radius    | radii        |
+| `borderBottomRightRadius` | border-bottom-right-radius   | radii        |
+
+`border`, `borderTop`, `borderRight`, `borderBottom`, `borderLeft`, `borderX`, and `borderY` each support the border shorthand syntax, meaning that each space-separated value in the string will return a value from the `borderWidths`, `borderStyles`, and `colors` scales where appropriate.
+
+```jsx
+<Box border="1px solid" />
+<Box borderTop="1px solid" />
+<Box borderRight="1px solid" />
+<Box borderBottom="1px solid" />
+<Box borderLeft="1px solid" />
+
+// borderWidth
+<Box borderWidth="4px" />
+
+// borderStyle
+<Box borderStyle="dotted" />
+
+// borderColor
+<Box borderColor="blue" />
+
+// borderRadius
+<Box borderRadius={4} />
+```
+
+### position
+
+| Prop       | CSS Property | Theme Scale |
+| ---------- | ------------ | ----------- |
+| `position` | position     |             |
+| `top`      | top          | space       |
+| `right`    | right        | space       |
+| `bottom`   | bottom       | space       |
+| `left`     | left         | space       |
+| `zIndex`   | z-index      | zIndices    |
+
+```jsx
+// position
+<Box position='absolute' />
+
+// zIndex
+<Absolute zIndex={2} />
+
+// top, right, bottom, left
+<Fixed
+  top='0'
+  right='0'
+  bottom='0'
+  left='0'
+/>
+```
+
+### shadow
+
+The `shadow` utility includes style props for `textShadow` and `boxShadow`. It will return a value in the theme's `shadows` property, else it will attempt to return a value in the `colors` property if the color is specified at the end of the value.
+
+```jsx
+<Box textShadow="small" boxShadow="medium" />
+
+<Box textShadow="0 2px 0 blue.10" boxShadow="0 2px 0 tomato" />
+```
+
+[responsive-styles]: /docs/responsive-styles

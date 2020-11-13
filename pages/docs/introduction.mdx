@@ -3,7 +3,9 @@ title: Introduction
 description: The what and the why of System Props.
 ---
 
-System Props let's you add props to your components that can alter that components' styles. Save time by styling components via props. System Props is **great** for design systems.
+System Props let's you add props to your components to alter their styles. Save time by styling components via props!
+
+System Props is **great** for design systems.
 
 This package has two main components: `createSystem`, which defines how your System Props work, and a collection of system prop groups, such as `space`, `color`, and `layout` to make it really easy to get started. As a component library maintainer, you can decide when and if each prop group is appropriate for you system.
 
@@ -59,6 +61,31 @@ const Box = styled.div(
 
 ### Responsive
 
+Often when working on responsive layouts, it's useful to adjust styles along a singular dimension – such as font-size, margin, padding, and width. Instead of manually managing media queries and adding nested style objects throughout a code base, Styled System offers a convenient shorthand syntax for adding responsive styles with a mobile-first approach. While this syntax can seem odd at first, it can become a powerful way to manage responsive typography and layouts.
+
+All style utilities add props that accept arrays as values for mobile-first responsive styles.
+
+```jsx
+<Box
+  // responsive font size
+  fontSize={[ 1, 2, 3, 4 ]}
+  // responsive margin
+  m={[ 1, 2, 3, 4 ]}
+/>
+
+// Also supports plain objects as values,
+// where the keys match a property in theme.breakpoints
+<Box p={{_: 1, sm: 2, md: 3, lg: 4}} />
+```
+
 ### Developer Experience
 
 System Props are an efficient way to create style and layout components on the fly. No need for a separate CSS file or a new styled component! With shorthand support, TypeScript support, and approachable methods of using theme and responsive breakpoints, System Props make simple styling tasks trivial.
+
+## Credits
+
+This project evolved from [Styled System][styled-system], authored by [Brent Jackson](https://github.com/jxnblk). This project wouldn't exist without his work and that of the contributors to the project.
+
+The APIs and implementations of System Props all owe nods to [Chakra UI](https://chakra-ui.com), [Stitches](https://stitches.dev), and [Sprout's System Props](https://seeds.sproutsocial.com/components/system-props/).
+
+[styled-system]: https://styled-system.com

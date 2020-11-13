@@ -1,6 +1,6 @@
-## Stitches Site
+## System Props Site
 
-This is the source code of the [Stitches documentation](https://stitches.dev).
+This is the source code of the [System Props documentation](https://system-props.netlify.dev).
 
 ---
 
