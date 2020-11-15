@@ -1,4 +1,3 @@
-import { darkThemeClass } from '@modulz/design-system';
 import React, { useState, useContext } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { useClipboard } from '../utils/useClipboard';
@@ -148,6 +147,7 @@ const CopyButton = (props: any) => (
     _hover={{
       bg: '$gray50',
     }}
+    color="$hiContrast"
     transition="background-color .15s linear"
     {...props}
   />
@@ -173,7 +173,6 @@ export function CodeBlock({
     language,
     code: editorCode,
     scope: {
-      darkTheme: darkThemeClass,
       Box,
     },
     noInline: manual,

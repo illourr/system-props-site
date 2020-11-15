@@ -3,7 +3,8 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as SP from 'system-props';
 import styled from 'styled-components';
 import Box from './Box';
-import { useCodeBlockTheme } from './CodeBlock';
+import { useCodeBlockTheme, liveEditorStyle } from './CodeBlock';
+import { theme } from './theme';
 
 const demoCode = `// Edit the code!
 const Button = (props) => {
@@ -33,14 +34,6 @@ render(
     <Button backgroundColor="transparent" color="$gray400" as="a" href="https://github.com/roginfarrer/system-props">GitHub</Button>
   </Box>
 );`;
-
-export const liveEditorStyle: React.CSSProperties = {
-  fontSize: 'var(--fontSizes-2)',
-  fontFamily: 'var(--fonts-mono)',
-  fontWeight: 400,
-  lineHeight: 1.5,
-  backgroundColor: 'transparent',
-};
 
 const StyledLivePreview = (props) => (
   <Box pb="$9">
@@ -81,12 +74,12 @@ export function HeroCodeDemo() {
         <LiveEditor style={liveEditorStyle} />
         <LiveError
           style={{
-            fontFamily: 'var(--fonts-normal)',
-            fontSize: 'var(--fontSizes-3)',
-            padding: 'var(--space-2)',
+            fontFamily: theme.fonts.base,
+            fontSize: theme.fontSizes[3],
+            padding: theme.space[2],
             overflowX: 'auto',
             color: 'white',
-            backgroundColor: 'var(--colors-$red600)',
+            backgroundColor: theme.colors.red600,
           }}
         />
       </Box>

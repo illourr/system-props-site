@@ -3,7 +3,7 @@ import { IconButton } from './IconButton';
 
 export const ThemeToggle = ({ toggleTheme }) => {
   return (
-    <IconButton onClick={() => toggleTheme()}>
+    <IconButton onClick={toggleTheme}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="15"

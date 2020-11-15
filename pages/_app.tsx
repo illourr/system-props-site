@@ -69,13 +69,15 @@ function App({ Component, pageProps }: AppProps) {
   // Dark theme hack to prevent flash
   // prevents ssr flash for mismatched dark mode
   // https://brianlovin.com/overthought/adding-dark-mode-with-next-js
-  // if (!mounted) {
-  //   return (
-  //     <div style={{ visibility: 'hidden' }}>
-  //       <Component {...pageProps} />
-  //     </div>
-  //   );
-  // }
+  if (!mounted) {
+    return (
+      <ThemeProvider theme={theme}>
+        <div style={{ visibility: 'hidden' }}>
+          <Component {...pageProps} />
+        </div>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>

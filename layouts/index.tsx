@@ -5,7 +5,7 @@ import { getPostById } from '../utils/allPosts';
 import Box from '../components/Box';
 import { Text } from '../components/Text';
 
-export default (frontMatter: FrontMatter) => {
+export default function Layout(frontMatter: FrontMatter) {
   return ({ children }) => {
     return (
       <>
@@ -76,4 +76,4 @@ export default (frontMatter: FrontMatter) => {
       </>
     );
   };
-};
+}
