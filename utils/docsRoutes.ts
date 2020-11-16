@@ -3,7 +3,11 @@ import { getDocById } from './docsPosts';
 export const docsRoutes = [
   {
     label: 'Overview',
-    pages: [getDocById('docs/introduction'), getDocById('docs/api')],
+    pages: [
+      getDocById('docs/introduction'),
+      getDocById('docs/api'),
+      getDocById('docs/compared-to-styled-system'),
+    ],
   },
 
   {
@@ -11,6 +15,7 @@ export const docsRoutes = [
     pages: [
       getDocById('docs/installation'),
       getDocById('docs/responsive-styles'),
+      getDocById('docs/theming'),
     ],
   },
 ];

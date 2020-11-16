@@ -7,7 +7,7 @@ import { Text } from '../components/Text';
 export default function Home() {
   return (
     <div>
-      <TitleAndMetaTags title="Stitches" />
+      <TitleAndMetaTags title="System Props" />
       <Box as="header" p="$4" mb="$7">
         <NextLink href="/" passHref>
           <Box

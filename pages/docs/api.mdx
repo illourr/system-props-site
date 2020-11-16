@@ -333,8 +333,6 @@ The `flexbox` utility includes style props for `alignItems`, `alignContent`, `ju
 
 ### grid
 
-The `grid` utility includes style props for `gridGap`, `gridColumnGap`, `gridRowGap`, `gridColumn`, `gridRow`, `gridAutoFlow`, `gridAutoColumns`, `gridAutoRows`, `gridTemplateColumns`, `gridTemplateRows`, `gridTemplateAreas`, and `gridArea`.
-
 | Prop                  | CSS Property          | Theme Scale |
 | --------------------- | --------------------- | ----------- |
 | `gridGap`             | grid-gap              | space       |
@@ -440,11 +438,11 @@ The `background` utility includes style props for `backgroundImage`, `background
 `border`, `borderTop`, `borderRight`, `borderBottom`, `borderLeft`, `borderX`, and `borderY` each support the border shorthand syntax, meaning that each space-separated value in the string will return a value from the `borderWidths`, `borderStyles`, and `colors` scales where appropriate.
 
 ```jsx
-<Box border="1px solid" />
-<Box borderTop="1px solid" />
-<Box borderRight="1px solid" />
-<Box borderBottom="1px solid" />
-<Box borderLeft="1px solid" />
+<Box border="1px solid $gray400" />
+<Box borderTop="1px solid $gray400" />
+<Box borderRight="1px solid $gray400" />
+<Box borderBottom="1px solid $gray400" />
+<Box borderLeft="1px solid $gray400" />
 
 // borderWidth
 <Box borderWidth="4px" />
@@ -471,24 +469,13 @@ The `background` utility includes style props for `backgroundImage`, `background
 | `zIndex`   | z-index      | zIndices    |
 
 ```jsx
-// position
-<Box position='absolute' />
-
-// zIndex
-<Absolute zIndex={2} />
-
-// top, right, bottom, left
-<Fixed
-  top='0'
-  right='0'
-  bottom='0'
-  left='0'
-/>
+// left is set to `theme.space.md`
+<Box position="relative" left="$md" />
 ```
 
 ### shadow
 
-The `shadow` utility includes style props for `textShadow` and `boxShadow`. It will return a value in the theme's `shadows` property, else it will attempt to return a value in the `colors` property if the color is specified at the end of the value.
+The `shadow` utility includes style props for `textShadow` and `boxShadow`.
 
 ```jsx
 <Box textShadow="small" boxShadow="medium" />

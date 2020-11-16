@@ -3,4 +3,57 @@ title: Responsive Styles
 description: How to configure breakpoints and apply variants responsively.
 ---
 
-hello
+Often when working on responsive layouts, it's useful to adjust styles along a singular dimension – such as font-size, margin, padding, and width. Instead of manually managing media queries and adding nested style objects throughout a code base, System Props offers a convenient shorthand syntax for adding responsive styles. While this syntax can seem odd at first, it can become a powerful way to manage responsive typography and layouts.
+
+The responsive syntax works the same as Styled System.
+
+All system props support the responsive syntax. For it to work, you must have a `breakpoints` property in your theme. If your breakpoints are defined as an object, the responsive syntax should be an object, where each key corresponds to one of the keys in your breakpoints. Any key that does not correspond to a key in your breakpoints, its value will apply at all screen sizes. If your breakpoints are defined as an object or an array, you can use the responsive syntax as an array, where the first index applies at all breakpoints, the second at the first breakpoint, and so on.
+
+```jsx
+const theme = {
+  breakpoints: {
+    sm: '32em',
+    md: '42em',
+    lg: '52em'
+  }
+}
+
+<Box
+  width={{
+    _: '100%',  // 100% at all sizes
+    sm: '50%',  // 50% from the `theme.breakpoints.sm` breakpoint and up
+    md: '25%',  // 25% from the `theme.breakpoints.md` breakpoint and up
+  }}
+/>
+
+// This results in the same
+<Box width={['100%', '50%', '25%']} />
+```
+
+### What it does
+
+This shortcut is an alternative to writing media queries out by hand. Given the following:
+
+```jsx
+<Box width={['100%', '50%', '25%']} />
+```
+
+Using System Props with a CSS-in-JS library will generate something like the following CSS:
+
+```css
+.Box-hash {
+  width: 100%;
+}
+
+@media screen and (min-width: 40em) {
+  .Box-hash {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 52em) {
+  .Box-hash {
+    width: 25%;
+  }
+}
+```

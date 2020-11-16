@@ -10,7 +10,7 @@ export default function Layout(frontMatter: FrontMatter) {
     return (
       <>
         <TitleAndMetaTags
-          title={`${frontMatter.title} — Stitches`}
+          title={`${frontMatter.title} — System Props`}
           poster={frontMatter.poster}
         />
 

@@ -1,0 +1,106 @@
+---
+title: Compared to Styled System
+description: What's different about System Props
+---
+
+### Pseudo Selector Props
+
+Inspired by [Chakra UI](https://chakra-ui.com), System Props supports pseudo selectors as props, which can be configured via `createSystem`. This takes your system props to the next level by giving you the ability to style the element at different states, such as hover, focus, disabled, and more.
+
+```js
+<Box color="white" bg="periwinkle" _hover={{ bg: 'seafoamgreen' }} />
+```
+
+### Shorthand Property Support
+
+System Props will parse shorthand properties, such as `margin`, `padding`, `border`, and `boxShadow` for the theme scales used within it. For example, to define a border width, style, and color (using a theme color) with Styled System, you had to use multiple props:
+
+```jsx
+<Box border="1px solid" borderColor="$gray400" marginX="$2" marginY="$3" />
+
+// Yields:
+// .Box-hash {
+//   border: 1px solid;
+//   border-color: #858687;
+//   margin-left: 15px;
+//   margin-right: 15px;
+//   margin-top: 10px;
+//   margin-bottom: 10px;
+// }
+```
+
+System Props will parse the border shorthand for theme theme color value:
+
+```jsx
+<Box border="1px solid $gray400" m="$3 $2" />
+
+// Yields:
+// .Box-hash {
+//   border: 1px solid #858687;
+//   margin: 10px 15px;
+// }
+```
+
+### Prefix design tokens with `$`
+
+System Props, like Styled System, supports numeric scales in theme. For example, `theme.space` is frequently defined as an array, like so:
+
+```js
+const theme = {
+  space: [0, 4, 8, 16, 32, 64]
+}
+
+<Box marginLeft={3} />
+```
+
+System Props will parse `3` as `theme.space[3]`, which yields `16` (or `16px`). This can be confusing since you might expect `marginLeft={3}` to yield `3px`.
+
+To eliminate this confusion, System Props supports (and recommends!) prefixing theme values with `$` to clarify when you're using theme tokens. This is optional, and theme tokens can be referenced without them.
+
+```jsx
+<Box
+  m="$2 $3"
+  color="$gray300"
+  bg="$blue900"
+  border="1px solid $blue700"
+  borderRadius="$round"
+/>
+```
+
+### Quick Access to Theme with Function Value
+
+If at any time you need access to the entire theme object, every system prop can take a value as a function where its argument is the theme:
+
+```jsx
+<Box border={theme => `1px solid ${theme.colors.gray400}`}
+
+// Supports responsive syntax, too!
+<Box
+  bg={theme => ({
+    _: theme.colors.blue,
+    sm: theme.colors.darkblue
+  })}
+/>
+
+<Box
+  bg={{
+    _: theme => theme.colors.blue,
+    sm: 'tomato'
+  }}
+/>
+```
+
+### Written in TypeScript
+
+Get the confidence of type saftey!
+
+### Strict Mode
+
+Particularly useful for design systems. You may prefer that exclusively theme values are supported with system props. Enabling the `strict` confiugration option in `createSystem` to accomplish this.
+
+```jsx
+const system = createSystem({strict: true})
+
+<Box color="blue200" />  // ✅ Theme value
+<Box color="tomato" />   // ❌ Not theme value
+```

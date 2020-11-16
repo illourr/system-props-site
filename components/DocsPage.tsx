@@ -110,7 +110,7 @@ function DocsPage({ children }: { children: React.ReactNode }) {
 
           <NavHeading>Community</NavHeading>
           <NavItem href="https://github.com/roginfarrer/system-props">
-            <Text fontSize="$2" color="inherit" lineHeight="1">
+            <Text fontSize="$1" color="inherit" lineHeight="1">
               GitHub
             </Text>
             <Box ml="$1" color="$gray500">
