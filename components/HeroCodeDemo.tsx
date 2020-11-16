@@ -11,7 +11,7 @@ const Button = (props) => {
   return (
     <Box
       backgroundColor="$blue400"
-      borderRadius="pill"
+      borderRadius="$pill"
       color="white"
       fontSize="$body"
       fontWeight="600"
