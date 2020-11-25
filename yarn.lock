@@ -1182,9 +1182,9 @@
   integrity sha512-SFtLGIGZummuyMDPRL5KdmpgI8U19Ble28UjEWihPjGxF1Lgj8aDjLWY8KiaUy9eqb9CKiVCqEIrK9jbnANfkw==
 
 "@modulz/radix-icons@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@modulz/radix-icons/-/radix-icons-2.4.0.tgz#62bb73265d39aa990a3adfb089f00cecbaf791c5"
-  integrity sha512-19pLQSJtzVtlOon86QC3gigjoigumIvAch79wXl3/yyaWsip6n2CgPHKu/5hKhjK2qYCr84b0VmZkmj1krAl/w==
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@modulz/radix-icons/-/radix-icons-2.4.1.tgz#3423adcc4cf647fe44f5c3a21d10ddd61876a949"
+  integrity sha512-U5/v/x+QnPiazReaNnQBV1wAQ5I3mRiycJclbQd+YiWQQMFNmj91AFHZE+mxntipAPfmslTnJfYRUX4DQVjr5g==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -7684,10 +7684,10 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-system-props@latest:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/system-props/-/system-props-0.7.0.tgz#61eb78c064a132726911dd4dcd954d268b0d336d"
-  integrity sha512-wH1xV9JfQW5d/P9uybY/LJmJZX+uo063Ypx2H7kq67okXeWUnLtqsnT6uGTakDKo2Kke/QzG68Ie2bHykWshHg==
+system-props@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/system-props/-/system-props-0.8.0.tgz#3d8c5ddee5c941112a57b87effabe27af77bd83f"
+  integrity sha512-DafL7QvNYFvRTpJ1thMydTj1RC9aPipouxfUSMhedGLs/Jers7xckgx7q10I0r1BpVoUT+pJlVbyS4oBhs60aQ==
 
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"
