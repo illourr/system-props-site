@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from './Box';
 
-export function IconButton({ isActive, children, ...props }) {
+export function IconButton({ isActive = false, children, ...props }) {
   return (
     <Box
       appearance="none"

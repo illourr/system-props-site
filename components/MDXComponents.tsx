@@ -25,7 +25,6 @@ const LinkHeading = (props) => (
         as="span"
         verticalAlign="middle"
         fontSize="$2"
-        as="span"
         ml="$2"
         color="$gray500"
         opacity="0"

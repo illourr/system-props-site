@@ -136,7 +136,7 @@ const space = [
   '80px',
 ];
 
-const fontSizes = [
+const fontSizes: string[] & Record<string, any> = [
   '0.706rem',
   '0.765rem',
   '0.882rem',
@@ -147,7 +147,8 @@ const fontSizes = [
   '2.0588rem',
   '3.470rem',
 ];
-Object.assign(fontSizes, { body: fontSizes[3], rootFontSize: '17px' });
+fontSizes.body = fontSizes[3];
+fontSizes.rootFontSize = '17px';
 
 export const theme = {
   colors,
@@ -170,5 +171,7 @@ export const theme = {
     bp2: '900px',
   },
 };
+
+export type Theme = typeof theme;
 
 export default theme;

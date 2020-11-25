@@ -9,12 +9,29 @@ import {
   typography,
   position,
   border,
+  SystemProps,
+  PseudoProps,
+  ResponsiveProp,
+  shouldForwardProp,
 } from 'system-props';
-import styled from 'styled-components';
+import styled, { CSSProp } from 'styled-components';
+import { Property } from 'csstype';
 
 const system = createSystem();
 
-const Box = styled.div(
+interface BoxProps extends SystemProps {
+  css?: CSSProp;
+  outline?: ResponsiveProp<Property.Outline>;
+  appearance?: ResponsiveProp<Property.Appearance>;
+  transition?: ResponsiveProp<Property.Transition>;
+  transform?: ResponsiveProp<Property.Appearance>;
+  textDecoration?: ResponsiveProp<Property.Transform>;
+}
+
+const Box = styled.div.withConfig({
+  shouldForwardProp: (prop, defaultValidatorFn) =>
+    shouldForwardProp(prop) && defaultValidatorFn(prop),
+})<BoxProps & PseudoProps<BoxProps>>(
   {
     boxSizing: 'border-box',
   },

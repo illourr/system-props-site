@@ -179,7 +179,7 @@ export function CodeBlock({
     ...props,
   };
 
-  const onChange = (newCode) => setEditorCode(newCode.trim());
+  const onChange = (newCode: string) => setEditorCode(newCode.trim());
 
   if (language === 'jsx' && live === true) {
     return (
@@ -194,7 +194,6 @@ export function CodeBlock({
           </CopyButton>
           <Text
             as="span"
-            fontSize="$1"
             fontFamily="$untitled"
             textTransform="uppercase"
             position="absolute"
