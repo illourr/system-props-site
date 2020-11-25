@@ -1,4 +1,8 @@
-const colors: { [x: string]: string } = {
+interface Colors extends Record<string, any> {
+  modes?: Record<string, any>;
+}
+
+const colors: Colors = {
   blue50: '#def0ff',
   blue100: '#afcfff',
   blue200: '#7dafff',
@@ -115,8 +119,9 @@ Object.assign(colors, {
     ),
   },
 });
-colors.text = colors.gray900;
-colors.primary = colors.blue400;
+// Corrections for better readability
+colors.modes.dark.blue500 = '#6ca2ff';
+colors.modes.dark.purple500 = '#8465ff';
 
 const space = [
   '0px',

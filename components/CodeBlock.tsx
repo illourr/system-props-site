@@ -30,7 +30,7 @@ export const useCodeBlockTheme = () => {
       {
         types: ['string', 'attr-value'],
         style: {
-          color: colors.purple600,
+          color: colors.purple500,
         },
       },
       {
