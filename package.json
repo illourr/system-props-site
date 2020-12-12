@@ -34,7 +34,7 @@
     "remark-autolink-headings": "^6.0.1",
     "remark-slug": "^6.0.0",
     "styled-components": "^5.2.1",
-    "system-props": "^0.8.0",
+    "system-props": "latest",
     "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
