@@ -9,23 +9,32 @@ import {
   typography,
   position,
   border,
-  SystemProps,
+  AllSystemProps,
   PseudoProps,
-  ResponsiveProp,
+  SystemProp,
   shouldForwardProp,
 } from 'system-props';
 import styled, { CSSProp } from 'styled-components';
-import { Property } from 'csstype';
+import { Property, Properties } from 'csstype';
 
 const system = createSystem();
 
-interface BoxProps extends SystemProps {
+const extraStyleProps = {
+  userSelect: true,
+  cursor: true,
+  outline: true,
+  appearance: true,
+  transition: true,
+  transform: true,
+  textDecoration: true,
+} as const;
+
+type ExtraBoxProps = {
+  [K in keyof typeof extraStyleProps]?: SystemProp<Properties[K]>;
+};
+
+interface BoxProps extends AllSystemProps<'prefix'>, ExtraBoxProps {
   css?: CSSProp;
-  outline?: ResponsiveProp<Property.Outline>;
-  appearance?: ResponsiveProp<Property.Appearance>;
-  transition?: ResponsiveProp<Property.Transition>;
-  transform?: ResponsiveProp<Property.Appearance>;
-  textDecoration?: ResponsiveProp<Property.Transform>;
 }
 
 const Box = styled.div.withConfig({
@@ -45,11 +54,7 @@ const Box = styled.div.withConfig({
     ...typography,
     ...position,
     ...border,
-    outline: true,
-    appearance: true,
-    transition: true,
-    transform: true,
-    textDecoration: true,
+    ...extraStyleProps,
   })
 );
 

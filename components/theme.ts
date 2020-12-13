@@ -1,5 +1,137 @@
-interface Colors extends Record<string, any> {
-  modes?: Record<string, any>;
+type BaseFontSizes = [
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string
+];
+type FontSizes = { body?: string; rootFontSize?: string } & BaseFontSizes;
+
+interface BaseColors {
+  blue50: string;
+  blue100: string;
+  blue200: string;
+  blue300: string;
+  blue400: string;
+  blue500: string;
+  blue600: string;
+  blue700: string;
+  blue800: string;
+  blue900: string;
+  cyan50: string;
+  cyan100: string;
+  cyan200: string;
+  cyan300: string;
+  cyan400: string;
+  cyan500: string;
+  cyan600: string;
+  cyan700: string;
+  cyan800: string;
+  cyan900: string;
+  gray50: string;
+  gray100: string;
+  gray200: string;
+  gray300: string;
+  gray400: string;
+  gray500: string;
+  gray600: string;
+  gray700: string;
+  gray800: string;
+  gray900: string;
+  green50: string;
+  green100: string;
+  green200: string;
+  green300: string;
+  green400: string;
+  green500: string;
+  green600: string;
+  green700: string;
+  green800: string;
+  green900: string;
+  purple50: string;
+  purple100: string;
+  purple200: string;
+  purple300: string;
+  purple400: string;
+  purple500: string;
+  purple600: string;
+  purple700: string;
+  purple800: string;
+  purple900: string;
+  orange50: string;
+  orange100: string;
+  orange200: string;
+  orange300: string;
+  orange400: string;
+  orange500: string;
+  orange600: string;
+  orange700: string;
+  orange800: string;
+  orange900: string;
+  red50: string;
+  red100: string;
+  red200: string;
+  red300: string;
+  red400: string;
+  red500: string;
+  red600: string;
+  red700: string;
+  red800: string;
+  red900: string;
+  yellow50: string;
+  yellow100: string;
+  yellow200: string;
+  yellow300: string;
+  yellow400: string;
+  yellow500: string;
+  yellow600: string;
+  yellow700: string;
+  yellow800: string;
+  yellow900: string;
+  hiContrast?: string;
+  loContrast?: string;
+}
+
+interface Colors extends BaseColors {
+  modes?: {
+    dark?: BaseColors;
+  };
+}
+
+export interface Theme {
+  colors: Colors;
+  fontSizes: FontSizes;
+  space: {
+    '0': string;
+    '1': string;
+    '2': string;
+    '3': string;
+    '4': string;
+    '5': string;
+    '6': string;
+    '7': string;
+    '8': string;
+    '9': string;
+  };
+  radii: {
+    small: string;
+    medium: string;
+    large: string;
+    round: string;
+    pill: string;
+  };
+  fonts: {
+    base: string;
+    mono: string;
+  };
+  breakpoints: {
+    bp2: string;
+  };
+  sizes: [string, string, string, string];
 }
 
 const colors: Colors = {
@@ -123,20 +255,20 @@ Object.assign(colors, {
 colors.modes.dark.blue500 = '#6ca2ff';
 colors.modes.dark.purple500 = '#8465ff';
 
-const space = [
-  '0px',
-  '5px',
-  '10px',
-  '15px',
-  '20px',
-  '25px',
-  '35px',
-  '45px',
-  '65px',
-  '80px',
-];
+const space = {
+  '0': '0px',
+  '1': '5px',
+  '2': '10px',
+  '3': '15px',
+  '4': '20px',
+  '5': '25px',
+  '6': '35px',
+  '7': '45px',
+  '8': '65px',
+  '9': '80px',
+};
 
-const fontSizes: string[] & Record<string, any> = [
+const fontSizes: FontSizes = [
   '0.706rem',
   '0.765rem',
   '0.882rem',
@@ -150,7 +282,7 @@ const fontSizes: string[] & Record<string, any> = [
 fontSizes.body = fontSizes[3];
 fontSizes.rootFontSize = '17px';
 
-export const theme = {
+export const theme: Theme = {
   colors,
   space,
   fontSizes,
@@ -171,7 +303,5 @@ export const theme = {
     bp2: '900px',
   },
 };
-
-export type Theme = typeof theme;
 
 export default theme;

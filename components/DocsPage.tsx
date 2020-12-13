@@ -233,6 +233,7 @@ function NavItem({ children, active, href, ...props }: NavItemProps) {
       <Box
         {...props}
         {...(isExternal ? { href, target: '_blank' } : {})}
+        cursor="pointer"
         as="a"
         display="flex"
         alignItems="center"

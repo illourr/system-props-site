@@ -185,7 +185,7 @@ export function CodeBlock({
     return (
       <LiveProvider {...liveProviderProps}>
         <StyledLivePreview live={live} />
-        <Box position="relative" zIndex="1">
+        <Box position="relative" zIndex={1}>
           <CodeContainer live={live}>
             <LiveEditor onChange={onChange} style={liveEditorStyle} />
           </CodeContainer>
@@ -232,7 +232,7 @@ export function CodeBlock({
   }
 
   return (
-    <Box position="relative" zIndex="1">
+    <Box position="relative" zIndex={1}>
       <LiveProvider disabled {...liveProviderProps}>
         <CodeContainer live={live}>
           <LiveEditor style={liveEditorStyle} />
