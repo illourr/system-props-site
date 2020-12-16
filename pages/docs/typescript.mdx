@@ -1,0 +1,133 @@
+---
+title: TypeScript
+description: How to get types running with your System Props
+---
+
+System Props supports TypeScript out of the box, including types for all of the built-in props.
+
+```typescript
+import {
+  // the prop groups
+  BackgroundProps,
+  ColorProps,
+  SpaceProps,
+  BorderProps,
+  TypographyProps,
+  LayoutProps,
+  ShadowProps,
+  PositionProps,
+  GridProps,
+  FlexboxProps,
+  // all of the groups, combined:
+  AllSystemProps
+  // For making your own custom props:
+  SystemProp,
+  // For the pseudo selector props
+  PseudoProps,
+} from 'system-props'
+```
+
+You can use these props to properly type components that have System Props.
+
+### Typing a Box
+
+The most common component that you'll likely need to type is the Box component, which will likely use `AllSystemProps`:
+
+```typescript
+import styled from 'styled-components';
+import { AllSystemProps, PseudoProps, createSystem } from 'system-props';
+
+// Define whether you'd like TS to autosuggest $ prefixed theme values, no prefix, or both
+// 'prefix' | 'noprefix' (default) | 'all'
+interface BaseBoxProps extends AllSystemProps<'prefix'> {}
+
+interface BoxProps extends BaseBoxProps, PseudoProps<BaseBoxProps> {}
+
+const Box = styled('div')(
+  createSystem({
+    // pass in your groups here
+  })
+);
+```
+
+### Custom System Props
+
+The library exports `SystemProp` for making custom system props. You can use this with [csstype](https://github.com/frenic/csstype) for CSS property typings.
+
+```typescript
+import { SystemProp } from 'system-props';
+import { Property } from 'csstype';
+
+interface CustomSystemProps {
+  textDecoration?: SystemProp<Property.TextDecoration>;
+  transition?: SystemProp<Property.Transition>;
+}
+
+interface BaseBoxProps extends AllSystemProps, CustomSystemProps {}
+
+interface BoxProps extends BaseBoxProps, PseudoProps<BaseBoxProps> {}
+```
+
+### Autosuggest Theme Values
+
+Like Emotion and styled-components, System Props requires a TS declaration file that defines what the theme shape should be. So alongside your `styled.d.ts` or `emotion.d.ts` file, you'll also need a `system-props.d.ts` file.
+
+```typescript
+import 'system-props';
+
+declare module 'system-props' {
+  export interface Theme {
+    colors: {
+      blue100: string;
+      blue200: string;
+      green100: string;
+      green200: string;
+    };
+    space: {
+      '0': '0';
+      '1': '4px';
+      '2': '8px';
+      '3': '12px';
+    };
+  }
+}
+
+// Alternatively, use the Theme/DefaultTheme interface from styled-components or Emotion,
+// if you already have type declaration files for them
+import { DefaultTheme } from 'styled-components';
+import 'system-props';
+
+declare module 'system-props' {
+  export interface Theme extends DefaultTheme {}
+}
+```
+
+**Important note about your theme shape!** In order for the props' types to work as expected, your theme shape _must_ be a shallow and consistent nesting structure (demonstrated below). While more complex theme structures will still run just fine, the types exported from this library require this limited theme shape to consistently provide accurate and useful suggestions. To help you define this shape, you can extend the `SystemPropsTheme` interface.
+
+```typescript
+// theme.ts
+import { SystemPropsTheme } from 'system-props';
+
+export interface AppTheme extends SystemPropsTheme {
+  colors: {
+    blue100: string;
+    blue200: string;
+    primary: string;
+  };
+  space: {
+    '0': '0';
+    '1': '4px';
+    '2': '8px';
+  };
+}
+
+// system-props.d.ts
+import 'system-props';
+import {AppTheme} from './theme';
+
+declare module 'system-props': {
+  export interface Theme extends AppTheme {}
+}
+```
+
+If it's not possible to conform your theme shape to this structure, you can create your own types for System Props. [View the source of this package on GitHub to see how it provides the stock types.](https://github.com/roginfarrer/system-props)

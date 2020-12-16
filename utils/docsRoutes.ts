@@ -16,6 +16,7 @@ export const docsRoutes = [
       getDocById('docs/installation'),
       getDocById('docs/responsive-styles'),
       getDocById('docs/theming'),
+      getDocById('docs/typescript'),
     ],
   },
 ];
