@@ -23,7 +23,7 @@ function DocsPage({ children }: { children: React.ReactNode }) {
   const next = allDocsRoutes[currentPageIndex + 1];
 
   const GITHUB_URL = 'https://github.com';
-  const REPO_NAME = 'roginfarrer/system-props-site';
+  const REPO_NAME = 'system-props/system-props-site';
   const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/main/pages${router.pathname}.mdx`;
 
   React.useEffect(() => {

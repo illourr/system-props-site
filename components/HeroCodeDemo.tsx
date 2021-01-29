@@ -31,7 +31,7 @@ const Button = (props) => {
 render(
   <Box display="flex" justifyContent="center">
     <Button as="a" href="/docs/installation">Documentation</Button>
-    <Button backgroundColor="transparent" color="$gray400" as="a" href="https://github.com/roginfarrer/system-props">GitHub</Button>
+    <Button backgroundColor="transparent" color="$gray400" as="a" href="https://github.com/system-props/system-props">GitHub</Button>
   </Box>
 );`;
 
