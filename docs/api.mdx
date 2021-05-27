@@ -19,17 +19,19 @@ import {
 } from 'system-props';
 ```
 
-### createSystem
+## createSystem
 
 This function receives a configuration object:
 
 - `strict`: Optionally constrain system prop values to values from the theme object.
 - `pseudoSelectors`: Define a map of component prop (key) to a pseudo selector (value)
+- `tokenPrefix`: Set whether or not to use the `$` prefix for accessing theme values. Set to `'noprefix'` for styled-system compatability.
 
 ```js
 // Shown are the default values
 const system = createSystem({
   strict: false,
+  tokenPrefix: 'prefix',
   pseudoSelectors: {
     _hover: '&:hover',
     _focus: '&:focus',
@@ -45,7 +47,7 @@ const system = createSystem({
 });
 ```
 
-### system
+## system
 
 `createSystem` will return to you your `system`, which in turn takes a configuration object. Its keys will become your system props. You can spread into it any of the utility groups provided by this library or define your own custom system props.
 
@@ -84,9 +86,9 @@ const Text = styled.p(
 
 By default, Styled System will return a value from the theme based on a key, or, if `strict` was disabled in `createSystem`, the raw value. To change how a style prop value is transformed, provide a custom `transform` function.
 
-### Prop Groups
+## Prop Groups
 
-#### space
+### space
 
 The space utility converts shorthand margin and padding props to margin and padding CSS declarations.
 
@@ -140,7 +142,7 @@ Margin and padding props follow a shorthand syntax for specifying direction.
 <Box m={[ 2, 3 ]} />
 ```
 
-#### color
+### color
 
 The color utility parses a component's `color` and `bg` props and converts them into CSS declarations. By default the raw value of the prop is returned. Color palettes can be configured with the [ThemeProvider][theming] to use keys as prop values, with support for dot notation.
 
@@ -173,7 +175,7 @@ The color utility parses a component's `color` and `bg` props and converts them 
 <Box backgroundColor="blue" />
 ```
 
-#### typography
+### typography
 
 | Prop            | CSS Property   | Theme Scale    |
 | --------------- | -------------- | -------------- |
@@ -217,7 +219,7 @@ The color utility parses a component's `color` and `bg` props and converts them 
 <Text letterSpacing="0.1em" />
 ```
 
-#### layout
+### layout
 
 | Prop            | CSS Property   | Theme Scale |
 | --------------- | -------------- | ----------- |
@@ -288,7 +290,7 @@ The `width` prop is transformed based on the following:
 <Box overflowY='hidden' />
 ```
 
-#### styledSystemLayout
+### styledSystemLayout
 
 Same as `layout`, except numbers from 0-1 are converted to percentage widths.
 
@@ -297,7 +299,7 @@ Same as `layout`, except numbers from 0-1 are converted to percentage widths.
 <Box width={1 / 2} />
 ```
 
-#### flexbox
+### flexbox
 
 The `flexbox` utility includes style props for `alignItems`, `alignContent`, `justifyItems`, `justifyContent`, `flexWrap`, `flexDirection`, `flex`, `flexGrow`, `flexShrink`, `flexBasis`, `justifySelf`, `alignSelf`, and `order`.
 
@@ -333,7 +335,7 @@ The `flexbox` utility includes style props for `alignItems`, `alignContent`, `ju
 <Box order='2' />
 ```
 
-#### grid
+### grid
 
 | Prop                  | CSS Property          | Theme Scale |
 | --------------------- | --------------------- | ----------- |
@@ -391,7 +393,7 @@ The `flexbox` utility includes style props for `alignItems`, `alignContent`, `ju
 <Box gridArea='a' />
 ```
 
-#### background
+### background
 
 The `background` utility includes style props for `backgroundImage`, `backgroundSize`, `backgroundPosition`, and `backgroundRepeat`.
 
@@ -405,7 +407,7 @@ The `background` utility includes style props for `backgroundImage`, `background
 />
 ```
 
-#### border
+### border
 
 | Prop                      | CSS Property                 | Theme Scale  |
 | ------------------------- | ---------------------------- | ------------ |
@@ -459,7 +461,7 @@ The `background` utility includes style props for `backgroundImage`, `background
 <Box borderRadius={4} />
 ```
 
-#### position
+### position
 
 | Prop       | CSS Property | Theme Scale |
 | ---------- | ------------ | ----------- |
@@ -475,7 +477,7 @@ The `background` utility includes style props for `backgroundImage`, `background
 <Box position="relative" left="$md" />
 ```
 
-#### shadow
+### shadow
 
 The `shadow` utility includes style props for `textShadow` and `boxShadow`.
 

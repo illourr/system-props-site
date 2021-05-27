@@ -1,9 +1,9 @@
 import NextLink from 'next/link';
-import { HeroCodeDemo } from '../components/HeroCodeDemo';
-import { TitleAndMetaTags } from '../components/TitleAndMetaTags';
-import { Box } from '../components/Box';
-import { Text } from '../components/Text';
-import { ThemeToggle } from '../components/ThemeToggle';
+import { HeroCodeDemo } from '@components/HeroCodeDemo';
+import { TitleAndMetaTags } from '@components/TitleAndMetaTags';
+import { Box } from '@components/Box';
+import { Text } from '@components/Text';
+import { ThemeToggle } from '@components/ThemeToggle';
 
 export default function Home() {
   return (

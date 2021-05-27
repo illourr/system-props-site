@@ -4,3 +4,7 @@ import { Box } from './Box';
 export function Text(props) {
   return <Box m="$0" as="span" color="$hiContrast" {...props} />;
 }
+
+function Foo(props) {
+  return <Box>foo</Box>;
+}

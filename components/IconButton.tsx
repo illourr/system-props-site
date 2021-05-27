@@ -23,6 +23,7 @@ export function IconButton({
       borderStyle="solid"
       borderColor={isActive ? '$gray100' : 'transparent'}
       bg="transparent"
+      // @ts-ignore
       color="$hiContrast"
       _hover={{ bg: '$gray100' }}
       _focus={{

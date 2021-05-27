@@ -183,6 +183,7 @@ export function CodeBlock({
 
   if (language === 'jsx' && live === true) {
     return (
+      // @ts-ignore
       <LiveProvider {...liveProviderProps}>
         <StyledLivePreview live={live} />
         <Box position="relative" zIndex={1}>
@@ -225,6 +226,7 @@ export function CodeBlock({
 
   if (render) {
     return (
+      // @ts-ignore
       <LiveProvider {...liveProviderProps}>
         <StyledLivePreview />
       </LiveProvider>
@@ -233,6 +235,7 @@ export function CodeBlock({
 
   return (
     <Box position="relative" zIndex={1}>
+      {/* @ts-ignore */}
       <LiveProvider disabled {...liveProviderProps}>
         <CodeContainer live={live}>
           <LiveEditor style={liveEditorStyle} />

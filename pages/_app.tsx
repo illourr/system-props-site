@@ -3,10 +3,10 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import useDarkMode from 'use-dark-mode';
-import { DocsPage } from '../components/DocsPage';
+import { DocsPage } from '@components/DocsPage';
 import { ThemeProvider } from 'styled-components';
-import { theme as baseTheme } from '../components/theme';
-import { GlobalStyles } from '../components/ThemeProvider';
+import { theme as baseTheme } from '@components/theme';
+import { GlobalStyles } from '@components/ThemeProvider';
 
 const darkTheme = {
   ...baseTheme,

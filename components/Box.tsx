@@ -21,6 +21,10 @@ import {
 import styled from 'styled-components';
 import { Properties } from 'csstype';
 
+const Foo = styled.div(({ theme }) => ({
+  color: theme.colors.gray400,
+}));
+
 const system = createSystem();
 
 const extraStyleProps = {
