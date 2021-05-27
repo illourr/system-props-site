@@ -1,8 +1,9 @@
 import NextLink from 'next/link';
 import { HeroCodeDemo } from '../components/HeroCodeDemo';
 import { TitleAndMetaTags } from '../components/TitleAndMetaTags';
-import Box from '../components/Box';
+import { Box } from '../components/Box';
 import { Text } from '../components/Text';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export default function Home() {
   return (
@@ -38,6 +39,15 @@ export default function Home() {
         </NextLink>
       </Box>
 
+      <Box
+        position={{ all: 'absolute', bp2: 'fixed' }}
+        top={{ all: '30px', bp2: '$3' }}
+        right="$3"
+        zIndex="$2"
+      >
+        <ThemeToggle />
+      </Box>
+
       <Box px="$4" maxWidth="$3" m="0 auto $4" textAlign="center">
         <Text
           fontSize={{ all: '$6', bp2: '$8' }}
@@ -62,7 +72,7 @@ export default function Home() {
         </Text>
       </Box>
 
-      <Box p="$8 $4" mx="auto" maxWidth="3">
+      <Box p="$8 $4" mx="auto" maxWidth="$3">
         <HeroCodeDemo />
       </Box>
 
@@ -72,7 +82,7 @@ export default function Home() {
           m="0"
           height="1px"
           bg="$gray100"
-          flexShrink="0"
+          flexShrink={0}
           width="45px"
         />
       </Box>
@@ -81,7 +91,7 @@ export default function Home() {
         <Box
           border="1px solid $gray100"
           borderRadius="medium"
-          fontFamily="mono"
+          fontFamily="$mono"
           lineHeight="1"
           color="$yellow600"
           p="$3"
@@ -100,7 +110,7 @@ export default function Home() {
           m="0"
           height="1px"
           bg="$gray100"
-          flexShrink="0"
+          flexShrink={0}
           width="45px"
         />
       </Box>
@@ -132,7 +142,7 @@ export default function Home() {
           gridTemplateColumns={{ all: '1fr', bp2: '1fr 1fr' }}
         >
           {valueProps.map(({ title, description }) => (
-            <div>
+            <div key={title}>
               <Text
                 fontSize="$5"
                 as="h4"

@@ -1,7 +1,16 @@
-import React from 'react';
-import Box from './Box';
+import React, { MouseEvent } from 'react';
+import { Box, BoxProps } from './Box';
 
-export function IconButton({ isActive = false, children, ...props }) {
+export interface IconButtonProps extends BoxProps {
+  isActive?: boolean;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+}
+
+export function IconButton({
+  isActive = false,
+  children,
+  ...props
+}: IconButtonProps) {
   return (
     <Box
       appearance="none"

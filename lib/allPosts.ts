@@ -1,5 +1,5 @@
 // @ts-ignore
-import { frontMatter } from '../pages/**/*.mdx';
+import { frontMatter } from '../docs/**/*.mdx';
 import { FrontMatter } from '../types';
 
 export const allPosts: FrontMatter[] = frontMatter;

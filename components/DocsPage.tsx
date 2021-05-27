@@ -1,32 +1,37 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { FrontMatter } from '../types';
-import { docsRoutes } from '../utils/docsRoutes';
+import { docsRoutes, allDocsRoutes } from '../lib/docsRoutes';
 import { HamburgerIcon } from '@modulz/radix-icons';
-import { allDocsRoutes } from '../utils/docsRoutes';
 import { ExternalIcon } from './ExternalIcon';
-import Box from './Box';
+import { Box } from './Box';
 import { Text } from './Text';
 import { IconButton } from './IconButton';
+import { ThemeToggle } from './ThemeToggle';
 
-function DocsPage({ children }: { children: React.ReactNode }) {
+const GITHUB_URL = 'https://github.com';
+const REPO_NAME = 'system-props/system-props-site';
+
+export function DocsPage({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const currentPageId = router.pathname.substr(1);
+  const currentPath = router.pathname.replace(
+    '[slug]',
+    router.query.slug as string
+  );
+  const currentPageId = currentPath.substr(1);
   const currentPageIndex = allDocsRoutes.findIndex(
-    (page) => page.id === currentPageId
+    (page) => page.slug === currentPageId
   );
 
   const previous = allDocsRoutes[currentPageIndex - 1];
   const next = allDocsRoutes[currentPageIndex + 1];
 
-  const GITHUB_URL = 'https://github.com';
-  const REPO_NAME = 'system-props/system-props-site';
-  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/main/pages${router.pathname}.mdx`;
+  const editUrl = `${GITHUB_URL}/${REPO_NAME}/edit/main${currentPath}.mdx`;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleRouteChange = () => {
       setIsOpen(false);
     };
@@ -52,7 +57,7 @@ function DocsPage({ children }: { children: React.ReactNode }) {
         top={{ all: null, bp2: 0 }}
         left={{ all: null, bp2: 0 }}
         bottom={{ all: null, bp2: 0 }}
-        css={{
+        sx={{
           WebkitOverflowScrolling: 'touch',
         }}
       >
@@ -83,10 +88,13 @@ function DocsPage({ children }: { children: React.ReactNode }) {
               📦
             </Box>
           </NextLink>
-          <Box ml="auto" mr="$6" display={{ all: null, bp2: 'none' }}>
-            <IconButton onClick={() => setIsOpen(!isOpen)} isActive={isOpen}>
-              <HamburgerIcon />
-            </IconButton>
+          <Box ml="auto" display="flex" alignItems="center">
+            <Box mr="$3" display={{ all: null, bp2: 'none' }}>
+              <IconButton onClick={() => setIsOpen(!isOpen)} isActive={isOpen}>
+                <HamburgerIcon />
+              </IconButton>
+            </Box>
+            <ThemeToggle />
           </Box>
         </Box>
 
@@ -94,11 +102,11 @@ function DocsPage({ children }: { children: React.ReactNode }) {
           {docsRoutes.map((section) => (
             <Box key={section.label} mb="$4">
               <NavHeading>{section.label}</NavHeading>
-              {section.pages.map((page: FrontMatter) => (
+              {section.pages.map((page) => (
                 <NavItem
-                  key={page.id}
-                  href={`/${page.id}`}
-                  active={router.pathname === `/${page.id}`}
+                  key={page.slug}
+                  href={`/${page.slug}`}
+                  active={router.pathname === `/${page.slug}`}
                 >
                   <Text fontSize="$1" color="inherit" lineHeight="1">
                     {page.title}
@@ -121,92 +129,92 @@ function DocsPage({ children }: { children: React.ReactNode }) {
       </Box>
 
       <Box
-        maxWidth="100%"
+        as="main"
         flex="1"
         pt="$8"
         pb="$9"
         pl={{ all: null, bp2: '250px' }}
+        pr={{ all: null, bp3: '250px' }}
+        mx="auto"
       >
-        <Box px="$5" maxWidth="780px" mx="auto">
-          {children}
-        </Box>
+        <Box maxWidth="$3" mx={{ all: null, bp2: 'auto' }} px="$5">
+          <Box as="article">{children}</Box>
 
-        <Box maxWidth="$3" mx="auto" px="$5">
-          {(previous || next) && (
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              my="$9"
-              aria-label="Pagination navigation"
+          <Box>
+            {(previous || next) && (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                my="$9"
+                aria-label="Pagination navigation"
+              >
+                {previous && (
+                  <Box>
+                    <NextLink href={`/${previous.slug}`} passHref>
+                      <Box
+                        as="a"
+                        aria-label={`Previous page: ${previous.title}`}
+                        color="$blue500"
+                        textDecoration="none"
+                        alignItems="center"
+                      >
+                        <Box mb="$2">
+                          <Text fontSize="$2" color="$gray400">
+                            Previous
+                          </Text>
+                        </Box>
+                        <Text fontSize="$4" color="inherit">
+                          {previous.title}
+                        </Text>
+                      </Box>
+                    </NextLink>
+                  </Box>
+                )}
+                {next && (
+                  <Box ml="auto">
+                    <NextLink href={`/${next.slug}`} passHref>
+                      <Box
+                        as="a"
+                        aria-label={`Previous page: ${next.title}`}
+                        color="$blue500"
+                        textDecoration="none"
+                        textAlign="right"
+                      >
+                        <Box mb="$2">
+                          <Text fontSize="$2" color="$gray400">
+                            Next
+                          </Text>
+                        </Box>
+                        <Text fontSize="$4" color="inherit">
+                          {next.title}
+                        </Text>
+                      </Box>
+                    </NextLink>
+                  </Box>
+                )}
+              </Box>
+            )}
+          </Box>
+
+          <Box my="$9">
+            <Text
+              fontSize="$2"
+              color="$gray300"
+              textDecoration="none"
+              as="a"
+              href={editUrl}
+              title="Edit this page on GitHub."
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              {previous && (
-                <Box>
-                  <NextLink href={`/${previous.id}`} passHref>
-                    <Box
-                      as="a"
-                      aria-label={`Previous page: ${previous.title}`}
-                      color="$blue500"
-                      textDecoration="none"
-                      alignItems="center"
-                    >
-                      <Box mb="$2">
-                        <Text fontSize="$2" color="$gray400">
-                          Previous
-                        </Text>
-                      </Box>
-                      <Text fontSize="$4" color="inherit">
-                        {previous.title}
-                      </Text>
-                    </Box>
-                  </NextLink>
-                </Box>
-              )}
-              {next && (
-                <Box ml="auto">
-                  <NextLink href={`/${next.id}`} passHref>
-                    <Box
-                      as="a"
-                      aria-label={`Previous page: ${next.title}`}
-                      color="$blue500"
-                      textDecoration="none"
-                      textAlign="right"
-                    >
-                      <Box mb="$2">
-                        <Text fontSize="$2" color="$gray400">
-                          Next
-                        </Text>
-                      </Box>
-                      <Text fontSize="$4" color="inherit">
-                        {next.title}
-                      </Text>
-                    </Box>
-                  </NextLink>
-                </Box>
-              )}
-            </Box>
-          )}
-        </Box>
-
-        <Box maxWidth="$3" my="$9" mx="auto" px="$5">
-          <Text
-            fontSize="$2"
-            color="$gray300"
-            textDecoration="none"
-            as="a"
-            href={editUrl}
-            title="Edit this page on GitHub."
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Edit this page on GitHub.
-          </Text>
+              Edit this page on GitHub.
+            </Text>
+          </Box>
         </Box>
       </Box>
     </Box>
   );
 }
-
-export { DocsPage };
 
 function NavHeading({ children }: { children: React.ReactNode }) {
   return (

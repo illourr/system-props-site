@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import { useClipboard } from '../utils/useClipboard';
+import { useClipboard } from '../lib/useClipboard';
 import { theme as appTheme } from './theme';
-import Box from './Box';
+import { Box } from './Box';
 import { Text } from './Text';
 import { ThemeContext } from 'styled-components';
 
@@ -85,7 +85,7 @@ export const useCodeBlockTheme = () => {
 };
 
 export const liveEditorStyle: React.CSSProperties = {
-  fontSize: appTheme.fontSizes[1],
+  fontSize: appTheme.fontSizes[2],
   fontFamily: appTheme.fonts.mono,
   fontWeight: 400,
   lineHeight: 1.5,
@@ -120,7 +120,7 @@ const CodeContainer = ({
     borderBottomRightRadius="large"
     marginTop="1px"
     boxShadow="0 0 0 1px $gray100"
-    css={{
+    sx={{
       textarea: { outline: 0 },
       'textarea::selection': {
         backgroundColor: 'hsla(208, 10%, 65%,1)',

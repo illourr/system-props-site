@@ -1,6 +1,6 @@
 export type FrontMatter = {
   title: string;
-  id?: string;
+  slug?: string;
   description?: string;
   by?: string;
   publishedAt?: string;

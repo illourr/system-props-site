@@ -1,46 +1,18 @@
-const readingTime = require('reading-time');
 const withPlugins = require('next-compose-plugins');
 const withVideos = require('next-videos');
 const withOptimizedImages = require('next-optimized-images');
-const withMdxEnhanced = require('next-mdx-enhanced');
-
-const withTM = require('next-transpile-modules')(['@modulz/design-system']);
 
 const nextConfig = {
-typescript: {
+  typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-}
+};
 
-module.exports = withPlugins([
-  withTM,
-  withMdxEnhanced({
-    layoutPath: 'layouts',
-    defaultLayout: true,
-    remarkPlugins: [
-      require('remark-autolink-headings'),
-      require('remark-slug'),
-    ],
-    rehypePlugins: [],
-    extendFrontMatter: {
-      process: (mdxContent, frontMatter) => {
-        return {
-          id: makeIdFromPath(frontMatter.__resourcePath),
-          wordCount: mdxContent.split(/\s+/g).length,
-          readingTime: readingTime(mdxContent),
-        };
-      },
-    },
-  })({
-    pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  }),
-  withOptimizedImages,
-  withVideos,
-], nextConfig);
+module.exports = withPlugins([withOptimizedImages, withVideos], nextConfig);
 
 /**
  *

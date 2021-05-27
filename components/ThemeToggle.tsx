@@ -1,9 +1,12 @@
 import React from 'react';
 import { IconButton } from './IconButton';
+import { BoxProps } from './Box';
+import useDarkMode from 'use-dark-mode';
 
-export const ThemeToggle = ({ toggleTheme }) => {
+export const ThemeToggle = (props: BoxProps) => {
+  const darkMode = useDarkMode();
   return (
-    <IconButton onClick={toggleTheme}>
+    <IconButton onClick={darkMode.toggle} {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="15"
