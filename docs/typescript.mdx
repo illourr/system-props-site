@@ -8,28 +8,36 @@ System Props supports TypeScript out of the box, including types for all of the 
 ```typescript
 import {
   // the prop groups
-  BackgroundProps,
   ColorProps,
+  PaddingProps,
+  MarginProps,
   SpaceProps,
   BorderProps,
   TypographyProps,
   LayoutProps,
   ShadowProps,
   PositionProps,
+  GridItemProps,
+  GridContainerProps,
   GridProps,
+  FlexItemProps,
+  FlexContainerProps,
   FlexboxProps,
+  TransitionProps,
   // all of the groups, combined:
   AllSystemProps
   // For making your own custom props:
   SystemProp,
   // For the pseudo selector props
   PseudoProps,
+  // The theme that will need to be augmented with your theme interface
+  Theme,
 } from 'system-props'
 ```
 
 You can use these props to properly type components that have System Props.
 
-### Typing a Box
+## Typing a Box
 
 The most common component that you'll likely need to type is the Box component, which will likely use `AllSystemProps`:
 
@@ -50,7 +58,7 @@ const Box = styled('div')(
 );
 ```
 
-### Custom System Props
+## Custom System Props
 
 The library exports `SystemProp` for making custom system props. You can use this with [csstype](https://github.com/frenic/csstype) for CSS property typings.
 
@@ -68,7 +76,7 @@ interface BaseBoxProps extends AllSystemProps, CustomSystemProps {}
 interface BoxProps extends BaseBoxProps, PseudoProps<BaseBoxProps> {}
 ```
 
-### Autosuggest Theme Values
+## Autosuggest Theme Values
 
 Like Emotion and styled-components, System Props requires a TS declaration file that defines what the theme shape should be. So alongside your `styled.d.ts` or `emotion.d.ts` file, you'll also need a `system-props.d.ts` file.
 

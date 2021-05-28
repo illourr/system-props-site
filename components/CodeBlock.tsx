@@ -114,17 +114,14 @@ const CodeContainer = ({
 }) => (
   <Box
     p="$1"
-    borderTopLeftRadius={live ? '0' : 'large'}
-    borderTopRightRadius={live ? '0' : 'large'}
-    borderBottomLeftRadius="large"
-    borderBottomRightRadius="large"
+    borderTopLeftRadius={live ? '0' : '$large'}
+    borderTopRightRadius={live ? '0' : '$large'}
+    borderBottomLeftRadius="$large"
+    borderBottomRightRadius="$large"
     marginTop="1px"
     boxShadow="0 0 0 1px $gray100"
     sx={{
       textarea: { outline: 0 },
-      'textarea::selection': {
-        backgroundColor: 'hsla(208, 10%, 65%,1)',
-      },
     }}
     children={children}
   />

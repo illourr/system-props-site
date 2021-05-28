@@ -1,0 +1,71 @@
+---
+title: System
+description: The low-level utility for creating your system props
+---
+
+## createSystem
+
+Your system props start here! This function receives a configuration object:
+
+- `strict`: Optionally constrain system prop values to values from the theme object.
+- `pseudoSelectors`: Define a map of component prop (key) to a pseudo selector (value)
+- `tokenPrefix`: Set whether or not to use the `$` prefix for accessing theme values. Set to `'noprefix'` for styled-system compatability.
+
+```js
+// Shown are the default values
+const system = createSystem({
+  strict: false,
+  tokenPrefix: 'prefix',
+  pseudoSelectors: {
+    _hover: '&:hover',
+    _focus: '&:focus',
+    _hoverAndFocus: '&:hover, &:focus',
+    _disabled:
+      '[disabled], [disabled]:hover, [disabled]:focus, [aria-disabled], [aria-disabled]:hover, [aria-disabled]:focus',
+    _readOnly: '[readOnly]',
+    _first: '&:first-child',
+    _last: '&:last-child',
+    _odd: '&:nth-of-type(odd)',
+    _even: '&:nth-of-type(even)',
+  },
+});
+```
+
+## system
+
+`createSystem` will return to you your `system`, which in turn takes a configuration object. Its keys will become your system props. You can spread into it any of the utility groups provided by this library or define your own custom system props.
+
+Each key in the configuration object can define the following:
+
+- `property`: the CSS property to use in the returned style object
+- `properties`: an array of multiple properties (e.g. `[ 'marginLeft', 'marginRight' ]`)
+- `scale`: a string referencing a key in the `theme` object
+- `transform`: a function to transform the raw value based on the scale
+- `defaultScale`: a fallback scale object for when there isn't one defined in the theme object
+
+For example:
+
+```js
+import styled from 'styled-components';
+import { createSystem, color, space } from 'system-props';
+
+const Text = styled.p(
+  system({
+    ...color,
+    ...space,
+    fontSize: {
+      property: 'fontSize',
+      scale: 'fontSizes',
+      defaultScale: [12, 14, 16, 20, 24, 32, 48],
+    },
+    lineHeight: {
+      property: 'lineHeight',
+      scale: 'lineHeights',
+    },
+    // shorthand definition
+    textAlign: true,
+  })
+);
+```
+
+By default, Styled System will return a value from the theme based on a key, or, if `strict` was disabled in `createSystem`, the raw value. To change how a style prop value is transformed, provide a custom `transform` function.

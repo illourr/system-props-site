@@ -19,7 +19,7 @@ export function QuickNav() {
 
   return (
     <Box as="nav">
-      <Box as="p" textTransform="uppercase" color="$gray500">
+      <Box as="p" textTransform="uppercase" color="$hiContrast">
         Quick Nav
       </Box>
       {headings.map(({ id, nodeName, innerText }) => {
@@ -32,17 +32,17 @@ export function QuickNav() {
               listStyleType: 'none',
               mb: '$2',
               fontSize: '$2',
-              ml: level === 4 && '$2',
+              ml: level === 3 && '$3',
             }}
           >
             <Box
               as="a"
               href={`#${id}`}
-              color="$gray400"
+              color="$gray500"
               textDecoration="none"
               _hoverAndFocus={{
                 textDecoration: 'underline',
-                color: '$gray500',
+                color: '$gray600',
               }}
             >
               {innerText}

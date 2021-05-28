@@ -3,7 +3,7 @@ title: Compared to Styled System
 description: What's different about System Props
 ---
 
-### Pseudo Selector Props
+## Pseudo Selector Props
 
 Inspired by [Chakra UI](https://chakra-ui.com), System Props supports pseudo selectors as props, which can be configured via `createSystem`. This takes your system props to the next level by giving you the ability to style the element at different states, such as hover, focus, disabled, and more.
 
@@ -11,7 +11,7 @@ Inspired by [Chakra UI](https://chakra-ui.com), System Props supports pseudo sel
 <Box color="white" bg="periwinkle" _hover={{ bg: 'seafoamgreen' }} />
 ```
 
-### Shorthand Property Support
+## Shorthand Property Support
 
 System Props will parse shorthand properties, such as `margin`, `padding`, `border`, and `boxShadow` for the theme scales used within it. For example, to define a border width, style, and color (using a theme color) with Styled System, you had to use multiple props:
 
@@ -41,7 +41,7 @@ System Props will parse the border shorthand for theme theme color value:
 // }
 ```
 
-### Prefix design tokens with `$`
+## Prefix design tokens with `$`
 
 System Props, like Styled System, supports numeric scales in theme. For example, `theme.space` is frequently defined as an array, like so:
 
@@ -67,7 +67,7 @@ To eliminate this confusion, System Props supports (and recommends!) prefixing t
 />
 ```
 
-### Quick Access to Theme with Function Value
+## Quick Access to Theme with Function Value
 
 If at any time you need access to the entire theme object, every system prop can take a value as a function where its argument is the theme:
 
@@ -90,11 +90,11 @@ If at any time you need access to the entire theme object, every system prop can
 />
 ```
 
-### Written in TypeScript
+## Written in TypeScript
 
 Get the confidence of type saftey!
 
-### Strict Mode
+## Strict Mode
 
 Particularly useful for design systems. You may prefer that exclusively theme values are supported with system props. Enabling the `strict` confiugration option in `createSystem` to accomplish this.
 
