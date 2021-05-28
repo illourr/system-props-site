@@ -57,11 +57,11 @@ export const getMdxBySlug = async (slug: string) => {
 
       return options;
     },
-    esbuildOptions(options) {
-      options.platform = 'node';
+    // esbuildOptions(options) {
+    //   options.platform = 'node';
 
-      return options;
-    },
+    //   return options;
+    // },
   });
 
   return {
