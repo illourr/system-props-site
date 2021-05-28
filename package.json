@@ -10,19 +10,20 @@
     "lint": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
-    "@modulz/radix-icons": "^2.4.0",
+    "@modulz/radix-icons": "^4.0.0",
     "@segment/snippet": "^4.13.1",
     "babel-plugin-import-glob-array": "^0.2.0",
     "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.16.1",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",
+    "mdx-bundler": "^4.0.0",
     "mdx-prism": "^0.3.1",
     "next": "^10.2.3",
-    "next-compose-plugins": "^2.2.0",
+    "next-compose-plugins": "^2.2.1",
     "next-optimized-images": "^2.6.2",
-    "next-transpile-modules": "^4.1.0",
-    "next-videos": "^1.2.0",
+    "next-transpile-modules": "^7.2.0",
+    "next-videos": "^1.4.0",
     "prism-react-renderer": "^1.1.1",
     "prismjs": "^1.20.0",
     "react": "^17.0.2",
@@ -43,7 +44,6 @@
     "@types/styled-components": "^5.1.4",
     "babel-plugin-styled-components": "^1.11.1",
     "csstype": "^3.0.5",
-    "mdx-bundler": "^4.0.0",
     "prettier": "^2.0.5",
     "typescript": "^4.3.0"
   }
