@@ -9,6 +9,9 @@
     "export": "next export",
     "lint": "tsc --noEmit --project tsconfig.json"
   },
+  "engines": {
+    "node": ">=12"
+  },
   "dependencies": {
     "@modulz/radix-icons": "^4.0.0",
     "babel-plugin-import-glob-array": "^0.2.0",
