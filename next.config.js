@@ -3,7 +3,6 @@ const withVideos = require('next-videos');
 const withOptimizedImages = require('next-optimized-images');
 
 const nextConfig = {
-  target: 'serverless',
   future: {
     webpack5: true,
   },

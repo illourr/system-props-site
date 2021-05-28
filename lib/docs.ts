@@ -7,6 +7,23 @@ import remarkAutolinkHeadings from 'remark-autolink-headings';
 import remarkGfm from 'remark-gfm';
 import { FrontMatter } from '../types';
 
+if (process.platform === 'win32') {
+  process.env.ESBUILD_BINARY_PATH = path.join(
+    process.cwd(),
+    'node_modules',
+    'esbuild',
+    'esbuild.exe'
+  );
+} else {
+  process.env.ESBUILD_BINARY_PATH = path.join(
+    process.cwd(),
+    'node_modules',
+    'esbuild',
+    'bin',
+    'esbuild'
+  );
+}
+
 const docsDirectory = path.join(process.cwd(), 'docs');
 
 // the front matter and content of all mdx files based on `docsPaths`
