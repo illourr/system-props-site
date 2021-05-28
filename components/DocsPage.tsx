@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { FrontMatter } from '../types';
 import { docsRoutes, allDocsRoutes } from '../lib/docsRoutes';
-import { HamburgerIcon } from '@modulz/radix-icons';
+import { HamburgerMenuIcon } from '@modulz/radix-icons';
 import { ExternalIcon } from './ExternalIcon';
 import { Box } from './Box';
 import { Text } from './Text';
@@ -91,7 +90,7 @@ export function DocsPage({ children }: { children: React.ReactNode }) {
           <Box ml="auto" display="flex" alignItems="center">
             <Box mr="$3" display={{ all: null, bp2: 'none' }}>
               <IconButton onClick={() => setIsOpen(!isOpen)} isActive={isOpen}>
-                <HamburgerIcon />
+                <HamburgerMenuIcon />
               </IconButton>
             </Box>
             <ThemeToggle />

@@ -10,6 +10,7 @@ import {
   typography,
   position,
   border,
+  transition,
   AllSystemProps,
   PseudoProps,
   SystemProp,
@@ -20,10 +21,6 @@ import {
 } from 'system-props';
 import styled from 'styled-components';
 import { Properties } from 'csstype';
-
-const Foo = styled.div(({ theme }) => ({
-  color: theme.colors.gray400,
-}));
 
 const system = createSystem();
 
@@ -63,6 +60,7 @@ export const Box = styled.div.withConfig({
     ...typography,
     ...position,
     ...border,
+    ...transition,
     ...extraStyleProps,
   }),
   ({ sx, ...props }) => css(sx)(props)
