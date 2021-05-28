@@ -2,7 +2,7 @@ import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as SP from 'system-props';
 import styled from 'styled-components';
-import Box from './Box';
+import { Box } from './Box';
 import { useCodeBlockTheme, liveEditorStyle } from './CodeBlock';
 import { theme } from './theme';
 
@@ -59,12 +59,11 @@ export function HeroCodeDemo() {
       <StyledLivePreview />
       <Box
         p="$1"
-        borderRadius="$2"
         boxShadow="0 0 0 1px $gray100"
-        css={{
+        sx={{
           textarea: { outline: '0' },
           ':focus-within': {
-            boxShadow: '0 0 0 3px $blue500',
+            boxShadow: '0 0 0 1px $blue500',
           },
           'textarea::selection': {
             backgroundColor: 'hsla(208, 10%, 65%,1)',

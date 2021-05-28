@@ -1,0 +1,110 @@
+---
+title: CSS
+description: System Props for the `css` prop
+---
+
+## css
+
+System Props for the `css` prop. Get all of the theme token aliases, function syntax, and media queries from theme for the `css` prop.
+
+```js
+// Usage with the css prop
+import {css} from 'system-props';
+
+const Text = props => (
+  <div
+    {...props}
+    css={css({
+      color: '$gray400',
+      ':hover': {
+        '$blue400'
+      },
+      $bp2: {
+        color: '$red200'
+      }
+    })}
+  />
+)
+```
+
+```js
+// Usage with styled
+import {css} from 'system-props';
+import styled from 'styled-componnets';
+
+const Text = styled.p(
+  css({
+    color: '$gray400',
+    ':hover': {
+      '$blue400'
+    },
+    $bp2: {
+      color: '$red200'
+    }
+  })
+)
+```
+
+### createCss
+
+`createCss` returns `css`, and works similarly to `createSystem`. Its first argument is the configuration object, whose keys will become your system props. Its second argument is an options object. Use this if you need to customize the functionality of the `css` function.
+
+```js
+import { createCss, color, space } from 'system-props';
+
+const css = createCss(
+  // prop config
+  {
+    ...color,
+    ...space,
+    fontSize: {
+      property: 'fontSize',
+      scale: 'fontSizes',
+      defaultScale: [12, 14, 16, 20, 24, 32, 48],
+    },
+    lineHeight: {
+      property: 'lineHeight',
+      scale: 'lineHeights',
+    },
+    // shorthand definition
+    textAlign: true,
+  },
+  // options
+  { tokenPrefix: 'prefix' }
+);
+```
+
+## Responsive Syntax
+
+`css` differs from normal system props and styled-system by providing an alternative API for breakpoints. Instead of using the array syntax, `css` will leverage the `mediaQueries` property in your theme object, and make them accessible via the `$` prefix.
+
+```js
+// theme object
+const theme = {
+  // all of your tokens
+  mediaQueries: {
+    bp1: '40em',
+    bp2: '52em',
+  },
+};
+
+// Some where in your app
+const Text = (props) => (
+  <div
+    css={css({
+      display: 'flex',
+      flexDirection: 'column',
+      $bp1: {
+        flexDirection: 'row',
+      },
+      $bp2: {
+        margin: '25px',
+      },
+      // can also use regular media queries
+      '@media screen and (min-width: 1000px)': {
+        color: 'pink',
+      },
+    })}
+  />
+);
+```

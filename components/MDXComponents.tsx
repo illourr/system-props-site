@@ -1,36 +1,39 @@
 import NextLink from 'next/link';
 import { CodeBlock } from './CodeBlock';
 import { Text } from './Text';
-import Box from './Box';
+import { Box } from './Box';
+
+export function createSlug(heading: string): string {
+  return heading.toLowerCase().replace(' ', '-');
+}
 
 const LinkHeading = (props) => (
   <Text {...props}>
     <Box
       as="a"
-      href={`#${props.id}`}
       fontSize="inherit"
       textDecoration="none"
       display="inline-flex"
       alignItems="center"
       color="inherit"
-      css={{
+      sx={{
         svg: { opacity: 0 },
         ':hover .link-icon': { opacity: 1 },
         code: { fontSize: 'inherit' },
+        '&::after': {
+          content: '"🔗"',
+          verticalAlign: 'middle',
+          fontSize: '$2',
+          ml: '$2',
+          color: '$gray500',
+          opacity: 0,
+        },
+        ':hover::after': {
+          opacity: 1,
+        },
       }}
     >
       <span>{props.children}</span>
-      <Box
-        className="link-icon"
-        as="span"
-        verticalAlign="middle"
-        fontSize="$2"
-        ml="$2"
-        color="$gray500"
-        opacity="0"
-      >
-        🔗
-      </Box>
     </Box>
   </Text>
 );
@@ -48,6 +51,7 @@ export const MDXComponents = {
       lineHeight="45px"
       as="h2"
       fontWeight="600"
+      data-heading
     />
   ),
   h3: (props) => (
@@ -59,6 +63,7 @@ export const MDXComponents = {
       lineHeight="35px"
       fontWeight="600"
       as="h3"
+      data-heading
     />
   ),
   h4: (props) => (
@@ -69,14 +74,33 @@ export const MDXComponents = {
       mb="$1"
       lineHeight="25px"
       fontWeight="600"
-      as="h3"
+      as="h4"
+      data-heading
     />
   ),
-  code: (props) => (
-    <Box my="$5">
-      <CodeBlock {...props} />
-    </Box>
-  ),
+  code: (props) => {
+    const isInline = !props.className;
+
+    if (isInline) {
+      return (
+        <Box
+          fontFamily="$mono"
+          bg="$purple50"
+          color="$purple600"
+          as="code"
+          p="0 3px 2px"
+          fontSize="$2"
+          borderRadius="$small"
+          {...props}
+        />
+      );
+    }
+    return (
+      <Box my="$5">
+        <CodeBlock {...props} />
+      </Box>
+    );
+  },
   p: (props) => (
     <Text fontSize="$3" {...props} mb="$3" lineHeight="30px" as="p" />
   ),
@@ -101,18 +125,6 @@ export const MDXComponents = {
     );
   },
   hr: (props) => <Box as="hr" height="2px" bg="$gray200" m="$6 auto" />,
-  inlineCode: (props) => (
-    <Box
-      fontFamily="mono"
-      bg="$purple50"
-      color="$purple600"
-      as="code"
-      p="0 3px 2px"
-      fontSize="$2"
-      borderRadius="small"
-      {...props}
-    />
-  ),
   ul: (props) => <Box {...props} color="$hiContrast" mb="$3" as="ul" />,
   ol: (props) => <Box {...props} color="$hiContrast" mb="$3" as="ol" />,
   li: (props) => (
@@ -135,7 +147,7 @@ export const MDXComponents = {
       pl="$4"
       borderLeft="1px solid $gray400"
       color="$orange400"
-      css={{
+      sx={{
         '& p': {
           fontSize: '$3',
           color: '$gray600',
@@ -149,7 +161,7 @@ export const MDXComponents = {
     <Box
       as="table"
       color="$hiContrast"
-      css={{ borderSpacing: '0' }}
+      sx={{ borderSpacing: '0' }}
       width="100%"
       mb="$3"
       {...props}

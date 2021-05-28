@@ -6,6 +6,8 @@ description: The nuts and bolts of System Props' API.
 ```js
 import {
   createSystem,
+  createCss,
+  css,
   border,
   color,
   flexbox,
@@ -14,22 +16,24 @@ import {
   position,
   shadow,
   space,
-  styledSystemLayout
+  styledSystemLayout,
   typography,
+  shouldForwardProp,
+  propNames,
 } from 'system-props';
 ```
-
-### createSystem
 
 This function receives a configuration object:
 
 - `strict`: Optionally constrain system prop values to values from the theme object.
 - `pseudoSelectors`: Define a map of component prop (key) to a pseudo selector (value)
+- `tokenPrefix`: Set whether or not to use the `$` prefix for accessing theme values. Set to `'noprefix'` for styled-system compatability.
 
 ```js
 // Shown are the default values
 const system = createSystem({
   strict: false,
+  tokenPrefix: 'prefix',
   pseudoSelectors: {
     _hover: '&:hover',
     _focus: '&:focus',
@@ -45,7 +49,7 @@ const system = createSystem({
 });
 ```
 
-### system
+## system
 
 `createSystem` will return to you your `system`, which in turn takes a configuration object. Its keys will become your system props. You can spread into it any of the utility groups provided by this library or define your own custom system props.
 
@@ -83,6 +87,79 @@ const Text = styled.p(
 ```
 
 By default, Styled System will return a value from the theme based on a key, or, if `strict` was disabled in `createSystem`, the raw value. To change how a style prop value is transformed, provide a custom `transform` function.
+
+## css
+
+System Props for the `css` prop. Get all of the theme token aliases, function syntax, and media queries from theme for the `css` prop.
+
+```js
+// Usage with the css prop
+import {css} from 'system-props';
+
+const Text = props => (
+  <div
+    {...props}
+    css={css({
+      color: '$gray400',
+      ':hover': {
+        '$blue400'
+      },
+      $bp2: {
+        color: '$red200'
+      }
+    })}
+  />
+)
+```
+
+```js
+// Usage with styled
+import {css} from 'system-props';
+import styled from 'styled-componnets';
+
+const Text = styled.p(
+  css({
+    color: '$gray400',
+    ':hover': {
+      '$blue400'
+    },
+    $bp2: {
+      color: '$red200'
+    }
+  })
+)
+```
+
+### createCss
+
+`createCss` returns `css`, and works similarly to `createSystem`. Its first argument is the configuration object, whose keys will become your system props. Its second argument is an options object. Use this if you need to customize the functionality of the `css` function.
+
+```js
+import { createCss, color, space } from 'system-props';
+
+const css = createCss(
+  // prop config
+  {
+    ...color,
+    ...space,
+    fontSize: {
+      property: 'fontSize',
+      scale: 'fontSizes',
+      defaultScale: [12, 14, 16, 20, 24, 32, 48],
+    },
+    lineHeight: {
+      property: 'lineHeight',
+      scale: 'lineHeights',
+    },
+    // shorthand definition
+    textAlign: true,
+  },
+  // options
+  { tokenPrefix: 'prefix' }
+);
+```
+
+## Prop Groups
 
 ### space
 

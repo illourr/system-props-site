@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   createSystem,
   flexbox,
@@ -9,13 +10,17 @@ import {
   typography,
   position,
   border,
+  transition,
   AllSystemProps,
   PseudoProps,
   SystemProp,
   shouldForwardProp,
+  css,
+  CSSObject,
+  Theme,
 } from 'system-props';
-import styled, { CSSProp } from 'styled-components';
-import { Property, Properties } from 'csstype';
+import styled from 'styled-components';
+import { Properties } from 'csstype';
 
 const system = createSystem();
 
@@ -24,8 +29,8 @@ const extraStyleProps = {
   cursor: true,
   outline: true,
   appearance: true,
-  transition: true,
   transform: true,
+  textTransform: true,
   textDecoration: true,
 } as const;
 
@@ -33,11 +38,12 @@ type ExtraBoxProps = {
   [K in keyof typeof extraStyleProps]?: SystemProp<Properties[K]>;
 };
 
-interface BoxProps extends AllSystemProps<'prefix'>, ExtraBoxProps {
-  css?: CSSProp;
+export interface BoxProps extends AllSystemProps<'prefix'>, ExtraBoxProps {
+  children?: ReactNode;
+  sx?: CSSObject | ((theme: Theme) => CSSObject);
 }
 
-const Box = styled.div.withConfig({
+export const Box = styled.div.withConfig({
   shouldForwardProp: (prop, defaultValidatorFn) =>
     shouldForwardProp(prop) && defaultValidatorFn(prop),
 })<BoxProps & PseudoProps<BoxProps>>(
@@ -54,8 +60,8 @@ const Box = styled.div.withConfig({
     ...typography,
     ...position,
     ...border,
+    ...transition,
     ...extraStyleProps,
-  })
+  }),
+  ({ sx, ...props }) => css(sx)(props)
 );
-
-export default Box;

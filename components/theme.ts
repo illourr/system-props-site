@@ -130,6 +130,7 @@ export interface Theme {
   };
   breakpoints: {
     bp2: string;
+    bp3: string;
   };
   sizes: [string, string, string, string];
 }
@@ -298,9 +299,10 @@ export const theme: Theme = {
     pill: '50vw',
     round: '100%',
   },
-  sizes: ['450px', '550px', '585px', '865px'],
+  sizes: ['450px', '550px', '585px', '800px'],
   breakpoints: {
     bp2: '900px',
+    bp3: '1200px',
   },
 };
 
