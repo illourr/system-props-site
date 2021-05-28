@@ -10,7 +10,7 @@
     "lint": "tsc --noEmit --project tsconfig.json"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=15"
   },
   "dependencies": {
     "@modulz/radix-icons": "^4.0.0",
