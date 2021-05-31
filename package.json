@@ -32,7 +32,7 @@
     "remark-gfm": "^1.0.0",
     "remark-slug": "^6.0.0",
     "styled-components": "^5.2.1",
-    "system-props": "latest",
+    "system-props": "^0.20.0",
     "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
